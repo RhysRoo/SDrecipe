@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_log/auth/appleSignIn.dart';
 import 'package:flutter_log/auth/googleSignIn.dart';
 import 'package:flutter_log/pages/auth_page.dart';
-import 'package:flutter_log/ui_components/button_forget.dart';
-import 'package:flutter_log/ui_components/login_tile.dart';
-import 'package:flutter_log/ui_components/logo_tile.dart';
-import 'package:flutter_log/ui_components/text_fields.dart';
+import 'package:flutter_log/pages/login/ui_components/button_forget.dart';
+import 'package:flutter_log/pages/login/ui_components/login_tile.dart';
+import 'package:flutter_log/pages/login/ui_components/logo_tile.dart';
+import 'package:flutter_log/pages/login/ui_components/text_fields.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
