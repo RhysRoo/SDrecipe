@@ -33,23 +33,23 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Authentication Example'),
+        title: const Text('Home Page'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: _signInAnonymously,
-              child: const Text('Sign In Anonymously'),
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment(0.0, 0.0),
+            child: Container(
+              color: Colors.cyan,
+              height: MediaQuery.of(context).size.height * 0.3,
+              width: MediaQuery.of(context).size.width * 0.9,
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _signOut,
-              child: const Text('Sign Out'),
-            ),
-          ],
-        ),
+          ),
+          ElevatedButton(
+            onPressed: _signOut,
+            child: const Text('Sign Out'),
+          ),
+        ],
       ),
     );
   }
