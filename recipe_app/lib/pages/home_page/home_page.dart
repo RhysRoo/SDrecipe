@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -40,7 +38,6 @@ class _AuthScreenState extends State<AuthScreen> {
           Column(
             children: [
               SizedBox(
-                //Sign Out Button
                 height: MediaQuery.of(context).size.height * 0.06,
               ),
               Row(
@@ -58,13 +55,40 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                 ],
               ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.007),
+              Container(
+                //Ui Panel
+                height: MediaQuery.of(context).size.height * 0.75,
+                width: MediaQuery.of(context).size.width * 0.95,
+
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.teal[600],
+                ),
+
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
+          //Navbar
           Align(
-            //Nav Bar
-            alignment: Alignment(0.0, 1.0),
+            //Bottom Nav Bar
+            alignment: const Alignment(0.0, 1.0),
             child: Container(
-              color: Colors.cyan,
+              color: Colors.green[600],
               height: MediaQuery.of(context).size.height * 0.1,
               width: MediaQuery.of(context).size.width * 1,
               child: Padding(
@@ -73,13 +97,14 @@ class _AuthScreenState extends State<AuthScreen> {
                   children: [
                     Container(
                       //Left Button
-                      height: MediaQuery.of(context).size.height * 0.08,
+                      height: MediaQuery.of(context).size.height * 0.07,
                       width: MediaQuery.of(context).size.width * 0.3,
                       color: Colors.black,
                       child: MaterialButton(
-                        color: Colors.pink,
+                        color: Colors.purple,
                         onPressed: () {},
-                        child: Icon(Icons.access_alarm_outlined, size: 40),
+                        child:
+                            const Icon(Icons.access_alarm_outlined, size: 40),
                       ),
                     ),
                     const SizedBox(
@@ -87,29 +112,30 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                     Container(
                       //Middle Button
-                      height: MediaQuery.of(context).size.height * 0.08,
+                      height: MediaQuery.of(context).size.height * 0.07,
                       width: MediaQuery.of(context).size.width * 0.3,
                       color: Colors.black,
                       child: MaterialButton(
-                        color: Colors.pink,
+                        color: Colors.purple,
                         onPressed: () {},
-                        child: Icon(Icons.accessibility_new_outlined, size: 40),
+                        child: const Icon(Icons.accessibility_new_outlined,
+                            size: 40),
                       ),
                     ),
                     const SizedBox(
                       width: 10,
                     ),
                     Container(
-                      //Right Button
-                      height: MediaQuery.of(context).size.height * 0.08,
+                      //Sign Out Button (Right Btn)
+                      height: MediaQuery.of(context).size.height * 0.07,
                       width: MediaQuery.of(context).size.width * 0.3,
                       color: Colors.black,
                       child: MaterialButton(
-                        color: Colors.pink,
+                        color: Colors.purple,
                         onPressed: () {
                           _signOut();
                         },
-                        child: Icon(Icons.logout, size: 40),
+                        child: const Icon(Icons.logout, size: 40),
                       ),
                     ),
                   ],
