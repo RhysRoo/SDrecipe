@@ -55,10 +55,10 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.007),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.009),
               Container(
                 //Ui Panel
-                height: MediaQuery.of(context).size.height * 0.75,
+                height: MediaQuery.of(context).size.height * 0.67,
                 width: MediaQuery.of(context).size.width * 0.95,
 
                 decoration: BoxDecoration(
@@ -89,54 +89,105 @@ class _AuthScreenState extends State<AuthScreen> {
             alignment: const Alignment(0.0, 1.0),
             child: Container(
               color: Colors.green[600],
-              height: MediaQuery.of(context).size.height * 0.1,
+              height: MediaQuery.of(context).size.height * 0.177,
               width: MediaQuery.of(context).size.width * 1,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Row(
+                child: Column(
                   children: [
-                    Container(
-                      //Left Button
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      color: Colors.black,
-                      child: MaterialButton(
-                        color: Colors.purple,
-                        onPressed: () {},
-                        child:
-                            const Icon(Icons.access_alarm_outlined, size: 40),
-                      ),
+                    Row(
+                      children: [
+                        //Top Container
+                        Container(
+                          //Left Button
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          color: Colors.black,
+                          child: MaterialButton(
+                            color: Colors.purple,
+                            onPressed: () {},
+                            child: const Icon(Icons.rate_review, size: 40),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          //Middle Button
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          color: Colors.black,
+                          child: MaterialButton(
+                            color: Colors.purple,
+                            onPressed: () {},
+                            child: const Icon(Icons.add, size: 40),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          //Sign Out Button (Right Btn)
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          color: Colors.black,
+                          child: MaterialButton(
+                            color: Colors.purple,
+                            onPressed: () {},
+                            child: const Icon(Icons.info_sharp, size: 40),
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: 10,
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.014,
                     ),
-                    Container(
-                      //Middle Button
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      color: Colors.black,
-                      child: MaterialButton(
-                        color: Colors.purple,
-                        onPressed: () {},
-                        child: const Icon(Icons.accessibility_new_outlined,
-                            size: 40),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Container(
-                      //Sign Out Button (Right Btn)
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      color: Colors.black,
-                      child: MaterialButton(
-                        color: Colors.purple,
-                        onPressed: () {
-                          _signOut();
-                        },
-                        child: const Icon(Icons.logout, size: 40),
-                      ),
+                    Row(
+                      children: [
+                        //Bottom Container
+                        Container(
+                          //Left Button
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          color: Colors.black,
+                          child: MaterialButton(
+                            color: Colors.purple,
+                            onPressed: () {},
+                            child:
+                                const Icon(Icons.generating_tokens, size: 40),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          //Middle Button
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          color: Colors.black,
+                          child: MaterialButton(
+                            color: Colors.purple,
+                            onPressed: () {},
+                            child: const Icon(Icons.person, size: 40),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          //Sign Out Button (Right Btn)
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          color: Colors.black,
+                          child: MaterialButton(
+                            color: Colors.purple,
+                            onPressed: () {
+                              _signOut();
+                            },
+                            child: const Icon(Icons.logout, size: 40),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
