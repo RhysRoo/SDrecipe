@@ -10,6 +10,7 @@ import 'package:flutter_log/pages/login/ui_components/login_tile.dart';
 import 'package:flutter_log/pages/login/ui_components/logo_tile.dart';
 import 'package:flutter_log/pages/login/ui_components/text_fields.dart';
 
+// DO NOT TOUCH THIS CODE
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
   const RegisterPage({super.key, required this.onTap});

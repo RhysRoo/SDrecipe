@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_log/pages/home_page/home_page.dart';
 import 'package:flutter_log/pages/login/ui_components/login_or_register.dart';
 
+// DO NOT TOUCH THIS CODE
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
 

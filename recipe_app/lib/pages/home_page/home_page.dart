@@ -1,5 +1,12 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_log/pages/about_us_page/about_page.dart';
+import 'package:flutter_log/pages/faqs_page/FAQ_page.dart';
+import 'package:flutter_log/pages/profile_page/profile_page.dart';
+import 'package:flutter_log/pages/ratings_page/rating_page.dart';
+import 'package:flutter_log/pages/recipe_generation_page/generation_page.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -10,15 +17,6 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  Future<void> _signInAnonymously() async {
-    try {
-      await _auth.signInAnonymously();
-      print('Signed in anonymously');
-    } catch (e) {
-      print('Error signing in anonymously: $e');
-    }
-  }
 
   Future<void> _signOut() async {
     try {
@@ -105,7 +103,13 @@ class _AuthScreenState extends State<AuthScreen> {
                           color: Colors.black,
                           child: MaterialButton(
                             color: Colors.purple,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RatingPage()));
+                            },
                             child: const Icon(Icons.rate_review, size: 40),
                           ),
                         ),
@@ -119,7 +123,12 @@ class _AuthScreenState extends State<AuthScreen> {
                           color: Colors.black,
                           child: MaterialButton(
                             color: Colors.purple,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const FAQ_Page()));
+                            },
                             child: const Icon(Icons.add, size: 40),
                           ),
                         ),
@@ -133,7 +142,13 @@ class _AuthScreenState extends State<AuthScreen> {
                           color: Colors.black,
                           child: MaterialButton(
                             color: Colors.purple,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const AboutUsPage()));
+                            },
                             child: const Icon(Icons.info_sharp, size: 40),
                           ),
                         ),
@@ -152,7 +167,13 @@ class _AuthScreenState extends State<AuthScreen> {
                           color: Colors.black,
                           child: MaterialButton(
                             color: Colors.purple,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const GenerationPage()));
+                            },
                             child:
                                 const Icon(Icons.generating_tokens, size: 40),
                           ),
@@ -167,7 +188,12 @@ class _AuthScreenState extends State<AuthScreen> {
                           color: Colors.black,
                           child: MaterialButton(
                             color: Colors.purple,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProfilePage()));
+                            },
                             child: const Icon(Icons.person, size: 40),
                           ),
                         ),
