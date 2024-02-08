@@ -66,7 +66,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '80241012509',
     projectId: 'logpage-9aeb7',
     storageBucket: 'logpage-9aeb7.appspot.com',
-    androidClientId: '80241012509-ucio0dlq993e792dfp7j3q7p54rk3ssq.apps.googleusercontent.com',
+    androidClientId: '80241012509-1eqi0s3hffimpuv85qn5jam8ffo7l3co.apps.googleusercontent.com',
     iosClientId: '80241012509-tc099dthrolg83mg807o1fu03eb7ps3l.apps.googleusercontent.com',
     iosBundleId: 'com.example.recipeApp',
   );
@@ -77,7 +77,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '80241012509',
     projectId: 'logpage-9aeb7',
     storageBucket: 'logpage-9aeb7.appspot.com',
-    androidClientId: '80241012509-ucio0dlq993e792dfp7j3q7p54rk3ssq.apps.googleusercontent.com',
+    androidClientId: '80241012509-1eqi0s3hffimpuv85qn5jam8ffo7l3co.apps.googleusercontent.com',
     iosClientId: '80241012509-m520h8gn42vrssgba413buclf0a42tuo.apps.googleusercontent.com',
     iosBundleId: 'com.example.recipeApp.RunnerTests',
   );
