@@ -31,170 +31,164 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.green[200],
-      body: Stack(
-        children: [
-          Column(
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Sustainability', style: TextStyle(fontSize: 45)),
+          backgroundColor: Colors.lightGreen[900],
+          toolbarHeight: MediaQuery.of(context).size.height * 0.06,
+          shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.06,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.14,
-                  ),
-                  const Align(
-                    child: Text(
-                      //Home Page Title
-                      'Sustainability ',
-                      style:
-                          TextStyle(fontSize: 50, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.009),
               Container(
-                //Ui Panel
-                height: MediaQuery.of(context).size.height * 0.67,
-                width: MediaQuery.of(context).size.width * 0.95,
-
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.teal[600],
+                height: MediaQuery.of(context).size.height * 0.15,
+                child: const DrawerHeader(
+                  decoration: BoxDecoration(color: Colors.green),
+                  child: Text(
+                    'Menu',
+                    style: TextStyle(fontSize: 40),
+                  ),
                 ),
-
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.03,
-                          ),
-                        ],
+              ),
+              ListTile(
+                title: Container(
+                  child: Row(
+                    children: [
+                      const Text('User Profile',
+                          style: TextStyle(fontSize: 20)),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.02,
                       ),
-                    ),
-                  ],
+                      Icon(Icons.person, size: 30),
+                    ],
+                  ),
                 ),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Container(
+                  child: Row(
+                    children: [
+                      const Text('Generate Recipe',
+                          style: TextStyle(fontSize: 20)),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.02,
+                      ),
+                      Icon(Icons.generating_tokens, size: 35),
+                    ],
+                  ),
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Container(
+                  child: Row(
+                    children: [
+                      const Text('Add Recipe', style: TextStyle(fontSize: 20)),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.01,
+                      ),
+                      Icon(Icons.add, size: 30),
+                    ],
+                  ),
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Container(
+                  child: Row(
+                    children: [
+                      const Text('FAQ', style: TextStyle(fontSize: 20)),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.02,
+                      ),
+                      Icon(Icons.question_answer, size: 30),
+                    ],
+                  ),
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Container(
+                  child: Row(
+                    children: [
+                      const Text('About Us', style: TextStyle(fontSize: 20)),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.02,
+                      ),
+                      Icon(Icons.info, size: 30),
+                    ],
+                  ),
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Container(
+                  child: Row(
+                    children: [
+                      const Text('Log Out', style: TextStyle(fontSize: 20)),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.01,
+                      ),
+                      Icon(Icons.logout, size: 30),
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  _signOut();
+                },
               ),
             ],
           ),
-          //Navbar
-          Align(
-            //Bottom Nav Bar
-            alignment: const Alignment(0.0, 1.0),
-            child: Container(
-              color: Colors.green[600],
-              height: MediaQuery.of(context).size.height * 0.177,
-              width: MediaQuery.of(context).size.width * 1,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
+        ),
+        backgroundColor: Colors.green[200],
+        body: Stack(
+          children: [
+            Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        //Top Container
-                        Container(
-                          //Left Button
-                          height: MediaQuery.of(context).size.height * 0.07,
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          color: Colors.black,
-                          child: MaterialButton(
-                            color: Colors.purple,
-                            onPressed: () {},
-                            child: const Icon(Icons.rate_review, size: 40),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          //Middle Button
-                          height: MediaQuery.of(context).size.height * 0.07,
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          color: Colors.black,
-                          child: MaterialButton(
-                            color: Colors.purple,
-                            onPressed: () {},
-                            child: const Icon(Icons.add, size: 40),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          //Sign Out Button (Right Btn)
-                          height: MediaQuery.of(context).size.height * 0.07,
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          color: Colors.black,
-                          child: MaterialButton(
-                            color: Colors.purple,
-                            onPressed: () {},
-                            child: const Icon(Icons.info_sharp, size: 40),
-                          ),
-                        ),
-                      ],
-                    ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.014,
-                    ),
-                    Row(
-                      children: [
-                        //Bottom Container
-                        Container(
-                          //Left Button
-                          height: MediaQuery.of(context).size.height * 0.07,
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          color: Colors.black,
-                          child: MaterialButton(
-                            color: Colors.purple,
-                            onPressed: () {},
-                            child:
-                                const Icon(Icons.generating_tokens, size: 40),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          //Middle Button
-                          height: MediaQuery.of(context).size.height * 0.07,
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          color: Colors.black,
-                          child: MaterialButton(
-                            color: Colors.purple,
-                            onPressed: () {},
-                            child: const Icon(Icons.person, size: 40),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          //Sign Out Button (Right Btn)
-                          height: MediaQuery.of(context).size.height * 0.07,
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          color: Colors.black,
-                          child: MaterialButton(
-                            color: Colors.purple,
-                            onPressed: () {
-                              _signOut();
-                            },
-                            child: const Icon(Icons.logout, size: 40),
-                          ),
-                        ),
-                      ],
+                      width: MediaQuery.of(context).size.width * 0.14,
                     ),
                   ],
                 ),
-              ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                Container(
+                  //Ui Panel
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  width: MediaQuery.of(context).size.width * 0.9,
+
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.teal[600],
+                  ),
+
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.03,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
