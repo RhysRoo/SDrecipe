@@ -33,7 +33,7 @@ class _AuthScreenState extends State<AuthScreen> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Sustainability', style: TextStyle(fontSize: 45)),
-          backgroundColor: Colors.lightGreen[900],
+          backgroundColor: Colors.green[700],
           toolbarHeight: MediaQuery.of(context).size.height * 0.06,
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
         ),
@@ -106,6 +106,23 @@ class _AuthScreenState extends State<AuthScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => const RatingPage()));
+                },
+              ),
+              ListTile(
+                title: Container(
+                  child: Row(
+                    children: [
+                      const Text('Add/Remove Ingredients',
+                          style: TextStyle(fontSize: 20)),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.02,
+                      ),
+                      Icon(Icons.edit, size: 35),
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  //Add link here to page
                 },
               ),
               ListTile(
