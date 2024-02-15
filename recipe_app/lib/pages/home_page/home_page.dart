@@ -7,6 +7,7 @@ import 'package:flutter_log/pages/faqs_page/FAQ_page.dart';
 import 'package:flutter_log/pages/profile_page/profile_page.dart';
 import 'package:flutter_log/pages/ratings_page/rating_page.dart';
 import 'package:flutter_log/pages/recipe_generation_page/generation_page.dart';
+import 'package:flutter_log/pages/add_remove_ingredients_page/add_remove_ingredients_page.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _AuthScreenState extends State<AuthScreen> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Sustainability', style: TextStyle(fontSize: 45)),
-          backgroundColor: Colors.lightGreen[900],
+          backgroundColor: Colors.green[700],
           toolbarHeight: MediaQuery.of(context).size.height * 0.06,
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
         ),
@@ -112,6 +113,26 @@ class _AuthScreenState extends State<AuthScreen> {
                 title: Container(
                   child: Row(
                     children: [
+                      const Text('Add/Remove Ingredients',
+                          style: TextStyle(fontSize: 20)),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.02,
+                      ),
+                      Icon(Icons.edit, size: 35),
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AddRemoveIngredients()));
+                },
+              ),
+              ListTile(
+                title: Container(
+                  child: Row(
+                    children: [
                       const Text('FAQ', style: TextStyle(fontSize: 20)),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.02,
@@ -182,13 +203,17 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.009),
                 Container(
-                  //Ui Panel
+                  //Ui Panel Height & Width
                   height: MediaQuery.of(context).size.height * 0.75,
                   width: MediaQuery.of(context).size.width * 0.95,
 
                   decoration: BoxDecoration(
+                    //Ui Panel Styling
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.teal[600],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                   ),
                 ),
                 SizedBox(
