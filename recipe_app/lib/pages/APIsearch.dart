@@ -19,6 +19,6 @@ Future<void> searchRecipes(stringQuery) async {
       throw Exception('Failed to load data'); //If the response is not successful
     }
   } catch (e) { //Catch any errors
-    print(e.toString()); //Print the error
+    print(e.toString()); //Print the error, will need to be changed for production version
   }
 }
