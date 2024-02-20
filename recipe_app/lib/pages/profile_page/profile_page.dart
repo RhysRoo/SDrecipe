@@ -19,7 +19,6 @@ class ProfilePage extends StatelessWidget {
           const Align(
             child: CircleAvatar(
               radius: 100,
-              backgroundColor: Colors.brown, // Placeholder for image
               foregroundImage:
                   AssetImage('assets/images/profile_page/demo_pic.jpeg'),
             ),
