@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,10 +39,11 @@ class _AuthScreenState extends State<AuthScreen> {
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
         ),
         drawer: Drawer(
+          width: MediaQuery.of(context).size.width * 0.30,
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.15,
                 child: const DrawerHeader(
                   decoration: BoxDecoration(color: Colors.green),
@@ -53,17 +54,14 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ),
               ListTile(
-                title: Container(
-                  child: Row(
-                    children: [
-                      const Text('User Profile',
-                          style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.01,
-                      ),
-                      Icon(Icons.person, size: 30),
-                    ],
-                  ),
+                title: Row(
+                  children: [
+                    const Text('User Profile', style: TextStyle(fontSize: 20)),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.01,
+                    ),
+                    Icon(Icons.person, size: 30),
+                  ],
                 ),
                 onTap: () {
                   Navigator.push(context,
@@ -71,17 +69,15 @@ class _AuthScreenState extends State<AuthScreen> {
                 },
               ),
               ListTile(
-                title: Container(
-                  child: Row(
-                    children: [
-                      const Text('Generate Recipe',
-                          style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.02,
-                      ),
-                      Icon(Icons.generating_tokens, size: 35),
-                    ],
-                  ),
+                title: Row(
+                  children: [
+                    const Text('Generate Recipe',
+                        style: TextStyle(fontSize: 20)),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.02,
+                    ),
+                    Icon(Icons.generating_tokens, size: 35),
+                  ],
                 ),
                 onTap: () {
                   Navigator.push(
@@ -91,16 +87,14 @@ class _AuthScreenState extends State<AuthScreen> {
                 },
               ),
               ListTile(
-                title: Container(
-                  child: Row(
-                    children: [
-                      const Text('Add Recipe', style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.01,
-                      ),
-                      Icon(Icons.add, size: 30),
-                    ],
-                  ),
+                title: Row(
+                  children: [
+                    const Text('Add Recipe', style: TextStyle(fontSize: 20)),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.01,
+                    ),
+                    Icon(Icons.add, size: 30),
+                  ],
                 ),
                 onTap: () {
                   Navigator.push(
@@ -110,17 +104,15 @@ class _AuthScreenState extends State<AuthScreen> {
                 },
               ),
               ListTile(
-                title: Container(
-                  child: Row(
-                    children: [
-                      const Text('Add/Remove Ingredients',
-                          style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.02,
-                      ),
-                      Icon(Icons.edit, size: 35),
-                    ],
-                  ),
+                title: Row(
+                  children: [
+                    const Text('Add/Remove Ingredients',
+                        style: TextStyle(fontSize: 20)),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.02,
+                    ),
+                    Icon(Icons.edit, size: 35),
+                  ],
                 ),
                 onTap: () {
                   Navigator.push(
@@ -130,16 +122,14 @@ class _AuthScreenState extends State<AuthScreen> {
                 },
               ),
               ListTile(
-                title: Container(
-                  child: Row(
-                    children: [
-                      const Text('FAQ', style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.02,
-                      ),
-                      Icon(Icons.question_answer, size: 30),
-                    ],
-                  ),
+                title: Row(
+                  children: [
+                    const Text('FAQ', style: TextStyle(fontSize: 20)),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.02,
+                    ),
+                    Icon(Icons.question_answer, size: 30),
+                  ],
                 ),
                 onTap: () {
                   Navigator.push(
@@ -149,16 +139,14 @@ class _AuthScreenState extends State<AuthScreen> {
                 },
               ),
               ListTile(
-                title: Container(
-                  child: Row(
-                    children: [
-                      const Text('About Us', style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.02,
-                      ),
-                      Icon(Icons.info, size: 30),
-                    ],
-                  ),
+                title: Row(
+                  children: [
+                    const Text('About Us', style: TextStyle(fontSize: 20)),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.02,
+                    ),
+                    Icon(Icons.info, size: 30),
+                  ],
                 ),
                 onTap: () {
                   Navigator.push(
@@ -168,16 +156,14 @@ class _AuthScreenState extends State<AuthScreen> {
                 },
               ),
               ListTile(
-                title: Container(
-                  child: Row(
-                    children: [
-                      const Text('Log Out', style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.01,
-                      ),
-                      Icon(Icons.logout, size: 30),
-                    ],
-                  ),
+                title: Row(
+                  children: [
+                    const Text('Log Out', style: TextStyle(fontSize: 20)),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.01,
+                    ),
+                    Icon(Icons.logout, size: 30),
+                  ],
                 ),
                 onTap: () {
                   _signOut();
