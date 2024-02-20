@@ -47,6 +47,8 @@ dependencies:
   google_sign_in: ^6.1.5
   animated_widgets: ^1.1.0
   sign_in_with_apple: ^5.0.0
+  http: ^0.13.5
+  oauth1: ^2.0.0
 
 dev_dependencies:
   flutter_test:
