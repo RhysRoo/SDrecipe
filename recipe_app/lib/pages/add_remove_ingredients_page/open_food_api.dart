@@ -7,6 +7,8 @@ import 'ingredientManager.dart';
 //   checkIngredientIsValid('chicken');
 // }
 
+// DO NOT TOUCH THIS I SWEAR TO GOD, IF YOU DO I WILL FIND YOU
+
 Future<bool> ingredientAPICheck(String ingredientName) async {
   final String apiUrl =
       'https://world.openfoodfacts.org/cgi/search.pl?search_terms=$ingredientName&search_simple=1&action=process&json=1';
