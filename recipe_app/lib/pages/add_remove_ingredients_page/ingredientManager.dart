@@ -1,3 +1,6 @@
+// ignore: unused_import
+import 'package:flutter_log/pages/add_remove_ingredients_page/open_food_api.dart';
+import 'open_food_api.dart';
 import 'add_remove_ingredients_page.dart';
 
 void _getUserIngredients() {
@@ -16,7 +19,8 @@ void adequateIngredients() {
   // Check that the obtained grams is adequate for a recipe
 }
 
-bool checkIngredientIsValid(String ingredientName, String ingredientWeight) {
+Future<bool> checkIngredientIsValid(
+    String ingredientName, String ingredientWeight) async {
   // Validate ingredientName
   if (ingredientName.isEmpty || ingredientWeight.isEmpty) {
     return false;
@@ -35,6 +39,11 @@ bool checkIngredientIsValid(String ingredientName, String ingredientWeight) {
     return false;
   }
 
-  // All validations passed, the ingredient is considered valid
-  return true;
+  // Check API for ingredient validity
+  if (await ingredientAPICheck(ingredientName)) {
+    // All validations passed, the ingredient is considered valid
+    return true;
+  } else {
+    return false;
+  }
 }

@@ -5,7 +5,6 @@ class AddRemoveIngredients extends StatefulWidget {
   const AddRemoveIngredients({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _AddRemoveIngredientsState createState() => _AddRemoveIngredientsState();
 }
 
@@ -54,6 +53,15 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                     ),
                   ),
                 ],
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    _flushIngredients();
+                  },
+                  child: const Text('Save'),
+                ),
               ),
               Card(
                 elevation: 5.0,
@@ -141,41 +149,62 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     );
   }
 
-  void _addIngredient() {
-    final newIngredient = ingredientController.text.trim(); // String
-    final newIngredientWeight =
-        weightController.text.trim(); // String converted from integer
+  Future<void> _addIngredient() async {
+    final newIngredient = ingredientController.text.trim();
+    final newIngredientWeight = weightController.text.trim();
 
-    if (newIngredient.isNotEmpty && newIngredientWeight.isNotEmpty) {
-      if (!checkIngredientIsValid(newIngredient, newIngredientWeight)) {
-        // Show a SnackBar with the error message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Invalid ingredient! Please check your input.'),
-            duration: Duration(seconds: 2), // Adjust as needed
+    // Display a loading indicator while checking for ingredient validity
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Checking Ingredient Validity'),
+          content: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 16.0),
+              Text('Checking...'),
+            ],
           ),
         );
-        return; // Exit the method if validation fails
-      }
+      },
+    );
 
-      // Check if the ingredient already exists
-      int existingIndex = ingredients
-          .indexWhere((ingredient) => ingredient[0] == newIngredient);
+    try {
+      if (newIngredient.isNotEmpty && newIngredientWeight.isNotEmpty) {
+        bool isValid =
+            await checkIngredientIsValid(newIngredient, newIngredientWeight);
 
-      setState(() {
-        if (existingIndex != -1) {
-          // Ingredient already exists, add the weights together
-          int existingWeight = int.tryParse(ingredients[existingIndex][1]) ?? 0;
-          int newWeight = int.tryParse(newIngredientWeight) ?? 0;
-          ingredients[existingIndex][1] =
-              (existingWeight + newWeight).toString();
+        if (isValid) {
+          int existingIndex = ingredients
+              .indexWhere((ingredient) => ingredient[0] == newIngredient);
+
+          setState(() {
+            if (existingIndex != -1) {
+              int existingWeight =
+                  int.tryParse(ingredients[existingIndex][1]) ?? 0;
+              int newWeight = int.tryParse(newIngredientWeight) ?? 0;
+              ingredients[existingIndex][1] =
+                  (existingWeight + newWeight).toString();
+            } else {
+              ingredients.add([newIngredient, newIngredientWeight]);
+            }
+            ingredientController.clear();
+            weightController.clear();
+          });
         } else {
-          // Ingredient doesn't exist, add a new entry
-          ingredients.add([newIngredient, newIngredientWeight]);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Invalid ingredient! Please check your input.'),
+              duration: Duration(seconds: 2),
+            ),
+          );
         }
-        ingredientController.clear();
-        weightController.clear();
-      });
+      }
+    } finally {
+      // Close the loading indicator dialog
+      Navigator.pop(context);
     }
   }
 
@@ -186,6 +215,33 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
   }
 
   void _flushIngredients() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Save Ingredients'),
+          content: const Text('Are you sure you want to save the ingredients?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                _performFlush();
+              },
+              child: const Text('Confirm'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _performFlush() {
     setState(() {
       ingredients.clear(); // Clear the ingredients list
       shouldFlush = true; // Set the flag to trigger the flush message
