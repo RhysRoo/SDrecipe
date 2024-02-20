@@ -141,7 +141,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 title: Row(
                   children: [
-                    const Text('About Us', style: TextStyle(fontSize: 20)),
+                     Text('About Us', style: TextStyle(fontSize: 20)),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.02,
                     ),
@@ -152,7 +152,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AboutUsPage()));
+                          builder: (context) =>  AboutUsPage()));
                 },
               ),
               ListTile(
@@ -190,7 +190,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.009),
                 Container(
                   //Ui Panel Height & Width
-                  height: MediaQuery.of(context).size.height * 0.75,
+                  height: MediaQuery.of(context).size.height * 0.85,
                   width: MediaQuery.of(context).size.width * 0.95,
 
                   decoration: BoxDecoration(
