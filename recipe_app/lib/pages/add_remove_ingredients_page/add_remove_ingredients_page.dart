@@ -19,6 +19,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.green[700],
         title: const Text('Add and Remove Ingredients Page'),
@@ -37,18 +38,42 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                   },
                   child: const Text('Save'),
                 ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.2,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      _addIngredient();
+                    },
+                    child: const Text('Add'),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.2,
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _flushIngredients();
+                      },
+                      child: const Text('Flush'),
+                    ),
+                  ),
+                ],
               ),
               Card(
                 elevation: 5.0,
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.height * 0.8,
-                  padding: const EdgeInsets.all(16.0),
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: MediaQuery.of(context).size.height * 0.78,
+                  padding: const EdgeInsets.all(12.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(
-                        height: 10,
+                        height: 12,
                       ),
                       _buildIngredientForm(),
                       const SizedBox(height: 20.0),
@@ -71,11 +96,11 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
           child: TextField(
             controller: ingredientController,
             decoration: const InputDecoration(
-              hintText: 'Enter ingredient name',
+              hintText: 'Enter ingredient',
             ),
           ),
         ),
-        const SizedBox(width: 20.0),
+        const SizedBox(width: 30.0),
         Expanded(
           child: TextField(
             controller: weightController,
@@ -84,13 +109,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
             ),
           ),
         ),
-        const SizedBox(width: 20.0),
-        ElevatedButton(
-          onPressed: () {
-            _addIngredient();
-          },
-          child: const Text('Add'),
-        ),
+        const SizedBox(width: 25.0),
       ],
     );
   }

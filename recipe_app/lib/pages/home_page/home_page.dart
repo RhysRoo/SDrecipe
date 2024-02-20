@@ -39,7 +39,7 @@ class _AuthScreenState extends State<AuthScreen> {
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
         ),
         drawer: Drawer(
-          width: MediaQuery.of(context).size.width * 0.30,
+          width: MediaQuery.of(context).size.width * 0.75,
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
