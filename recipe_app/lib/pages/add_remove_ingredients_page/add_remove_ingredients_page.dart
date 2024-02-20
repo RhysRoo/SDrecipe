@@ -5,7 +5,6 @@ class AddRemoveIngredients extends StatefulWidget {
   const AddRemoveIngredients({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _AddRemoveIngredientsState createState() => _AddRemoveIngredientsState();
 }
 
@@ -30,14 +29,6 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: ElevatedButton(
-                  onPressed: () {
-                    _flushIngredients();
-                  },
-                  child: const Text('Save'),
-                ),
               Row(
                 children: [
                   SizedBox(
@@ -62,6 +53,15 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                     ),
                   ),
                 ],
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    _flushIngredients();
+                  },
+                  child: const Text('Save'),
+                ),
               ),
               Card(
                 elevation: 5.0,
