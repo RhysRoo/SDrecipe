@@ -153,32 +153,58 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     final newIngredient = ingredientController.text.trim();
     final newIngredientWeight = weightController.text.trim();
 
-    if (newIngredient.isNotEmpty && newIngredientWeight.isNotEmpty) {
-      if (await checkIngredientIsValid(newIngredient, newIngredientWeight)) {
-        int existingIndex = ingredients
-            .indexWhere((ingredient) => ingredient[0] == newIngredient);
-
-        setState(() {
-          if (existingIndex != -1) {
-            int existingWeight =
-                int.tryParse(ingredients[existingIndex][1]) ?? 0;
-            int newWeight = int.tryParse(newIngredientWeight) ?? 0;
-            ingredients[existingIndex][1] =
-                (existingWeight + newWeight).toString();
-          } else {
-            ingredients.add([newIngredient, newIngredientWeight]);
-          }
-          ingredientController.clear();
-          weightController.clear();
-        });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Invalid ingredient! Please check your input.'),
-            duration: Duration(seconds: 2),
+    // Display a loading indicator while checking for ingredient validity
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Checking Ingredient Validity'),
+          content: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 16.0),
+              Text('Checking...'),
+            ],
           ),
         );
+      },
+    );
+
+    try {
+      if (newIngredient.isNotEmpty && newIngredientWeight.isNotEmpty) {
+        bool isValid =
+            await checkIngredientIsValid(newIngredient, newIngredientWeight);
+
+        if (isValid) {
+          int existingIndex = ingredients
+              .indexWhere((ingredient) => ingredient[0] == newIngredient);
+
+          setState(() {
+            if (existingIndex != -1) {
+              int existingWeight =
+                  int.tryParse(ingredients[existingIndex][1]) ?? 0;
+              int newWeight = int.tryParse(newIngredientWeight) ?? 0;
+              ingredients[existingIndex][1] =
+                  (existingWeight + newWeight).toString();
+            } else {
+              ingredients.add([newIngredient, newIngredientWeight]);
+            }
+            ingredientController.clear();
+            weightController.clear();
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Invalid ingredient! Please check your input.'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
       }
+    } finally {
+      // Close the loading indicator dialog
+      Navigator.pop(context);
     }
   }
 
