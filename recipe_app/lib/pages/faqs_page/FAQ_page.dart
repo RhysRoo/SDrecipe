@@ -14,10 +14,22 @@ class QAItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ExpansionTile(
       title: title,
-      children: children,
+      children: children.map((child) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: DefaultTextStyle(
+            style: TextStyle(fontSize: 16.0), // Set the text size
+            child: child,
+          ),
+        ),
+      )).toList(),
     );
   }
-}
+
+
+  }
+
 
 class FAQ_page extends StatelessWidget {
   @override
