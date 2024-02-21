@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'ingredientManager.dart';
 
@@ -14,75 +16,104 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
   final TextEditingController ingredientController = TextEditingController();
   final TextEditingController weightController = TextEditingController();
   bool shouldFlush = false;
+  IngredientManager manager = IngredientManager();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserIngredients();
+  }
+
+  Future<void> _loadUserIngredients() async {
+    List<List<String>> userIngredients = await manager.getUserIngredients();
+
+    // Check if the widget is still mounted before calling setState
+    if (mounted) {
+      setState(() {
+        ingredients = userIngredients;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.green[700],
-        title: const Text('Add and Remove Ingredients Page'),
-      ),
-      backgroundColor: Colors.green[200],
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      _addIngredient();
-                    },
-                    child: const Text('Add'),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: ElevatedButton(
+    return WillPopScope(
+      onWillPop: () async {
+        // Handle back button press
+        if (ingredients.isNotEmpty) {
+          // Show confirmation dialog
+          return await _showExitConfirmationDialog();
+        }
+        // If no ingredients, allow navigation
+        return true;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: Colors.green[700],
+          title: const Text('Add and Remove Ingredients Page'),
+        ),
+        backgroundColor: Colors.green[200],
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.2,
+                    ),
+                    ElevatedButton(
                       onPressed: () {
-                        _flushIngredients();
+                        _addIngredient();
                       },
-                      child: const Text('Flush'),
+                      style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(150, 50),
+                          padding: const EdgeInsets.all(16.0)),
+                      child: const Text('Add'),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _flushIngredients();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(150, 50),
+                            padding: const EdgeInsets.all(16.0)),
+                        child: const Text('Save'),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Card(
+                  elevation: 5.0,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.68,
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        _buildIngredientForm(),
+                        const SizedBox(height: 20.0),
+                        _buildIngredientsList(),
+                      ],
                     ),
                   ),
-                ],
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: ElevatedButton(
-                  onPressed: () {
-                    _flushIngredients();
-                  },
-                  child: const Text('Save'),
                 ),
-              ),
-              Card(
-                elevation: 5.0,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.78,
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      _buildIngredientForm(),
-                      const SizedBox(height: 20.0),
-                      _buildIngredientsList(),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -121,29 +152,37 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
         const SizedBox(height: 10.0),
         if (shouldFlush) // Conditionally render based on the flush action
           const Text(
-            'Ingredients flushed!',
+            'Ingredients Saved!',
             style: TextStyle(color: Colors.red),
           )
         else
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: ingredients.length,
-            itemBuilder: (context, index) {
-              return Card(
-                elevation: 3.0,
-                margin: const EdgeInsets.symmetric(vertical: 5.0),
-                child: ListTile(
-                  title: Text(
-                      '${ingredients[index][0]} : ${ingredients[index][1]} g'),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      _removeIngredient(index);
-                    },
-                  ),
-                ),
-              );
-            },
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height *
+                  0.5, // Set a fixed height or adjust as needed
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: ingredients.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 3.0,
+                    margin: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: ListTile(
+                      title: Text(
+                        '${ingredients[index][0]} : ${ingredients[index][1]} g',
+                      ),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          _removeIngredient(index);
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           ),
       ],
     );
@@ -158,7 +197,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return const AlertDialog(
           title: Text('Checking Ingredient Validity'),
           content: Row(
             children: [
@@ -173,10 +212,10 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
 
     try {
       if (newIngredient.isNotEmpty && newIngredientWeight.isNotEmpty) {
-        bool isValid =
-            await checkIngredientIsValid(newIngredient, newIngredientWeight);
+        bool isValid = await manager.checkIngredientIsValid(
+            newIngredient, newIngredientWeight);
 
-        if (isValid) {
+        if (isValid && manager.validateQuantity(newIngredientWeight)) {
           int existingIndex = ingredients
               .indexWhere((ingredient) => ingredient[0] == newIngredient);
 
@@ -241,7 +280,10 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     );
   }
 
-  void _performFlush() {
+  Future<void> _performFlush() async {
+    // Call the method directly from the imported file
+    await manager.flushUserIngredients(ingredients);
+
     setState(() {
       ingredients.clear(); // Clear the ingredients list
       shouldFlush = true; // Set the flag to trigger the flush message
@@ -253,5 +295,31 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
         shouldFlush = false;
       });
     });
+  }
+
+  Future<bool> _showExitConfirmationDialog() async {
+    return await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Discard Changes?'),
+          content: const Text('Do you want to discard unsaved changes?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false); // Stay on the page
+              },
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true); // Leave the page
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
