@@ -37,6 +37,7 @@ class FAQ_page extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('FAQ'),
+        backgroundColor: Colors.green,
       ),
       body: ListView(
         children: [
