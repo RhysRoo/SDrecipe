@@ -9,6 +9,7 @@ import 'package:flutter_log/pages/recipe_generation_page/generation_page.dart';
 class AboutUsPage extends StatelessWidget {
   AboutUsPage({Key? key}) : super(key: key);
 
+
   // Firebase Authentication instance
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -219,8 +220,7 @@ void _launchEmail2() async {
                  
                  
                  
-                 
-   Row(
+  Row(
   mainAxisAlignment: MainAxisAlignment.center,
   children: [
     Container(
@@ -235,6 +235,17 @@ void _launchEmail2() async {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          Container(
+      width: MediaQuery.of(context).size.width * 0.15,
+      height: MediaQuery.of(context).size.height * 0.15,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/about_page/lil_tjay.png'),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
             child: Text(
@@ -268,6 +279,17 @@ void _launchEmail2() async {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.15,
+      height: MediaQuery.of(context).size.height * 0.15,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/about_page/lil_tjay.png'),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
             child: Text(
@@ -290,12 +312,6 @@ void _launchEmail2() async {
     ),
   ],
 ),
-
-
-
-
-
-
 
 
 
