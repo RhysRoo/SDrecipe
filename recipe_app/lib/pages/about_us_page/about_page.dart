@@ -48,6 +48,56 @@ class AboutUsPage extends StatelessWidget {
     }
   }
 
+
+
+  void _launchEmail3() async {
+    final Uri _emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'up2112240@myport.ac.uk',
+    );
+    if (await canLaunch(_emailLaunchUri.toString())) {
+      await launch(_emailLaunchUri.toString());
+    } else {
+      print('Could not launch email');
+    }
+  }
+
+  void _launchEmail4() async {
+    final Uri _emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'up2120303@myport.ac.uk',
+    );
+    if (await canLaunch(_emailLaunchUri.toString())) {
+      await launch(_emailLaunchUri.toString());
+    } else {
+      print('Could not launch email');
+    }
+  }
+
+  void _launchEmail5() async {
+    final Uri _emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'up2120303@myport.ac.uk',
+    );
+    if (await canLaunch(_emailLaunchUri.toString())) {
+      await launch(_emailLaunchUri.toString());
+    } else {
+      print('Could not launch email');
+    }
+  }
+
+  void _launchEmail6() async {
+    final Uri _emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'up2060987@myport.ac.uk',
+    );
+    if (await canLaunch(_emailLaunchUri.toString())) {
+      await launch(_emailLaunchUri.toString());
+    } else {
+      print('Could not launch email');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -243,7 +293,7 @@ class AboutUsPage extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'images/about_page/lil_tjay.png'),
+                                            'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
@@ -318,7 +368,7 @@ class AboutUsPage extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'images/about_page/lil_tjay.png'),
+                                            'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
@@ -398,7 +448,7 @@ class AboutUsPage extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'images/about_page/lil_tjay.png'),
+                                            'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
@@ -411,7 +461,7 @@ class AboutUsPage extends StatelessWidget {
                                     padding: const EdgeInsets.fromLTRB(
                                         8.0, 8.0, 8.0, 4.0),
                                     child: Text(
-                                      'Matt Bowers',
+                                      'Mattew Bowers',
                                       style: TextStyle(
                                           fontSize: 14, color: Colors.white),
                                     ),
@@ -438,7 +488,7 @@ class AboutUsPage extends StatelessWidget {
                                     padding: const EdgeInsets.fromLTRB(
                                         8.0, 4.0, 8.0, 8.0),
                                     child: GestureDetector(
-                                      onTap: _launchEmail2,
+                                      onTap: _launchEmail3,
                                       child: Text(
                                         'Contact by email',
                                         style: TextStyle(
@@ -473,7 +523,7 @@ class AboutUsPage extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'images/about_page/lil_tjay.png'),
+                                            'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
@@ -513,7 +563,7 @@ class AboutUsPage extends StatelessWidget {
                                     padding: const EdgeInsets.fromLTRB(
                                         8.0, 4.0, 8.0, 8.0),
                                     child: GestureDetector(
-                                      onTap: _launchEmail,
+                                      onTap: _launchEmail4,
                                       child: Text(
                                         'Contact by email',
                                         style: TextStyle(
@@ -553,7 +603,7 @@ class AboutUsPage extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'images/about_page/lil_tjay.png'),
+                                            'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
@@ -593,7 +643,7 @@ class AboutUsPage extends StatelessWidget {
                                     padding: const EdgeInsets.fromLTRB(
                                         8.0, 4.0, 8.0, 8.0),
                                     child: GestureDetector(
-                                      onTap: _launchEmail2,
+                                      onTap: _launchEmail5,
                                       child: Text(
                                         'Contact by email',
                                         style: TextStyle(
@@ -628,7 +678,7 @@ class AboutUsPage extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'images/about_page/lil_tjay.png'),
+                                            'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
@@ -641,7 +691,7 @@ class AboutUsPage extends StatelessWidget {
                                     padding: const EdgeInsets.fromLTRB(
                                         8.0, 8.0, 8.0, 4.0),
                                     child: Text(
-                                      'Cindy ',
+                                      'Cindy Murimi',
                                       style: TextStyle(
                                           fontSize: 14, color: Colors.white),
                                     ),
@@ -668,7 +718,7 @@ class AboutUsPage extends StatelessWidget {
                                     padding: const EdgeInsets.fromLTRB(
                                         8.0, 4.0, 8.0, 8.0),
                                     child: GestureDetector(
-                                      onTap: _launchEmail,
+                                      onTap: _launchEmail6,
                                       child: Text(
                                         'Contact by email',
                                         style: TextStyle(
