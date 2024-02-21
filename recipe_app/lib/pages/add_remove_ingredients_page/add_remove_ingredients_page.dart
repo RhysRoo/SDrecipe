@@ -158,7 +158,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return const AlertDialog(
           title: Text('Checking Ingredient Validity'),
           content: Row(
             children: [
