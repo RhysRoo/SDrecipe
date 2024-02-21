@@ -198,7 +198,7 @@ class AboutUsPage extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.009),
                 Container(
                   // Ui Panel
-                  height: MediaQuery.of(context).size.height * 1.2,
+                  height: MediaQuery.of(context).size.height * 2.55,
                   width: MediaQuery.of(context).size.width * 0.95,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -211,136 +211,478 @@ class AboutUsPage extends StatelessWidget {
                       'Our aim is to significantly reduce the amount of food waste being produced. This is beneficial to both the environment and saving money.\n\n'
                       'Less wasted food means fewer resources used in production. Further environmental benefits include reducing Greenhouse Gas Emissions, Rotting food in landfills produces methane, a potent greenhouse gas. Cutting waste helps mitigate climate change. Wasting less food means more money in our pockets.\n\n'
                       'The WasteAway application allows you to enter ingredients that you need to use before their “use by date” expires. Simply enter the ingredients you have into the App and you will be guided to exciting recipes that use what you have available. No more chucking out that “half a pineapple” or “pack of cream cheese”. This is the App that every household needs.',
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 14),
                     ),
                     SizedBox(height: 16),
-
-
-
-Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    Container(
-      width: MediaQuery.of(context).size.width * 0.4,
-      height: MediaQuery.of(context).size.height * 0.55,
-      margin: EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.lightGreen[900],
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.black), // Black outline
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.4,
-            height: MediaQuery.of(context).size.height * 0.3,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('images/about_page/lil_tjay.png'),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.black), // Black outline for image
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
-            child: Text(
-              'Josh Varney',
-              style: TextStyle(fontSize: 14, color: Colors.white),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
-            child: Text(
-              'Developer',
-              style: TextStyle(fontSize: 12, color: Colors.white),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 8.0),
-            child: Text(
-              'I am josh, I helped develope this app, enjoy our application feel free to email me about it.',
-              style: TextStyle(fontSize: 12, color: Colors.white),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 8.0),
-            child: GestureDetector(
-              onTap: _launchEmail2,
-              child: Text(
-                'Contact by email',
-                style: TextStyle(fontSize: 12, color: Colors.blue),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-    SizedBox(width: 20),
-    Container(
-      width: MediaQuery.of(context).size.width * 0.4,
-      height: MediaQuery.of(context).size.height * 0.55,
-      margin: EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.lightGreen[900],
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.black), // Black outline
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.4,
-            height: MediaQuery.of(context).size.height * 0.3,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('images/about_page/lil_tjay.png'),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.black), // Black outline for image
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
-            child: Text(
-              'Hazaloid Jenkins',
-              style: TextStyle(fontSize: 14, color: Colors.white),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
-            child: Text(
-              'Developer',
-              style: TextStyle(fontSize: 12, color: Colors.white),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 8.0),
-            child: Text(
-              'I am haz, I helped develope this app, i like tattoos and scarface. Feel free to email me if you have any enquires about our app.',
-              style: TextStyle(fontSize: 12, color: Colors.white),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 8.0),
-            child: GestureDetector(
-              onTap: _launchEmail,
-              child: Text(
-                'Contact by email',
-                style: TextStyle(fontSize: 12, color: Colors.blue),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  ],
-),
-
-
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // First Container
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.height * 0.55,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.lightGreen[900],
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    color: Colors.black), // Black outline
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment
+                                    .start, // Align text to the left
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'images/about_page/lil_tjay.png'),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors
+                                              .black), // Black outline for image
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 8.0, 8.0, 4.0),
+                                    child: Text(
+                                      'Josh Varney',
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 4.0),
+                                    child: Text(
+                                      'All-round Developer',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 8.0),
+                                    child: Text(
+                                      'I am Josh, I helped develope this app, enjoy our application feel free to email me about it.',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 8.0),
+                                    child: GestureDetector(
+                                      onTap: _launchEmail2,
+                                      child: Text(
+                                        'Contact by email',
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.blue),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 20),
+                            // Second Container
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.height * 0.55,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.lightGreen[900],
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    color: Colors.black), // Black outline
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment
+                                    .start, // Align text to the left
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'images/about_page/lil_tjay.png'),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors
+                                              .black), // Black outline for image
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 8.0, 8.0, 4.0),
+                                    child: Text(
+                                      'Hazaloid Jenkins',
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 4.0),
+                                    child: Text(
+                                      'Front-end Developer',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 8.0),
+                                    child: Text(
+                                      'I am haz, I helped develope this app, i like tattoos and scarface. Feel free to email me if you have any enquiries about our app.',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 8.0),
+                                    child: GestureDetector(
+                                      onTap: _launchEmail,
+                                      child: Text(
+                                        'Contact by email',
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.blue),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // First Container
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.height * 0.55,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.lightGreen[900],
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    color: Colors.black), // Black outline
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment
+                                    .start, // Align text to the left
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'images/about_page/lil_tjay.png'),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors
+                                              .black), // Black outline for image
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 8.0, 8.0, 4.0),
+                                    child: Text(
+                                      'Matt Bowers',
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 4.0),
+                                    child: Text(
+                                      'Back-end Developer',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 8.0),
+                                    child: Text(
+                                      'I am Matt, I helped develope this app, please allow it to improve your eating. Email one of the team if you have enquiries.',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 8.0),
+                                    child: GestureDetector(
+                                      onTap: _launchEmail2,
+                                      child: Text(
+                                        'Contact by email',
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.blue),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 20),
+                            // Second Container
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.height * 0.55,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.lightGreen[900],
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    color: Colors.black), // Black outline
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment
+                                    .start, // Align text to the left
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'images/about_page/lil_tjay.png'),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors
+                                              .black), // Black outline for image
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 8.0, 8.0, 4.0),
+                                    child: Text(
+                                      'Rhys Parsons',
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 4.0),
+                                    child: Text(
+                                      'Front-end Developer',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 8.0),
+                                    child: Text(
+                                      'I am Rhys, I helped develope this app, email me or the team about anything related to our app.',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 8.0),
+                                    child: GestureDetector(
+                                      onTap: _launchEmail,
+                                      child: Text(
+                                        'Contact by email',
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.blue),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Third Container (identical to the first)
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.height * 0.55,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.lightGreen[900],
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    color: Colors.black), // Black outline
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment
+                                    .start, // Align text to the left
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'images/about_page/lil_tjay.png'),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors
+                                              .black), // Black outline for image
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 8.0, 8.0, 4.0),
+                                    child: Text(
+                                      'Khadijah',
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 4.0),
+                                    child: Text(
+                                      'All-round Developer',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 8.0),
+                                    child: Text(
+                                      'I am Khadijah, I helped develope this app, please email with any questions.',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 8.0),
+                                    child: GestureDetector(
+                                      onTap: _launchEmail2,
+                                      child: Text(
+                                        'Contact by email',
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.blue),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 20),
+                            // Fourth Container (identical to the second)
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.height * 0.55,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.lightGreen[900],
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    color: Colors.black), // Black outline
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment
+                                    .start, // Align text to the left
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'images/about_page/lil_tjay.png'),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors
+                                              .black), // Black outline for image
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 8.0, 8.0, 4.0),
+                                    child: Text(
+                                      'Cindy ',
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 4.0),
+                                    child: Text(
+                                      'Back-end Developer',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 8.0),
+                                    child: Text(
+                                      'I am Cindy, I helped develope this app. If there is anything you are unsure about, you can speak to me or one of the team.',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        8.0, 4.0, 8.0, 8.0),
+                                    child: GestureDetector(
+                                      onTap: _launchEmail,
+                                      child: Text(
+                                        'Contact by email',
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.blue),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ]),
                 ),
                 SizedBox(
@@ -348,7 +690,6 @@ Row(
                 ),
               ],
             ),
-            
           ],
         ),
       ),
