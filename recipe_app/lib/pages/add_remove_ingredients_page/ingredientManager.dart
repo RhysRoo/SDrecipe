@@ -3,8 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/open_food_api.dart';
 import 'package:flutter_log/pages/profile_page/userManager.dart';
-import 'open_food_api.dart';
-import 'add_remove_ingredients_page.dart';
 
 // DO NOT TOUCH THIS CODE, THANK YOU VERY MUCH
 
@@ -13,7 +11,7 @@ class IngredientManager {
   UserManager user = UserManager();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<List<List<String>>> _getUserIngredients() async {
+  Future<List<List<String>>> getUserIngredients() async {
     String uid = await user.getCurrentUserUID();
     List<List<String>> result = [];
 
@@ -48,43 +46,7 @@ class IngredientManager {
 
   Future<void> flushUserIngredients(List<List<String>> listIngredients) async {
     // The Linker between getting previous data and submitting new data
-    List<List<String>> previousDataSet =
-        await _getUserIngredients(); // Potential Errors the may Arise, Non-Signed Up Users
-
-    List<List<String>> mergedList =
-        mergeIngredients(listIngredients, previousDataSet);
-
-    await _storeUserIngredients(mergedList);
-  }
-
-  List<List<String>> mergeIngredients(
-      List<List<String>> list1, List<List<String>> list2) {
-    Map<String, int> result = {};
-
-    // Merge quantities from the first list
-    for (List<String> item in list1) {
-      String ingredient = item[0].toLowerCase();
-      int quantity = int.tryParse(item[1]) ?? 0;
-
-      // Update quantity if ingredient already exists, otherwise add a new entry
-      result[ingredient] = (result[ingredient] ?? 0) + quantity;
-    }
-
-    // Merge quantities from the second list
-    for (List<String> item in list2) {
-      String ingredient = item[0].toLowerCase();
-      int quantity = int.tryParse(item[1]) ?? 0;
-
-      // Update quantity if ingredient already exists, otherwise add a new entry
-      result[ingredient] = (result[ingredient] ?? 0) + quantity;
-    }
-
-    // Convert the map back to the desired list format
-    List<List<String>> mergedList = result.entries
-        .map((entry) => [entry.key, entry.value.toString()])
-        .toList();
-
-    return mergedList;
+    await _storeUserIngredients(listIngredients);
   }
 
   Future<void> _storeUserIngredients(List<List<String>> listIngredients) async {
@@ -112,8 +74,24 @@ class IngredientManager {
     }
   }
 
-  void adequateIngredients() {
-    // Check that the obtained grams are adequate for a recipe
+  bool validateQuantity(String quantity) {
+    try {
+      // Attempt to parse the quantity as a double
+      double numericQuantity = double.parse(quantity);
+
+      // Check if the quantity is greater than or equal to 10 grams
+      if (numericQuantity < 10) {
+        print('Quantity must be at least 10 grams.');
+        return false;
+      }
+
+      // Additional checks based on your requirements can be added here
+
+      return true; // All checks passed
+    } catch (e) {
+      print('Invalid quantity format.');
+      return false; // Quantity couldn't be parsed as a double
+    }
   }
 
   Future<bool> checkIngredientIsValid(
