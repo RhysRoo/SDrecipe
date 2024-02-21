@@ -2,8 +2,6 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'add_remove_ingredients_page.dart';
-import 'ingredientManager.dart';
 
 class IngredientAPI {
   Future<bool> ingredientAPICheck(String ingredientName) async {

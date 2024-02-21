@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'ingredientManager.dart';
@@ -68,6 +68,9 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                       onPressed: () {
                         _addIngredient();
                       },
+                      style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(150, 50),
+                          padding: const EdgeInsets.all(16.0)),
                       child: const Text('Add'),
                     ),
                     SizedBox(
@@ -79,6 +82,9 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                         onPressed: () {
                           _flushIngredients();
                         },
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(150, 50),
+                            padding: const EdgeInsets.all(16.0)),
                         child: const Text('Save'),
                       ),
                     ),
@@ -146,13 +152,13 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
         const SizedBox(height: 10.0),
         if (shouldFlush) // Conditionally render based on the flush action
           const Text(
-            'Ingredients flushed!',
+            'Ingredients Saved!',
             style: TextStyle(color: Colors.red),
           )
         else
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height *
                   0.5, // Set a fixed height or adjust as needed
               child: ListView.builder(
@@ -209,7 +215,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
         bool isValid = await manager.checkIngredientIsValid(
             newIngredient, newIngredientWeight);
 
-        if (isValid) {
+        if (isValid && manager.validateQuantity(newIngredientWeight)) {
           int existingIndex = ingredients
               .indexWhere((ingredient) => ingredient[0] == newIngredient);
 

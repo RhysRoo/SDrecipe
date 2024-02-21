@@ -3,8 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/open_food_api.dart';
 import 'package:flutter_log/pages/profile_page/userManager.dart';
-import 'open_food_api.dart';
-import 'add_remove_ingredients_page.dart';
 
 // DO NOT TOUCH THIS CODE, THANK YOU VERY MUCH
 
@@ -76,8 +74,24 @@ class IngredientManager {
     }
   }
 
-  void adequateIngredients() {
-    // Check that the obtained grams are adequate for a recipe
+  bool validateQuantity(String quantity) {
+    try {
+      // Attempt to parse the quantity as a double
+      double numericQuantity = double.parse(quantity);
+
+      // Check if the quantity is greater than or equal to 10 grams
+      if (numericQuantity < 10) {
+        print('Quantity must be at least 10 grams.');
+        return false;
+      }
+
+      // Additional checks based on your requirements can be added here
+
+      return true; // All checks passed
+    } catch (e) {
+      print('Invalid quantity format.');
+      return false; // Quantity couldn't be parsed as a double
+    }
   }
 
   Future<bool> checkIngredientIsValid(
