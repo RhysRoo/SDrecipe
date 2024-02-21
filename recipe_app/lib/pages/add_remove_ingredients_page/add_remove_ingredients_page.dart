@@ -14,6 +14,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
   final TextEditingController ingredientController = TextEditingController();
   final TextEditingController weightController = TextEditingController();
   bool shouldFlush = false;
+  IngredientManager manager = IngredientManager();
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +159,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return const AlertDialog(
           title: Text('Checking Ingredient Validity'),
           content: Row(
             children: [
@@ -173,8 +174,8 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
 
     try {
       if (newIngredient.isNotEmpty && newIngredientWeight.isNotEmpty) {
-        bool isValid =
-            await checkIngredientIsValid(newIngredient, newIngredientWeight);
+        bool isValid = await manager.checkIngredientIsValid(
+            newIngredient, newIngredientWeight);
 
         if (isValid) {
           int existingIndex = ingredients
@@ -241,7 +242,10 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     );
   }
 
-  void _performFlush() {
+  Future<void> _performFlush() async {
+    // Call the method directly from the imported file
+    await manager.flushUserIngredients(ingredients);
+
     setState(() {
       ingredients.clear(); // Clear the ingredients list
       shouldFlush = true; // Set the flag to trigger the flush message
