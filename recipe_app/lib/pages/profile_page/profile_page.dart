@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_log/pages/profile_page/profileManager.dart';
-import 'package:flutter_log/pages/profile_page/userManager.dart';
 import 'package:flutter_log/pages/profile_page/userModel.dart';
 
 class ProfilePage extends StatefulWidget {
