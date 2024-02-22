@@ -27,15 +27,12 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const SizedBox(
-              height: 40,
-            ),
             _buildProfileImage(),
             const SizedBox(height: 40.0),
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.2, // Adjust the height as needed
-              width: MediaQuery.of(context).size.width * 0.6,
+                  0.15, // Adjust the height as needed
+              width: MediaQuery.of(context).size.width * 0.7,
               child: Card(
                 elevation: 5.0,
                 shape: RoundedRectangleBorder(
@@ -56,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(
               height: MediaQuery.of(context).size.height *
                   0.28, // Adjust the height as needed
-              width: MediaQuery.of(context).size.width * 0.6,
+              width: MediaQuery.of(context).size.width * 0.7,
               child: Card(
                 elevation: 5.0,
                 shape: RoundedRectangleBorder(
