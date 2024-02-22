@@ -116,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Center(
         child: Text(
           title,
-          style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
       ),
     );
