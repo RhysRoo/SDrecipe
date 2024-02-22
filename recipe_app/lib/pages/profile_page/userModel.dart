@@ -4,6 +4,8 @@ class UserModel {
   final String lastName;
   final String username;
   final String age;
+  final String bio;
+  final String foodRestriction;
 
   const UserModel({
     this.id,
@@ -11,6 +13,8 @@ class UserModel {
     required this.lastName,
     required this.username,
     required this.age,
+    required this.bio,
+    required this.foodRestriction,
   });
 
   Map<String, dynamic> toJson() {
@@ -18,7 +22,9 @@ class UserModel {
       "firstName": firstName,
       "lastName": lastName,
       "username": username,
-      'age': age,
+      "age": age,
+      "bio": bio,
+      "foodRestriction": foodRestriction,
     };
   }
 }

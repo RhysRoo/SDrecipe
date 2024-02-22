@@ -39,7 +39,7 @@ class ProfileManager {
     try {
       String? uid = await userManager.getCurrentUserUID();
 
-      // Reference to the user document in the "users" collection
+      // Reference to the user document in the "UserDetails" collection
       DocumentReference userRef =
           FirebaseFirestore.instance.collection('UserDetails').doc(uid);
 
@@ -49,6 +49,8 @@ class ProfileManager {
         'username': 'N/A',
         'firstName': 'N/A',
         'lastName': 'N/A',
+        'foodRestriction': 'N/A',
+        'bio': 'N/A'
       };
 
       // Update the user document with the new values
