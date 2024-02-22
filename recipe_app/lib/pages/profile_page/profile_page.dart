@@ -230,6 +230,7 @@ class _ProfilePageState extends State<ProfilePage> {
             TextButton(
               onPressed: () {
                 if (_formKey.currentState?.validate() ?? false) {
+                  // Entry point
                   print('Correct Information');
                   Navigator.of(context).pop();
                 }
