@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_log/pages/about_us_page/about_page.dart';
+import 'package:flutter_log/pages/add_recipe_page/add_recipe.dart';
 import 'package:flutter_log/pages/faqs_page/FAQ_page.dart';
 import 'package:flutter_log/pages/profile_page/profile_page.dart';
 import 'package:flutter_log/pages/ratings_page/rating_page.dart';
@@ -93,6 +94,23 @@ class _AuthScreenState extends State<AuthScreen> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.01,
                     ),
+                    Icon(Icons.cookie, size: 30),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddRecipe()));
+                },
+              ),
+              ListTile(
+                title: Row(
+                  children: [
+                    const Text('Ratings', style: TextStyle(fontSize: 20)),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.01,
+                    ),
                     Icon(Icons.add, size: 30),
                   ],
                 ),
@@ -141,7 +159,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 title: Row(
                   children: [
-                     Text('About Us', style: TextStyle(fontSize: 20)),
+                    Text('About Us', style: TextStyle(fontSize: 20)),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.02,
                     ),
@@ -149,10 +167,8 @@ class _AuthScreenState extends State<AuthScreen> {
                   ],
                 ),
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>  AboutUsPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AboutUsPage()));
                 },
               ),
               ListTile(
