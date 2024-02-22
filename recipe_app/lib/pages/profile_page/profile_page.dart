@@ -1,4 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:flutter_log/pages/profile_page/profileManager.dart';
+import 'package:flutter_log/pages/profile_page/userModel.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -14,6 +18,35 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _lastNameController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final ProfileManager profileManager = ProfileManager();
+
+  UserModel? currentUser; // Add a property to store the user data
+
+  @override
+  void initState() {
+    super.initState();
+    // Load user details when the page is initialized
+    _loadUserDetails();
+  }
+
+  Future<void> _loadUserDetails() async {
+    try {
+      Map<String, dynamic>? userData = await profileManager.getUserDetails();
+      if (userData != null) {
+        // Update the currentUser with the retrieved data
+        setState(() {
+          currentUser = UserModel(
+            age: userData['age'] ?? '',
+            username: userData['username'] ?? '',
+            firstName: userData['firstName'] ?? '',
+            lastName: userData['lastName'] ?? '',
+          );
+        });
+      }
+    } catch (e) {
+      print("Error loading user details: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: [
-                      _buildInfoItem('Username:', 'JohnDoe'),
-                      _buildInfoItem('Email:', 'johndoe@example.com'),
+                      _buildInfoItem('Username:', 'username'),
                     ],
                   ),
                 ),
@@ -66,9 +98,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     children: [
                       _buildSectionTitle('User Information'),
-                      _buildInfoItem('Age:', '25'),
-                      _buildInfoItem('First Name:', 'John'),
-                      _buildInfoItem('Last Name:', 'Doe'),
+                      _buildInfoItem('Age:', 'age'),
+                      _buildInfoItem('First Name:', 'firstName'),
+                      _buildInfoItem('Last Name:', 'lastName'),
                     ],
                   ),
                 ),
@@ -91,7 +123,11 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildInfoItem(String label, String value) {
+  // Update _buildInfoItem to handle null values
+  Widget _buildInfoItem(String label, String key) {
+    // Display the actual user data if available, otherwise display a "Loading..." placeholder
+    String? displayValue = currentUser?.toJson()[key];
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
       child: Row(
@@ -102,8 +138,8 @@ class _ProfilePageState extends State<ProfilePage> {
             style: const TextStyle(fontSize: 20),
           ),
           Text(
-            value,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            displayValue ?? 'N/A', // Use 'N/A' if the value is null
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -128,7 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
       children: [
         ElevatedButton(
           onPressed: () {
-            // Add functionality for deleting data
+            _showDeleteConfirmationDialog();
           },
           child: const Text(
             'Delete Information',
@@ -145,6 +181,36 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ],
+    );
+  }
+
+  void _showDeleteConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Deletion'),
+          content: const Text(
+              'Are you sure you want to delete your information? This action cannot be undone.'),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                // User confirmed, proceed with deletion
+                await profileManager.deleteUserDetails();
+                _loadUserDetails(); // Automatically load updated user details
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -166,7 +232,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a username';
                       }
-                      // Add custom validation rules for username
                       if (value.length < 4) {
                         return 'Username must be at least 4 characters';
                       }
@@ -180,7 +245,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter an age';
                       }
-                      // Add custom validation rules for age
                       if (!int.tryParse(value)!.isBetween(18, 99)) {
                         return 'Age must be between 18 and 99';
                       }
@@ -194,7 +258,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a first name';
                       }
-                      // Add custom validation rules for first name
                       if (value.length < 2) {
                         return 'First name must be at least 2 characters';
                       }
@@ -208,7 +271,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a last name';
                       }
-                      // Add custom validation rules for last name
                       if (value.length < 2) {
                         return 'Last name must be at least 2 characters';
                       }
@@ -220,18 +282,42 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           actions: [
-            TextButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
               child: const Text('Cancel'),
             ),
-            TextButton(
-              onPressed: () {
-                if (_formKey.currentState?.validate() ?? false) {
-                  // Entry point
-                  print('Correct Information');
-                  Navigator.of(context).pop();
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    print("Validation successful");
+
+                    UserModel user = UserModel(
+                      age: _ageController.text.trim(),
+                      username: _usernameController.text.trim(),
+                      firstName: _firstNameController.text.trim(),
+                      lastName: _lastNameController.text.trim(),
+                    );
+
+                    // Save the user details
+                    await profileManager.storeUserDetails(user);
+
+                    // Automatically load updated user details
+                    _loadUserDetails();
+
+                    _ageController.clear();
+                    _usernameController.clear();
+                    _lastNameController.clear();
+                    _firstNameController.clear();
+
+                    Navigator.of(context).pop();
+                  } else {
+                    print("Validation failed");
+                  }
+                } catch (e) {
+                  print("Error: $e");
                 }
               },
               child: const Text('Save'),
