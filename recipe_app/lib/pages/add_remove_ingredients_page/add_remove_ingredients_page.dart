@@ -62,7 +62,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                 Row(
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.2,
+                      width: MediaQuery.of(context).size.width * 0.05,
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -74,7 +74,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                       child: const Text('Add'),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.1,
                     ),
                     Align(
                       alignment: Alignment.topRight,
@@ -91,7 +91,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 18,
                 ),
                 Card(
                   elevation: 5.0,
