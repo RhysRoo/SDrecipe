@@ -33,7 +33,7 @@ class _AuthScreenState extends State<AuthScreen> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Sustainability', style: TextStyle(fontSize: 45)),
+          title: const Text('', style: TextStyle(fontSize: 30)),
           backgroundColor: Colors.green[700],
           toolbarHeight: MediaQuery.of(context).size.height * 0.06,
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
@@ -141,7 +141,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 title: Row(
                   children: [
-                    const Text('About Us', style: TextStyle(fontSize: 20)),
+                     Text('About Us', style: TextStyle(fontSize: 20)),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.02,
                     ),
@@ -152,7 +152,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AboutUsPage()));
+                          builder: (context) =>  AboutUsPage()));
                 },
               ),
               ListTile(
@@ -173,48 +173,18 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         ),
         backgroundColor: Colors.green[200],
-        body: Stack(
-          children: [
-            Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                    ),
-                  ],
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.009),
-                Container(
-                  //Ui Panel Height & Width
-                  height: MediaQuery.of(context).size.height * 0.75,
-                  width: MediaQuery.of(context).size.width * 0.95,
-
-                  decoration: BoxDecoration(
-                    //Ui Panel Styling
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.teal[600],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
-                ),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    'Lets End Food Waste Together!',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ],
+        body: Center(
+          child: Column(children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
-          ],
+            Image(
+              width: 380,
+              image: AssetImage(
+                'assets/images/logo/logo.png',
+              ),
+            ),
+          ]),
         ),
       ),
     );
