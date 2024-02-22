@@ -165,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
       children: [
         ElevatedButton(
           onPressed: () {
-            // Add functionality for deleting data
+            _showDeleteConfirmationDialog();
           },
           child: const Text(
             'Delete Information',
@@ -182,6 +182,36 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ],
+    );
+  }
+
+  void _showDeleteConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Deletion'),
+          content: const Text(
+              'Are you sure you want to delete your information? This action cannot be undone.'),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                // User confirmed, proceed with deletion
+                await profileManager.deleteUserDetails();
+                _loadUserDetails(); // Automatically load updated user details
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -203,7 +233,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a username';
                       }
-                      // Add custom validation rules for username
                       if (value.length < 4) {
                         return 'Username must be at least 4 characters';
                       }
@@ -217,7 +246,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter an age';
                       }
-                      // Add custom validation rules for age
                       if (!int.tryParse(value)!.isBetween(18, 99)) {
                         return 'Age must be between 18 and 99';
                       }
@@ -231,7 +259,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a first name';
                       }
-                      // Add custom validation rules for first name
                       if (value.length < 2) {
                         return 'First name must be at least 2 characters';
                       }
@@ -245,7 +272,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a last name';
                       }
-                      // Add custom validation rules for last name
                       if (value.length < 2) {
                         return 'Last name must be at least 2 characters';
                       }
@@ -264,9 +290,8 @@ class _ProfilePageState extends State<ProfilePage> {
               child: const Text('Cancel'),
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 try {
-                  print("Before validation check");
                   if (_formKey.currentState?.validate() ?? false) {
                     print("Validation successful");
 
@@ -278,9 +303,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     );
 
                     // Save the user details
-                    profileManager.storeUserDetails(user);
+                    await profileManager.storeUserDetails(user);
 
-                    // Load updated user details immediately after saving
+                    // Automatically load updated user details
                     _loadUserDetails();
 
                     _ageController.clear();

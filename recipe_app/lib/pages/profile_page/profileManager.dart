@@ -34,4 +34,31 @@ class ProfileManager {
     }
     return null;
   }
+
+  Future<void> deleteUserDetails() async {
+    try {
+      String? uid = await userManager.getCurrentUserUID();
+
+      // Reference to the user document in the "users" collection
+      DocumentReference userRef =
+          FirebaseFirestore.instance.collection('UserDetails').doc(uid);
+
+      // Set all fields to "N/A"
+      Map<String, dynamic> newData = {
+        'age': 'N/A',
+        'username': 'N/A',
+        'firstName': 'N/A',
+        'lastName': 'N/A',
+      };
+
+      // Update the user document with the new values
+      await userRef.set(newData);
+
+      // Optionally, you might want to update the local user information (e.g., clear currentUser)
+      // currentUser = null;
+      print('Deleted info');
+    } catch (e) {
+      print("Error deleting user details: $e");
+    }
+  }
 }
