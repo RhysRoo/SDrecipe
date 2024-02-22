@@ -9,7 +9,6 @@ class UserManager {
 
   Future<String> getCurrentUserUID() async {
     FirebaseAuth _auth = FirebaseAuth.instance;
-
     try {
       User? user = _auth.currentUser;
 
@@ -24,24 +23,15 @@ class UserManager {
     }
   }
 
-  Future<Map> storeUserDetails(UserModel user) async {
-    String uid = await getCurrentUserUID();
-
+  Future<void> storeUserDetails(UserModel user) async {
     try {
-      DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-          await firestore.collection("UserDetails").doc(uid).get();
+      String uid = await getCurrentUserUID();
+      print("UID: $uid");
 
-      if (documentSnapshot.exists) {
-        // Return user details as a Map
-        return documentSnapshot.data()!;
-      } else {
-        // Return an empty Map or handle the case when the document doesn't exist
-        return {};
-      }
+      await firestore.collection("UserDetails").doc(uid).set(user.toJson());
+      print('User details stored successfully');
     } catch (e) {
-      print("Error retrieving user details: $e");
-      // Handle errors by returning an empty Map or another default value
-      return {};
+      print("Error Storing user details: $e");
     }
   }
 
