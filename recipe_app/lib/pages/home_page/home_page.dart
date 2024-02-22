@@ -200,6 +200,19 @@ class _AuthScreenState extends State<AuthScreen> {
                 'assets/images/logo/logo.png',
               ),
             ),
+            SizedBox(height: 20),
+            Text(
+              "Bio Title",
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              height: 300,
+              width: 380,
+              color: Colors.brown,
+            ),
           ]),
         ),
       ),
