@@ -16,6 +16,9 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _foodRestictionController =
+      TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ProfileManager profileManager = ProfileManager();
@@ -40,6 +43,8 @@ class _ProfilePageState extends State<ProfilePage> {
             username: userData['username'] ?? '',
             firstName: userData['firstName'] ?? '',
             lastName: userData['lastName'] ?? '',
+            foodRestriction: userData['foodRestriction'] ?? '',
+            bio: userData['bio'] ?? '',
           );
         });
       }
@@ -76,6 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     children: [
                       _buildInfoItem('Username:', 'username'),
+                      _buildInfoItem('Food Restriction: ', 'foodRestriction')
                     ],
                   ),
                 ),
@@ -101,6 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       _buildInfoItem('Age:', 'age'),
                       _buildInfoItem('First Name:', 'firstName'),
                       _buildInfoItem('Last Name:', 'lastName'),
+                      _buildInfoItem('Bio:', 'bio'),
                     ],
                   ),
                 ),
@@ -277,6 +284,33 @@ class _ProfilePageState extends State<ProfilePage> {
                       return null;
                     },
                   ),
+                  TextFormField(
+                    controller: _foodRestictionController,
+                    decoration:
+                        const InputDecoration(labelText: 'Food Restriction'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a last name';
+                      }
+                      if (value.length < 2) {
+                        return 'Last name must be at least 2 characters';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _bioController,
+                    decoration: const InputDecoration(labelText: 'Bio'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a last name';
+                      }
+                      if (value.length < 2) {
+                        return 'Last name must be at least 2 characters';
+                      }
+                      return null;
+                    },
+                  ),
                 ],
               ),
             ),
@@ -299,6 +333,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       username: _usernameController.text.trim(),
                       firstName: _firstNameController.text.trim(),
                       lastName: _lastNameController.text.trim(),
+                      foodRestriction: _foodRestictionController.text.trim(),
+                      bio: _bioController.text.trim(),
                     );
 
                     // Save the user details
@@ -311,6 +347,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     _usernameController.clear();
                     _lastNameController.clear();
                     _firstNameController.clear();
+                    _foodRestictionController.clear();
+                    _bioController.clear();
 
                     Navigator.of(context).pop();
                   } else {
