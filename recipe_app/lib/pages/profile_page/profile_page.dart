@@ -1,4 +1,9 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:flutter_log/pages/profile_page/profileManager.dart';
+import 'package:flutter_log/pages/profile_page/userManager.dart';
+import 'package:flutter_log/pages/profile_page/userModel.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -14,6 +19,35 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _lastNameController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final ProfileManager profileManager = ProfileManager();
+
+  UserModel? currentUser; // Add a property to store the user data
+
+  @override
+  void initState() {
+    super.initState();
+    // Load user details when the page is initialized
+    _loadUserDetails();
+  }
+
+  Future<void> _loadUserDetails() async {
+    try {
+      Map<String, dynamic>? userData = await profileManager.getUserDetails();
+      if (userData != null) {
+        // Update the currentUser with the retrieved data
+        setState(() {
+          currentUser = UserModel(
+            age: userData['age'] ?? '',
+            username: userData['username'] ?? '',
+            firstName: userData['firstName'] ?? '',
+            lastName: userData['lastName'] ?? '',
+          );
+        });
+      }
+    } catch (e) {
+      print("Error loading user details: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: [
-                      _buildInfoItem('Username:', 'JohnDoe'),
-                      _buildInfoItem('Email:', 'johndoe@example.com'),
+                      _buildInfoItem('Username:', 'username'),
                     ],
                   ),
                 ),
@@ -67,9 +100,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     children: [
                       _buildSectionTitle('User Information'),
-                      _buildInfoItem('Age:', '25'),
-                      _buildInfoItem('First Name:', 'John'),
-                      _buildInfoItem('Last Name:', 'Doe'),
+                      _buildInfoItem('Age:', 'age'),
+                      _buildInfoItem('First Name:', 'firstName'),
+                      _buildInfoItem('Last Name:', 'lastName'),
                     ],
                   ),
                 ),
@@ -92,7 +125,11 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildInfoItem(String label, String value) {
+  // Update _buildInfoItem to handle null values
+  Widget _buildInfoItem(String label, String key) {
+    // Display the actual user data if available, otherwise display a "Loading..." placeholder
+    String? displayValue = currentUser?.toJson()[key];
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Row(
@@ -103,7 +140,7 @@ class _ProfilePageState extends State<ProfilePage> {
             style: const TextStyle(fontSize: 14),
           ),
           Text(
-            value,
+            displayValue ?? 'N/A', // Use 'N/A' if the value is null
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
         ],
@@ -221,18 +258,43 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           actions: [
-            TextButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
               child: const Text('Cancel'),
             ),
-            TextButton(
+            ElevatedButton(
               onPressed: () {
-                if (_formKey.currentState?.validate() ?? false) {
-                  // Entry point
-                  print('Correct Information');
-                  Navigator.of(context).pop();
+                try {
+                  print("Before validation check");
+                  if (_formKey.currentState?.validate() ?? false) {
+                    print("Validation successful");
+
+                    UserModel user = UserModel(
+                      age: _ageController.text.trim(),
+                      username: _usernameController.text.trim(),
+                      firstName: _firstNameController.text.trim(),
+                      lastName: _lastNameController.text.trim(),
+                    );
+
+                    // Save the user details
+                    profileManager.storeUserDetails(user);
+
+                    // Load updated user details immediately after saving
+                    _loadUserDetails();
+
+                    _ageController.clear();
+                    _usernameController.clear();
+                    _lastNameController.clear();
+                    _firstNameController.clear();
+
+                    Navigator.of(context).pop();
+                  } else {
+                    print("Validation failed");
+                  }
+                } catch (e) {
+                  print("Error: $e");
                 }
               },
               child: const Text('Save'),

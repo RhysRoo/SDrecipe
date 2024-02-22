@@ -2,22 +2,22 @@ class UserModel {
   final String? id;
   final String firstName;
   final String lastName;
-  final String email;
+  final String username;
   final String age;
 
   const UserModel({
     this.id,
     required this.firstName,
     required this.lastName,
-    required this.email,
+    required this.username,
     required this.age,
   });
 
   Map<String, dynamic> toJson() {
     return {
       "firstName": firstName,
-      "lastName": firstName,
-      "email": firstName,
+      "lastName": lastName,
+      "username": username,
       'age': age,
     };
   }
