@@ -28,11 +28,11 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           children: [
             _buildProfileImage(),
-            const SizedBox(height: 40.0),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.15, // Adjust the height as needed
-              width: MediaQuery.of(context).size.width * 0.7,
+                  0.125, // Adjust the height as needed
+              width: MediaQuery.of(context).size.width * 1.0,
               child: Card(
                 elevation: 5.0,
                 shape: RoundedRectangleBorder(
@@ -49,11 +49,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 10.0),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.28, // Adjust the height as needed
-              width: MediaQuery.of(context).size.width * 0.7,
+                  0.21, // Adjust the height as needed
+              width: MediaQuery.of(context).size.width * 1.0,
               child: Card(
                 elevation: 5.0,
                 shape: RoundedRectangleBorder(
@@ -83,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildProfileImage() {
     return const Center(
       child: CircleAvatar(
-        radius: 80,
+        radius: 100,
         foregroundImage: AssetImage('assets/images/profile_page/demo_pic.jpeg'),
       ),
     );
@@ -91,17 +93,17 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildInfoItem(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             label,
-            style: const TextStyle(fontSize: 14),
+            style: const TextStyle(fontSize: 20),
           ),
           Text(
             value,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -114,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Center(
         child: Text(
           title,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+          style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
         ),
       ),
     );
