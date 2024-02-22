@@ -141,7 +141,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 title: Row(
                   children: [
-                     Text('About Us', style: TextStyle(fontSize: 20)),
+                    Text('About Us', style: TextStyle(fontSize: 20)),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.02,
                     ),
@@ -149,10 +149,8 @@ class _AuthScreenState extends State<AuthScreen> {
                   ],
                 ),
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>  AboutUsPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AboutUsPage()));
                 },
               ),
               ListTile(
@@ -183,6 +181,19 @@ class _AuthScreenState extends State<AuthScreen> {
               image: AssetImage(
                 'assets/images/logo/logo.png',
               ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              "Bio Title",
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              height: 300,
+              width: 380,
+              color: Colors.brown,
             ),
           ]),
         ),
