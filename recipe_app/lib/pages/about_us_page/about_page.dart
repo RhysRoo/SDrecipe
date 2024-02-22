@@ -1,94 +1,79 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutUsPage extends StatelessWidget {
-  AboutUsPage({Key? key}) : super(key: key);
-
-  // Firebase Authentication instance
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  // Method to sign out the user
-  Future<void> _signOut() async {
-    try {
-      await _auth.signOut();
-      // Navigate to the login screen or any other screen after signing out
-      // Example: Navigator.pushReplacementNamed(context, '/login');
-    } catch (e) {
-      print('Error signing out: $e');
-    }
-  }
+  const AboutUsPage({Key? key}) : super(key: key);
 
   // Method to launch email app
   void _launchEmail() async {
-    final Uri _emailLaunchUri = Uri(
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'up2120303@myport.ac.uk',
     );
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
     } else {
       print('Could not launch email');
     }
   }
 
   void _launchEmail2() async {
-    final Uri _emailLaunchUri = Uri(
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'up2138017@myport.ac.uk',
     );
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
     } else {
       print('Could not launch email');
     }
   }
 
   void _launchEmail3() async {
-    final Uri _emailLaunchUri = Uri(
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'up2112240@myport.ac.uk',
     );
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
     } else {
       print('Could not launch email');
     }
   }
 
   void _launchEmail4() async {
-    final Uri _emailLaunchUri = Uri(
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'up2120303@myport.ac.uk',
     );
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
     } else {
       print('Could not launch email');
     }
   }
 
   void _launchEmail5() async {
-    final Uri _emailLaunchUri = Uri(
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'up2120303@myport.ac.uk',
     );
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
     } else {
       print('Could not launch email');
     }
   }
 
   void _launchEmail6() async {
-    final Uri _emailLaunchUri = Uri(
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'up2060987@myport.ac.uk',
     );
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
     } else {
       print('Could not launch email');
     }
