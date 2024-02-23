@@ -153,7 +153,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const FAQ_Page()));
+                          builder: (context) => FAQ_page()));
                 },
               ),
               ListTile(
