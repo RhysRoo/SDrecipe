@@ -12,6 +12,7 @@ class IngredientManager {
   UserManager user = UserManager();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  // Returns the list of ingredients from the cloud that the user has entered
   Future<List<List<String>>> getUserIngredients() async {
     String uid = await user.getCurrentUserUID();
     List<List<String>> result = [];
@@ -50,6 +51,7 @@ class IngredientManager {
     await _storeUserIngredients(listIngredients);
   }
 
+  // Stores the ingredients into the cloud
   Future<void> _storeUserIngredients(List<List<String>> listIngredients) async {
     String uid = await user.getCurrentUserUID();
     print(listIngredients);
@@ -75,6 +77,7 @@ class IngredientManager {
     }
   }
 
+  // Returns if the quantity of an ingredient is valid to produce a recipe
   bool validateQuantity(String quantity) {
     try {
       // Attempt to parse the quantity as a double
@@ -95,6 +98,7 @@ class IngredientManager {
     }
   }
 
+  // Returns false if the ingredient is in correct format before API search
   Future<bool> checkIngredientIsValid(
       String ingredientName, String ingredientWeight) async {
     // Validate ingredientName
