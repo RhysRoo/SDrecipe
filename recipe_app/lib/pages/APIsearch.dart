@@ -1,24 +1,41 @@
+// recipe_service.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.dart';
 
+class RecipeService {
+  final IngredientManager ingredienManager = IngredientManager();
 
-// Function for basic API search, takes in one string query e.g. "chicken"
-Future<void> searchRecipes(stringQuery) async {
-  const String appID = "87adcf60";
-  const String appKey = "API KEY NOT PASTED FOR SECURITY REASONS"; //Next steps will be to implement an environment variable for this that is not in the version control
+  Future<List<dynamic>> fetchRecipesBasedOnUserIngredients() async {
+    // Retrieve the user's ingredients
+    List<List<String>> userIngredients = await ingredienManager.getUserIngredients();
+    // Extract the names of the ingredients
+    List<String> ingredientNames = userIngredients.map((ingredient) => ingredient.first).toList();
 
-  final String url = "https://api.edamam.com/search?q=$stringQuery&app_id=$appID&app_key=$appKey"; //Standard format of url for API search
+    // Fetch recipes using these ingredient names
+    return fetchRecipes(ingredientNames);
+  }
 
-  try {
-    final response = await http.get(Uri.parse(url)); //Get request to API
+  Future<List<dynamic>> fetchRecipes(List<String> ingredients) async {
+    const String apiId = 'YOUR_API_ID';
+    const String apiKey = 'YOUR_API_KEY';
 
-    if (response.statusCode == 200) { //If the response is successful
-      final data = json.decode(response.body);
-      return data;
-    } else {
-      throw Exception('Failed to load data'); //If the response is not successful
+    String ingredientQuery = ingredients.join(',');
+
+    String url = 'https://api.edamam.com/search?app_id=$apiId&app_key=$apiKey&q=$ingredientQuery&to=10';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = json.decode(response.body);
+        List<dynamic> recipes = data['hits'];
+        return recipes;
+      } else {
+        throw Exception('Failed to load recipes');
+      }
+    } catch (e) {
+      print(e.toString());
+      return [];
     }
-  } catch (e) { //Catch any errors
-    print(e.toString()); //Print the error, will need to be changed for production version
   }
 }
