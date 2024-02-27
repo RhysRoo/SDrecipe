@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'ingredientManager.dart';
@@ -15,6 +15,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
 
   final TextEditingController ingredientController = TextEditingController();
   final TextEditingController weightController = TextEditingController();
+  final TextEditingController expiryController = TextEditingController();
   bool shouldFlush = false;
   IngredientManager manager = IngredientManager();
 
@@ -141,6 +142,15 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
           ),
         ),
         const SizedBox(width: 25.0),
+        Expanded(
+          child: TextField(
+            controller: expiryController,
+            decoration: const InputDecoration(
+              hintText: 'Enter Expiry Date: YYYY-MM-DD',
+            ),
+          ),
+        ),
+        const SizedBox(width: 25.0),
       ],
     );
   }
@@ -191,6 +201,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
   Future<void> _addIngredient() async {
     final newIngredient = ingredientController.text.trim();
     final newIngredientWeight = weightController.text.trim();
+    final newExpiryDate = expiryController.text.trim();
 
     // Display a loading indicator while checking for ingredient validity
     showDialog(
@@ -211,11 +222,16 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     );
 
     try {
-      if (newIngredient.isNotEmpty && newIngredientWeight.isNotEmpty) {
+      if (newIngredient.isNotEmpty &&
+          newIngredientWeight.isNotEmpty &&
+          newExpiryDate.isNotEmpty) {
         bool isValid = await manager.checkIngredientIsValid(
             newIngredient, newIngredientWeight);
 
-        if (isValid && manager.validateQuantity(newIngredientWeight)) {
+        if (isValid &&
+            manager.validateQuantity(newIngredientWeight) &&
+            manager.checkUserDateTime(newExpiryDate) &&
+            manager.checkDateTimeAgainstTodaysDate(newExpiryDate)) {
           int existingIndex = ingredients
               .indexWhere((ingredient) => ingredient[0] == newIngredient);
 
@@ -231,20 +247,36 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
             }
             ingredientController.clear();
             weightController.clear();
+            expiryController.clear();
           });
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Invalid ingredient! Please check your input.'),
-              duration: Duration(seconds: 2),
-            ),
-          );
+          if (!isValid) {
+            _showErrorSnackBar('Invalid ingredient! Please check your input.');
+          } else if (!manager.validateQuantity(newIngredientWeight)) {
+            _showErrorSnackBar('Invalid weight! Please enter a valid weight.');
+          } else if (!manager.checkUserDateTime(newExpiryDate)) {
+            _showErrorSnackBar(
+                'Invalid expiry date! Please enter a valid date.');
+          } else if (!manager.checkDateTimeAgainstTodaysDate(newExpiryDate)) {
+            _showErrorSnackBar('Expiry date must be in the future.');
+          }
         }
       }
+    } catch (e) {
+      print('Error adding ingredient: $e');
     } finally {
       // Close the loading indicator dialog
       Navigator.pop(context);
     }
+  }
+
+  void _showErrorSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   void _removeIngredient(int index) {

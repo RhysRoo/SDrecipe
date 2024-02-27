@@ -21,4 +21,24 @@ class UserManager {
       return ''; // Handle errors by returning an empty string or another default value
     }
   }
+
+  Future<String> getFoodRestriction() async {
+    try {
+      String? uid = await getCurrentUserUID();
+      DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+          await firestore.collection("UserDetails").doc(uid).get();
+
+      if (documentSnapshot.exists) {
+        dynamic foodRestriction = documentSnapshot.data()?["foodRestriction"];
+        print("Food Restiction: $foodRestriction");
+        return foodRestriction;
+      } else {
+        print("Food Restriction: Issues Occured");
+        return '';
+      }
+    } catch (e) {
+      print("Issue obtaining food restriction: $e");
+      return '';
+    }
+  }
 }
