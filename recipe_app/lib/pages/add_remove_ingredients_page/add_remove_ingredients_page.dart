@@ -169,8 +169,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: SizedBox(
-              height: MediaQuery.of(context).size.height *
-                  0.5, // Set a fixed height or adjust as needed
+              height: MediaQuery.of(context).size.height * 0.5,
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: ingredients.length,
@@ -179,8 +178,16 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                     elevation: 3.0,
                     margin: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ListTile(
-                      title: Text(
-                        '${ingredients[index][0]} : ${ingredients[index][1]} g',
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Ingredient: ${ingredients[index][0]}',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text('Quantity: ${ingredients[index][1]} g'),
+                          Text('Expiry Date: ${ingredients[index][2]}'),
+                        ],
                       ),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
@@ -198,6 +205,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     );
   }
 
+  // Adds ingredients to the cloud with necessary validation checks
   Future<void> _addIngredient() async {
     final newIngredient = ingredientController.text.trim();
     final newIngredientWeight = weightController.text.trim();
@@ -222,18 +230,20 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     );
 
     try {
+      // Checks if fields aren't filled before the API validation checks
       if (newIngredient.isNotEmpty &&
           newIngredientWeight.isNotEmpty &&
           newExpiryDate.isNotEmpty) {
         bool isValid = await manager.checkIngredientIsValid(
             newIngredient, newIngredientWeight);
 
+        // Requires debug for datetime
         if (isValid &&
             manager.validateQuantity(newIngredientWeight) &&
             manager.checkUserDateTime(newExpiryDate) &&
             manager.checkDateTimeAgainstTodaysDate(newExpiryDate)) {
-          int existingIndex = ingredients
-              .indexWhere((ingredient) => ingredient[0] == newIngredient);
+          int existingIndex = ingredients.indexWhere((ingredient) =>
+              ingredient[0] == newIngredient && ingredient[2] == newExpiryDate);
 
           setState(() {
             if (existingIndex != -1) {
@@ -243,7 +253,8 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
               ingredients[existingIndex][1] =
                   (existingWeight + newWeight).toString();
             } else {
-              ingredients.add([newIngredient, newIngredientWeight]);
+              ingredients
+                  .add([newIngredient, newIngredientWeight, newExpiryDate]);
             }
             ingredientController.clear();
             weightController.clear();
@@ -270,6 +281,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     }
   }
 
+  // Shows that there is a loading message
   void _showErrorSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -279,12 +291,14 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     );
   }
 
+  // Removes ingredients from the interface
   void _removeIngredient(int index) {
     setState(() {
       ingredients.removeAt(index);
     });
   }
 
+  // Saves ingredients into the cloud
   void _flushIngredients() {
     showDialog(
       context: context,
@@ -312,6 +326,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     );
   }
 
+  // Causes a change in the interface when removing the ingredients
   Future<void> _performFlush() async {
     // Call the method directly from the imported file
     await manager.flushUserIngredients(ingredients);
@@ -329,6 +344,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     });
   }
 
+  // Removal dialog
   Future<bool> _showExitConfirmationDialog() async {
     return await showDialog(
       context: context,
