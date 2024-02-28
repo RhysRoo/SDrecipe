@@ -48,6 +48,8 @@ class IngredientManager {
 
   Future<void> flushUserIngredients(List<List<String>> listIngredients) async {
     // The Linker between getting previous data and submitting new data
+
+    // Anonymous function access to _storeUserIngredients
     await _storeUserIngredients(listIngredients);
   }
 

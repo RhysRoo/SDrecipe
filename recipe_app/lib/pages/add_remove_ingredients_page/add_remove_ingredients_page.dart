@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, deprecated_member_use
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, deprecated_member_use, avoid_print
 
 import 'package:flutter/material.dart';
 import 'ingredientManager.dart';
@@ -183,7 +183,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                         children: [
                           Text(
                             'Ingredient: ${ingredients[index][0]}',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text('Quantity: ${ingredients[index][1]} g'),
                           Text('Expiry Date: ${ingredients[index][2]}'),
@@ -237,7 +237,8 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
         bool isValid = await manager.checkIngredientIsValid(
             newIngredient, newIngredientWeight);
 
-        // Requires debug for datetime
+        // Ensures matching ingredients and datetimes are combined, Ensures datetimes are in the correct format
+        // Potential Improvement: Datetime formats, and the majority of ways to ensure that the datetime is working
         if (isValid &&
             manager.validateQuantity(newIngredientWeight) &&
             manager.checkUserDateTime(newExpiryDate) &&
