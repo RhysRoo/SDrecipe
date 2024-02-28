@@ -44,7 +44,6 @@ class _ProfilePageState extends State<ProfilePage> {
             firstName: userData['firstName'] ?? '',
             lastName: userData['lastName'] ?? '',
             foodRestriction: userData['foodRestriction'] ?? '',
-            bio: userData['bio'] ?? '',
           );
         });
       }
@@ -65,12 +64,19 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            SizedBox(
+              height: 10,
+            ),
             _buildProfileImage(),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+            SizedBox(
+                //Y-Axis Pos under profile picture
+                height: MediaQuery.of(context).size.height * 0.018),
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.125, // Adjust the height as needed
-              width: MediaQuery.of(context).size.width * 1.0,
+                  0.125, // Adjust the height of Username/Food restriction card
+              width:
+                  //X-Axis for Username/food restriction card
+                  MediaQuery.of(context).size.width * 1.0,
               child: Card(
                 elevation: 5.0,
                 shape: RoundedRectangleBorder(
@@ -80,7 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: [
-                      _buildInfoItem('Username:', 'username'),
+                      _buildInfoItem('Username: ', 'username'),
                       _buildInfoItem('Food Restriction: ', 'foodRestriction')
                     ],
                   ),
@@ -88,11 +94,12 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
+              //Y-Axis Pos for under username card
+              height: MediaQuery.of(context).size.height * 0.015,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.21, // Adjust the height as needed
+                  0.22, // Height of user information card
               width: MediaQuery.of(context).size.width * 1.0,
               child: Card(
                 elevation: 5.0,
@@ -104,16 +111,45 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     children: [
                       _buildSectionTitle('User Information'),
-                      _buildInfoItem('Age:', 'age'),
-                      _buildInfoItem('First Name:', 'firstName'),
-                      _buildInfoItem('Last Name:', 'lastName'),
-                      _buildInfoItem('Bio:', 'bio'),
+                      _buildInfoItem('Age: ', 'age'),
+                      _buildInfoItem('First Name: ', 'firstName'),
+                      _buildInfoItem('Last Name: ', 'lastName'),
                     ],
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 40.0),
+            SizedBox(
+              height: 10,
+            ),
+
+            Card(
+              elevation: 5.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    Text(
+                      //This is where to put the Backend for the Bio Code
+                      'Bio Card',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                        ' Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here'),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 10.0),
+            //Button Y-Axis Pos
             _buildActionButtons(),
           ],
         ),
@@ -124,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildProfileImage() {
     return const Center(
       child: CircleAvatar(
-        radius: 100,
+        radius: 80,
         foregroundImage: AssetImage('assets/images/profile_page/demo_pic.jpeg'),
       ),
     );
@@ -298,19 +334,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       return null;
                     },
                   ),
-                  TextFormField(
-                    controller: _bioController,
-                    decoration: const InputDecoration(labelText: 'Bio'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a last name';
-                      }
-                      if (value.length < 2) {
-                        return 'Last name must be at least 2 characters';
-                      }
-                      return null;
-                    },
-                  ),
                 ],
               ),
             ),
@@ -334,7 +357,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       firstName: _firstNameController.text.trim(),
                       lastName: _lastNameController.text.trim(),
                       foodRestriction: _foodRestictionController.text.trim(),
-                      bio: _bioController.text.trim(),
                     );
 
                     // Save the user details

@@ -4,7 +4,7 @@ class UserModel {
   final String lastName;
   final String username;
   final String age;
-  final String bio;
+
   final String foodRestriction;
 
   const UserModel({
@@ -13,7 +13,6 @@ class UserModel {
     required this.lastName,
     required this.username,
     required this.age,
-    required this.bio,
     required this.foodRestriction,
   });
 
@@ -23,7 +22,6 @@ class UserModel {
       "lastName": lastName,
       "username": username,
       "age": age,
-      "bio": bio,
       "foodRestriction": foodRestriction,
     };
   }

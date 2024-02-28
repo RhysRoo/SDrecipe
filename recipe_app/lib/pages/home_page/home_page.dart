@@ -153,7 +153,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const FAQ_Page()));
+                          builder: (context) => FAQ_page()));
                 },
               ),
               ListTile(
@@ -199,6 +199,19 @@ class _AuthScreenState extends State<AuthScreen> {
               image: AssetImage(
                 'assets/images/logo/logo.png',
               ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              "Bio Title",
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              height: 300,
+              width: 380,
+              color: Colors.brown,
             ),
           ]),
         ),
