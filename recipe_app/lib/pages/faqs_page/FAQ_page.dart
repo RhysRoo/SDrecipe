@@ -49,24 +49,78 @@ class FAQ_page extends StatelessWidget {
               
               
               
-              
-              
-              Expanded(
-                child: Container(
-                  color: Colors.green[700],
-height: MediaQuery.of(context).size.height *0.2,
-                  child: Center(
-                    child: Text(
-                      'search',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                        color: Colors.white,
-                      ),
-                    ),
+Expanded(
+  child: Container(
+    color: Colors.green[700],
+    height: MediaQuery.of(context).size.height * 0.20,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Search',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: SizedBox(
+                height: 50.0, // Adjust the height as needed
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search...',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: OutlineInputBorder(),
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
+                  style: TextStyle(color: Colors.black),
+                  minLines: 1,
+                  maxLines: 1,
                 ),
               ),
+            ),
+            SizedBox(width: 10),
+            ElevatedButton(
+              onPressed: () {
+                // Handle button press
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+                padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                minimumSize: Size(0, 50), // Set the minimum size to match the height of the text field
+              ),
+              child: Text(
+                'Search',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  ),
+),
+
+
+
+
+
 
 
 
@@ -74,35 +128,7 @@ height: MediaQuery.of(context).size.height *0.2,
 
 
              
-Expanded(
-  child: Container(
-    color: Colors.green[700],
-    height: MediaQuery.of(context).size.height * 0.2,
-    child: Center(
-      child: Padding(
-        padding: EdgeInsets.all(14.0),
-        child: ElevatedButton(
-          onPressed: () {
-            // Handle button press
-          },
-          style: ElevatedButton.styleFrom(
-            primary: Colors.green, // Background color of the button
-            padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-            textStyle: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white), // Text color of the button
-          ),
-          child: Text(
-            'Add Question',
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white, // Text color of the button's text
-            ),
-          ),
-        ),
-      ),
-    ),
-  ),
-),
+
               
                 
                 
@@ -181,8 +207,19 @@ Expanded(
             title: Text('Q: What happens if I make errors while adding my own recipe?'),
             children: [
               Text('A: If there are errors (e.g., missing fields), the app displays an error message, allowing users to review and correct their form before submission.'),
-            ],
+             ],
           ),
+ 
+          SizedBox(height: 16), 
+TextButton(
+  onPressed: () {
+  },
+  style: TextButton.styleFrom(
+    backgroundColor: Colors.green, 
+    primary: Colors.white,
+  ),
+  child: Text('Add Question'),
+),
         ],
       ),
     );
