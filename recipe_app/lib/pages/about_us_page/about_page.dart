@@ -1,98 +1,79 @@
+// ignore_for_file: deprecated_member_use, avoid_print
+
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_log/pages/faqs_page/FAQ_page.dart';
-import 'package:flutter_log/pages/profile_page/profile_page.dart';
-import 'package:flutter_log/pages/ratings_page/rating_page.dart';
-import 'package:flutter_log/pages/recipe_generation_page/generation_page.dart';
 
 class AboutUsPage extends StatelessWidget {
-  AboutUsPage({Key? key}) : super(key: key);
-
-  // Firebase Authentication instance
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  // Method to sign out the user
-  Future<void> _signOut() async {
-    try {
-      await _auth.signOut();
-      // Navigate to the login screen or any other screen after signing out
-      // Example: Navigator.pushReplacementNamed(context, '/login');
-    } catch (e) {
-      print('Error signing out: $e');
-    }
-  }
+  const AboutUsPage({Key? key}) : super(key: key);
 
   // Method to launch email app
   void _launchEmail() async {
-    final Uri _emailLaunchUri = Uri(
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'up2120303@myport.ac.uk',
     );
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
     } else {
       print('Could not launch email');
     }
   }
 
   void _launchEmail2() async {
-    final Uri _emailLaunchUri = Uri(
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'up2138017@myport.ac.uk',
     );
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
     } else {
       print('Could not launch email');
     }
   }
 
-
-
   void _launchEmail3() async {
-    final Uri _emailLaunchUri = Uri(
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'up2112240@myport.ac.uk',
     );
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
     } else {
       print('Could not launch email');
     }
   }
 
   void _launchEmail4() async {
-    final Uri _emailLaunchUri = Uri(
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'up2120303@myport.ac.uk',
     );
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
     } else {
       print('Could not launch email');
     }
   }
 
   void _launchEmail5() async {
-    final Uri _emailLaunchUri = Uri(
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
-      path: 'up2120303@myport.ac.uk',
+      path: 'up2157506@myport.ac.uk',
     );
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
     } else {
       print('Could not launch email');
     }
   }
 
   void _launchEmail6() async {
-    final Uri _emailLaunchUri = Uri(
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'up2060987@myport.ac.uk',
     );
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
     } else {
       print('Could not launch email');
     }
@@ -106,128 +87,6 @@ class AboutUsPage extends StatelessWidget {
         backgroundColor: Colors.lightGreen[900],
         toolbarHeight: MediaQuery.of(context).size.height * 0.06,
         shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.15,
-              child: const DrawerHeader(
-                decoration: BoxDecoration(color: Colors.green),
-                child: Text(
-                  'Menu',
-                  style: TextStyle(fontSize: 40),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Container(
-                child: Row(
-                  children: [
-                    Text('Home Page', style: TextStyle(fontSize: 20)),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.02,
-                    ),
-                    Icon(Icons.info, size: 30),
-                  ],
-                ),
-              ),
-              onTap: () {
-                Navigator.popUntil(context, (route) => route.isFirst);
-              },
-            ),
-            ListTile(
-              title: Container(
-                child: Row(
-                  children: [
-                    const Text('User Profile', style: TextStyle(fontSize: 20)),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.01,
-                    ),
-                    Icon(Icons.person, size: 30),
-                  ],
-                ),
-              ),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()));
-              },
-            ),
-            ListTile(
-              title: Container(
-                child: Row(
-                  children: [
-                    const Text('Generate Recipe',
-                        style: TextStyle(fontSize: 20)),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.02,
-                    ),
-                    Icon(Icons.generating_tokens, size: 35),
-                  ],
-                ),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const GenerationPage()));
-              },
-            ),
-            ListTile(
-              title: Container(
-                child: Row(
-                  children: [
-                    const Text('Add Recipe', style: TextStyle(fontSize: 20)),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.01,
-                    ),
-                    Icon(Icons.add, size: 30),
-                  ],
-                ),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RatingPage()));
-              },
-            ),
-            ListTile(
-              title: Container(
-                child: Row(
-                  children: [
-                    const Text('FAQ', style: TextStyle(fontSize: 20)),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.02,
-                    ),
-                    Icon(Icons.question_answer, size: 30),
-                  ],
-                ),
-              ),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const FAQ_Page()));
-              },
-            ),
-            ListTile(
-              title: Container(
-                child: Row(
-                  children: [
-                    const Text('Log Out', style: TextStyle(fontSize: 20)),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.01,
-                    ),
-                    Icon(Icons.logout, size: 30),
-                  ],
-                ),
-              ),
-              onTap: () {
-                _signOut();
-              },
-            ),
-          ],
-        ),
       ),
       backgroundColor: Colors.green[200],
       body: SingleChildScrollView(
@@ -256,14 +115,14 @@ class AboutUsPage extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.all(16),
                   child: Column(children: [
-                    Text(
-                      'Sustainability is an exciting new application designed to help cut down on food waste. In the United Kingdom, approximately 9.5 million tonnes of food go to waste each year, a staggering amount. Meanwhile, 8.4 million people in the UK struggle with food poverty. It’s a heartbreaking paradox: while so much food is discarded, many individuals and families are left without enough to eat.\n\n'
+                    const Text(
+                      'WasteAway is an exciting new application designed to help cut down on food waste. In the United Kingdom, approximately 9.5 million tonnes of food go to waste each year, a staggering amount. Meanwhile, 8.4 million people in the UK struggle with food poverty. It’s a heartbreaking paradox: while so much food is discarded, many individuals and families are left without enough to eat.\n\n'
                       'Our aim is to significantly reduce the amount of food waste being produced. This is beneficial to both the environment and saving money.\n\n'
                       'Less wasted food means fewer resources used in production. Further environmental benefits include reducing Greenhouse Gas Emissions, Rotting food in landfills produces methane, a potent greenhouse gas. Cutting waste helps mitigate climate change. Wasting less food means more money in our pockets.\n\n'
                       'The WasteAway application allows you to enter ingredients that you need to use before their “use by date” expires. Simply enter the ingredients you have into the App and you will be guided to exciting recipes that use what you have available. No more chucking out that “half a pineapple” or “pack of cream cheese”. This is the App that every household needs.',
                       style: TextStyle(fontSize: 14),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -274,7 +133,7 @@ class AboutUsPage extends StatelessWidget {
                             Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.height * 0.55,
-                              margin: EdgeInsets.symmetric(vertical: 10),
+                              margin: const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
@@ -291,7 +150,7 @@ class AboutUsPage extends StatelessWidget {
                                     height: MediaQuery.of(context).size.height *
                                         0.3,
                                     decoration: BoxDecoration(
-                                      image: DecorationImage(
+                                      image: const DecorationImage(
                                         image: AssetImage(
                                             'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
@@ -302,27 +161,27 @@ class AboutUsPage extends StatelessWidget {
                                               .black), // Black outline for image
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 8.0, 8.0, 4.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
                                     child: Text(
                                       'Josh Varney',
                                       style: TextStyle(
                                           fontSize: 14, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 4.0, 8.0, 4.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
                                     child: Text(
                                       'All-round Developer',
                                       style: TextStyle(
                                           fontSize: 12, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 4.0, 8.0, 8.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 8.0),
                                     child: Text(
                                       'I am Josh, I helped develope this app, enjoy our application feel free to email me about it.',
                                       style: TextStyle(
@@ -334,7 +193,7 @@ class AboutUsPage extends StatelessWidget {
                                         8.0, 4.0, 8.0, 8.0),
                                     child: GestureDetector(
                                       onTap: _launchEmail2,
-                                      child: Text(
+                                      child: const Text(
                                         'Contact by email',
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.blue),
@@ -344,12 +203,12 @@ class AboutUsPage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                             // Second Container
                             Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.height * 0.55,
-                              margin: EdgeInsets.symmetric(vertical: 10),
+                              margin: const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
@@ -366,7 +225,7 @@ class AboutUsPage extends StatelessWidget {
                                     height: MediaQuery.of(context).size.height *
                                         0.3,
                                     decoration: BoxDecoration(
-                                      image: DecorationImage(
+                                      image: const DecorationImage(
                                         image: AssetImage(
                                             'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
@@ -377,27 +236,27 @@ class AboutUsPage extends StatelessWidget {
                                               .black), // Black outline for image
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 8.0, 8.0, 4.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
                                     child: Text(
                                       'Hazaloid Jenkins',
                                       style: TextStyle(
                                           fontSize: 14, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 4.0, 8.0, 4.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
                                     child: Text(
                                       'Front-end Developer',
                                       style: TextStyle(
                                           fontSize: 12, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 4.0, 8.0, 8.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 8.0),
                                     child: Text(
                                       'I am haz, I helped develope this app, i like tattoos and scarface. Feel free to email me if you have any enquiries about our app.',
                                       style: TextStyle(
@@ -409,7 +268,7 @@ class AboutUsPage extends StatelessWidget {
                                         8.0, 4.0, 8.0, 8.0),
                                     child: GestureDetector(
                                       onTap: _launchEmail,
-                                      child: Text(
+                                      child: const Text(
                                         'Contact by email',
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.blue),
@@ -421,7 +280,7 @@ class AboutUsPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -429,7 +288,7 @@ class AboutUsPage extends StatelessWidget {
                             Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.height * 0.55,
-                              margin: EdgeInsets.symmetric(vertical: 10),
+                              margin: const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
@@ -446,7 +305,7 @@ class AboutUsPage extends StatelessWidget {
                                     height: MediaQuery.of(context).size.height *
                                         0.3,
                                     decoration: BoxDecoration(
-                                      image: DecorationImage(
+                                      image: const DecorationImage(
                                         image: AssetImage(
                                             'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
@@ -457,27 +316,27 @@ class AboutUsPage extends StatelessWidget {
                                               .black), // Black outline for image
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 8.0, 8.0, 4.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
                                     child: Text(
                                       'Mattew Bowers',
                                       style: TextStyle(
                                           fontSize: 14, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 4.0, 8.0, 4.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
                                     child: Text(
                                       'Back-end Developer',
                                       style: TextStyle(
                                           fontSize: 12, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 4.0, 8.0, 8.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 8.0),
                                     child: Text(
                                       'I am Matt, I helped develope this app, please allow it to improve your eating. Email one of the team if you have enquiries.',
                                       style: TextStyle(
@@ -489,7 +348,7 @@ class AboutUsPage extends StatelessWidget {
                                         8.0, 4.0, 8.0, 8.0),
                                     child: GestureDetector(
                                       onTap: _launchEmail3,
-                                      child: Text(
+                                      child: const Text(
                                         'Contact by email',
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.blue),
@@ -499,12 +358,12 @@ class AboutUsPage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                             // Second Container
                             Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.height * 0.55,
-                              margin: EdgeInsets.symmetric(vertical: 10),
+                              margin: const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
@@ -521,7 +380,7 @@ class AboutUsPage extends StatelessWidget {
                                     height: MediaQuery.of(context).size.height *
                                         0.3,
                                     decoration: BoxDecoration(
-                                      image: DecorationImage(
+                                      image: const DecorationImage(
                                         image: AssetImage(
                                             'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
@@ -532,27 +391,27 @@ class AboutUsPage extends StatelessWidget {
                                               .black), // Black outline for image
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 8.0, 8.0, 4.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
                                     child: Text(
                                       'Rhys Parsons',
                                       style: TextStyle(
                                           fontSize: 14, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 4.0, 8.0, 4.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
                                     child: Text(
                                       'Front-end Developer',
                                       style: TextStyle(
                                           fontSize: 12, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 4.0, 8.0, 8.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 8.0),
                                     child: Text(
                                       'I am Rhys, I helped develope this app, email me or the team about anything related to our app.',
                                       style: TextStyle(
@@ -564,7 +423,7 @@ class AboutUsPage extends StatelessWidget {
                                         8.0, 4.0, 8.0, 8.0),
                                     child: GestureDetector(
                                       onTap: _launchEmail4,
-                                      child: Text(
+                                      child: const Text(
                                         'Contact by email',
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.blue),
@@ -576,7 +435,7 @@ class AboutUsPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -584,7 +443,7 @@ class AboutUsPage extends StatelessWidget {
                             Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.height * 0.55,
-                              margin: EdgeInsets.symmetric(vertical: 10),
+                              margin: const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
@@ -601,7 +460,7 @@ class AboutUsPage extends StatelessWidget {
                                     height: MediaQuery.of(context).size.height *
                                         0.3,
                                     decoration: BoxDecoration(
-                                      image: DecorationImage(
+                                      image: const DecorationImage(
                                         image: AssetImage(
                                             'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
@@ -612,29 +471,29 @@ class AboutUsPage extends StatelessWidget {
                                               .black), // Black outline for image
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 8.0, 8.0, 4.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
                                     child: Text(
-                                      'Khadijah',
+                                      'Khadija Baffa',
                                       style: TextStyle(
                                           fontSize: 14, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 4.0, 8.0, 4.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
                                     child: Text(
                                       'All-round Developer',
                                       style: TextStyle(
                                           fontSize: 12, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 4.0, 8.0, 8.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 8.0),
                                     child: Text(
-                                      'I am Khadijah, I helped develope this app, please email with any questions.',
+                                      'I am Khadija, I helped develope this app, please email with any questions.',
                                       style: TextStyle(
                                           fontSize: 12, color: Colors.white),
                                     ),
@@ -644,7 +503,7 @@ class AboutUsPage extends StatelessWidget {
                                         8.0, 4.0, 8.0, 8.0),
                                     child: GestureDetector(
                                       onTap: _launchEmail5,
-                                      child: Text(
+                                      child: const Text(
                                         'Contact by email',
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.blue),
@@ -654,12 +513,12 @@ class AboutUsPage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                             // Fourth Container (identical to the second)
                             Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.height * 0.55,
-                              margin: EdgeInsets.symmetric(vertical: 10),
+                              margin: const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
@@ -676,7 +535,7 @@ class AboutUsPage extends StatelessWidget {
                                     height: MediaQuery.of(context).size.height *
                                         0.3,
                                     decoration: BoxDecoration(
-                                      image: DecorationImage(
+                                      image: const DecorationImage(
                                         image: AssetImage(
                                             'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
@@ -687,27 +546,27 @@ class AboutUsPage extends StatelessWidget {
                                               .black), // Black outline for image
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 8.0, 8.0, 4.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
                                     child: Text(
                                       'Cindy Murimi',
                                       style: TextStyle(
                                           fontSize: 14, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 4.0, 8.0, 4.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
                                     child: Text(
                                       'Back-end Developer',
                                       style: TextStyle(
                                           fontSize: 12, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8.0, 4.0, 8.0, 8.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 8.0),
                                     child: Text(
                                       'I am Cindy, I helped develope this app. If there is anything you are unsure about, you can speak to me or one of the team.',
                                       style: TextStyle(
@@ -719,7 +578,7 @@ class AboutUsPage extends StatelessWidget {
                                         8.0, 4.0, 8.0, 8.0),
                                     child: GestureDetector(
                                       onTap: _launchEmail6,
-                                      child: Text(
+                                      child: const Text(
                                         'Contact by email',
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.blue),
