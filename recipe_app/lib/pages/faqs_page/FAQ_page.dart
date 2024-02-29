@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class QAItem extends StatelessWidget {
   const QAItem({
     Key? key,
@@ -9,6 +10,8 @@ class QAItem extends StatelessWidget {
 
   final Widget title;
   final List<Widget> children;
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -26,32 +29,94 @@ class QAItem extends StatelessWidget {
       )).toList(),
     );
   }
-
-
 }
-
 
 class FAQ_page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FAQ'),
+        title: Text('Frequently Asked Questions'),
         backgroundColor: Colors.green,
       ),
       body: ListView(
         children: [
-          Container(
-            padding: EdgeInsets.all(16.0),
-            alignment: Alignment.center,
-            child: Text(
-              'FREQUENTLY ASKED QUESTIONS',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 23.0,
+          Row(
+            children: [
+              
+              
+              
+              
+              
+              
+              
+              
+              Expanded(
+                child: Container(
+                  color: Colors.green[700],
+height: MediaQuery.of(context).size.height *0.2,
+                  child: Center(
+                    child: Text(
+                      'search',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
               ),
+
+
+
+
+
+
+             
+Expanded(
+  child: Container(
+    color: Colors.green[700],
+    height: MediaQuery.of(context).size.height * 0.2,
+    child: Center(
+      child: Padding(
+        padding: EdgeInsets.all(14.0),
+        child: ElevatedButton(
+          onPressed: () {
+            // Handle button press
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.green, // Background color of the button
+            padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+            textStyle: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white), // Text color of the button
+          ),
+          child: Text(
+            'Add Question',
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white, // Text color of the button's text
             ),
           ),
+        ),
+      ),
+    ),
+  ),
+),
+              
+                
+                
+                
+
+
+
+
+
+
+              
+            ],
+          ),
+
           QAItem(
             title: Text('Q: What is the main goal of the Recipe Generator app?'),
             children: [

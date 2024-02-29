@@ -111,7 +111,7 @@ class AboutUsPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.95,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.teal[600],
+                    color: Colors.green[700],
                   ),
                   padding: const EdgeInsets.all(16),
                   child: Column(children: [
