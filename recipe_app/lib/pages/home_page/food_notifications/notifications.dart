@@ -5,7 +5,7 @@ import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.
 class NotificationManager {
   final IngredientManager ingredientManager = IngredientManager();
 
-  // Returns a list of the expired items that are deleted from the cloud, BUG deletion issues
+  // Returns a list of the expired items that are deleted from the cloud
   Future<List<Map<String, String>>> removeExpiredIngredientsAndNotify() async {
     try {
       DateTime currentDate = DateTime.now();
