@@ -11,6 +11,7 @@ class IngredientManager {
   UserManager user = UserManager();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  // Returns the list of ingredients from the cloud that the user has entered
   Future<List<List<String>>> getUserIngredients() async {
     String uid = await user.getCurrentUserUID();
     List<List<String>> result = [];
@@ -30,6 +31,7 @@ class IngredientManager {
             return [
               ingredient['name']?.toString() ?? '',
               ingredient['weight']?.toString() ?? '',
+              ingredient['expiryDate']?.toString() ?? '',
             ];
           }).toList();
 
@@ -46,9 +48,12 @@ class IngredientManager {
 
   Future<void> flushUserIngredients(List<List<String>> listIngredients) async {
     // The Linker between getting previous data and submitting new data
+
+    // Anonymous function access to _storeUserIngredients
     await _storeUserIngredients(listIngredients);
   }
 
+  // Stores the ingredients into the cloud
   Future<void> _storeUserIngredients(List<List<String>> listIngredients) async {
     String uid = await user.getCurrentUserUID();
     print(listIngredients);
@@ -58,6 +63,7 @@ class IngredientManager {
       return {
         'name': ingredient[0],
         'weight': ingredient[1],
+        'expiryDate': ingredient[2],
       };
     }).toList();
 
@@ -74,6 +80,7 @@ class IngredientManager {
     }
   }
 
+  // Returns if the quantity of an ingredient is valid to produce a recipe
   bool validateQuantity(String quantity) {
     try {
       // Attempt to parse the quantity as a double
@@ -94,6 +101,7 @@ class IngredientManager {
     }
   }
 
+  // Returns false if the ingredient is in correct format before API search
   Future<bool> checkIngredientIsValid(
       String ingredientName, String ingredientWeight) async {
     // Validate ingredientName
@@ -121,5 +129,80 @@ class IngredientManager {
     } else {
       return false;
     }
+  }
+
+  DateTime convertStringtoDatetime(String userDatetime) {
+    if (userDatetime.isEmpty) {
+      throw ArgumentError("Input string is null or empty");
+    }
+
+    try {
+      DateTime ingredientDateTime = DateTime.parse(userDatetime);
+      return ingredientDateTime;
+    } catch (e) {
+      // Handle parsing errors
+      throw ArgumentError("Invalid date format");
+    }
+  }
+
+  bool checkDateTimeAgainstTodaysDate(String userDatetime) {
+    if (userDatetime.isEmpty) {
+      return false; // Null or empty strings are not in the correct format
+    }
+
+    // Define regex patterns for the "YYYY-MM-DD", "DD/MM/YYYY", and "DD-MM-YYYY" formats
+    RegExp datePattern1 = RegExp(r'^\d{4}-\d{2}-\d{2}$');
+    RegExp datePattern2 = RegExp(r'^\d{2}/\d{2}/\d{4}$');
+    RegExp datePattern3 = RegExp(r'^\d{2}-\d{2}-\d{4}$');
+
+    // Check if the input string matches any of the patterns
+    if (!datePattern1.hasMatch(userDatetime) &&
+        !datePattern2.hasMatch(userDatetime) &&
+        !datePattern3.hasMatch(userDatetime)) {
+      return false; // Return false if the format doesn't match
+    }
+
+    // Parse the input string into a DateTime object
+    DateTime parsedDateTime;
+    try {
+      parsedDateTime = DateTime.parse(userDatetime);
+    } catch (e) {
+      return false; // Return false if parsing fails
+    }
+
+    // Compare the parsed date with today's date or after today's date
+    DateTime today = DateTime.now();
+    return !parsedDateTime.isBefore(
+        today.subtract(const Duration(days: 1))); // Adjusted comparison
+  }
+
+  bool checkUserDateTime(String userDatetime) {
+    if (userDatetime.isEmpty) {
+      return false; // Null or empty strings are not in the correct format
+    }
+
+    // Define regex patterns for the "DD/MM/YYYY", "DD-MM-YYYY", and "YYYY-MM-DD" formats
+    RegExp datePattern1 = RegExp(r'^\d{2}/\d{2}/\d{4}$');
+    RegExp datePattern2 = RegExp(r'^\d{2}-\d{2}-\d{4}$');
+    RegExp datePattern3 = RegExp(r'^\d{4}-\d{2}-\d{2}$');
+
+    // Check if the input string matches any of the patterns
+    if (!datePattern1.hasMatch(userDatetime) &&
+        !datePattern2.hasMatch(userDatetime) &&
+        !datePattern3.hasMatch(userDatetime)) {
+      return false; // Return false if the format doesn't match
+    }
+
+    // Parse the input string into a DateTime object
+    DateTime parsedDateTime;
+    try {
+      parsedDateTime = DateTime.parse(userDatetime);
+    } catch (e) {
+      return false; // Return false if parsing fails
+    }
+
+    // Compare the parsed date with today's date
+    DateTime today = DateTime.now();
+    return parsedDateTime.isAfter(today);
   }
 }

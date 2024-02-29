@@ -116,6 +116,7 @@ class AboutUsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: Column(children: [
                     const Text(
+
                       'WasteAway is an exciting new application designed to help cut down on food waste. In the United Kingdom, approximately 9.5 million tonnes of food go to waste each year, a staggering amount. Meanwhile, 8.4 million people in the UK struggle with food poverty. It’s a heartbreaking paradox: while so much food is discarded, many individuals and families are left without enough to eat.\n\n'
                       'Our aim is to significantly reduce the amount of food waste being produced. This is beneficial to both the environment and saving money.\n\n'
                       'Less wasted food means fewer resources used in production. Further environmental benefits include reducing Greenhouse Gas Emissions, Rotting food in landfills produces methane, a potent greenhouse gas. Cutting waste helps mitigate climate change. Wasting less food means more money in our pockets.\n\n'

@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, deprecated_member_use, avoid_print
 
 import 'package:flutter/material.dart';
 import 'ingredientManager.dart';
@@ -15,6 +15,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
 
   final TextEditingController ingredientController = TextEditingController();
   final TextEditingController weightController = TextEditingController();
+  final TextEditingController expiryController = TextEditingController();
   bool shouldFlush = false;
   IngredientManager manager = IngredientManager();
 
@@ -62,7 +63,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                 Row(
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.2,
+                      width: MediaQuery.of(context).size.width * 0.05,
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -74,7 +75,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                       child: const Text('Add'),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.1,
                     ),
                     Align(
                       alignment: Alignment.topRight,
@@ -91,7 +92,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 18,
                 ),
                 Card(
                   elevation: 5.0,
@@ -141,6 +142,15 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
           ),
         ),
         const SizedBox(width: 25.0),
+        Expanded(
+          child: TextField(
+            controller: expiryController,
+            decoration: const InputDecoration(
+              hintText: 'Enter Expiry Date: YYYY-MM-DD',
+            ),
+          ),
+        ),
+        const SizedBox(width: 25.0),
       ],
     );
   }
@@ -159,8 +169,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: SizedBox(
-              height: MediaQuery.of(context).size.height *
-                  0.5, // Set a fixed height or adjust as needed
+              height: MediaQuery.of(context).size.height * 0.5,
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: ingredients.length,
@@ -169,8 +178,16 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
                     elevation: 3.0,
                     margin: const EdgeInsets.symmetric(vertical: 5.0),
                     child: ListTile(
-                      title: Text(
-                        '${ingredients[index][0]} : ${ingredients[index][1]} g',
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Ingredient: ${ingredients[index][0]}',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text('Quantity: ${ingredients[index][1]} g'),
+                          Text('Expiry Date: ${ingredients[index][2]}'),
+                        ],
                       ),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
@@ -188,9 +205,11 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     );
   }
 
+  // Adds ingredients to the cloud with necessary validation checks
   Future<void> _addIngredient() async {
     final newIngredient = ingredientController.text.trim();
     final newIngredientWeight = weightController.text.trim();
+    final newExpiryDate = expiryController.text.trim();
 
     // Display a loading indicator while checking for ingredient validity
     showDialog(
@@ -211,13 +230,21 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     );
 
     try {
-      if (newIngredient.isNotEmpty && newIngredientWeight.isNotEmpty) {
+      // Checks if fields aren't filled before the API validation checks
+      if (newIngredient.isNotEmpty &&
+          newIngredientWeight.isNotEmpty &&
+          newExpiryDate.isNotEmpty) {
         bool isValid = await manager.checkIngredientIsValid(
             newIngredient, newIngredientWeight);
 
-        if (isValid && manager.validateQuantity(newIngredientWeight)) {
-          int existingIndex = ingredients
-              .indexWhere((ingredient) => ingredient[0] == newIngredient);
+        // Ensures matching ingredients and datetimes are combined, Ensures datetimes are in the correct format
+        // Potential Improvement: Datetime formats, and the majority of ways to ensure that the datetime is working
+        if (isValid &&
+            manager.validateQuantity(newIngredientWeight) &&
+            manager.checkUserDateTime(newExpiryDate) &&
+            manager.checkDateTimeAgainstTodaysDate(newExpiryDate)) {
+          int existingIndex = ingredients.indexWhere((ingredient) =>
+              ingredient[0] == newIngredient && ingredient[2] == newExpiryDate);
 
           setState(() {
             if (existingIndex != -1) {
@@ -227,32 +254,52 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
               ingredients[existingIndex][1] =
                   (existingWeight + newWeight).toString();
             } else {
-              ingredients.add([newIngredient, newIngredientWeight]);
+              ingredients
+                  .add([newIngredient, newIngredientWeight, newExpiryDate]);
             }
             ingredientController.clear();
             weightController.clear();
+            expiryController.clear();
           });
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Invalid ingredient! Please check your input.'),
-              duration: Duration(seconds: 2),
-            ),
-          );
+          if (!isValid) {
+            _showErrorSnackBar('Invalid ingredient! Please check your input.');
+          } else if (!manager.validateQuantity(newIngredientWeight)) {
+            _showErrorSnackBar('Invalid weight! Please enter a valid weight.');
+          } else if (!manager.checkUserDateTime(newExpiryDate)) {
+            _showErrorSnackBar(
+                'Invalid expiry date! Please enter a valid date.');
+          } else if (!manager.checkDateTimeAgainstTodaysDate(newExpiryDate)) {
+            _showErrorSnackBar('Expiry date must be in the future.');
+          }
         }
       }
+    } catch (e) {
+      print('Error adding ingredient: $e');
     } finally {
       // Close the loading indicator dialog
       Navigator.pop(context);
     }
   }
 
+  // Shows that there is a loading message
+  void _showErrorSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  // Removes ingredients from the interface
   void _removeIngredient(int index) {
     setState(() {
       ingredients.removeAt(index);
     });
   }
 
+  // Saves ingredients into the cloud
   void _flushIngredients() {
     showDialog(
       context: context,
@@ -280,6 +327,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     );
   }
 
+  // Causes a change in the interface when removing the ingredients
   Future<void> _performFlush() async {
     // Call the method directly from the imported file
     await manager.flushUserIngredients(ingredients);
@@ -297,6 +345,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     });
   }
 
+  // Removal dialog
   Future<bool> _showExitConfirmationDialog() async {
     return await showDialog(
       context: context,
