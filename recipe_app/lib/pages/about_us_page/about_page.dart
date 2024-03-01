@@ -84,7 +84,7 @@ class AboutUsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('About Us', style: TextStyle(fontSize: 45)),
-        backgroundColor: Colors.lightGreen[900],
+        backgroundColor: Colors.green,
         toolbarHeight: MediaQuery.of(context).size.height * 0.06,
         shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
       ),
@@ -111,7 +111,7 @@ class AboutUsPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.95,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.teal[600],
+                    color: Colors.green[700],
                   ),
                   padding: const EdgeInsets.all(16),
                   child: Column(children: [
