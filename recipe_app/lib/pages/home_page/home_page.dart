@@ -91,7 +91,7 @@ class _AuthScreenState extends State<AuthScreen> {
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
         ),
         drawer: Drawer(
-          width: MediaQuery.of(context).size.width * 0.75,
+          width: MediaQuery.of(context).size.width * 0.79,
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
@@ -108,11 +108,11 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 title: Row(
                   children: [
-                    const Text('User Profile', style: TextStyle(fontSize: 20)),
+                    Icon(Icons.person, size: 30),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.01,
                     ),
-                    Icon(Icons.person, size: 30),
+                    const Text('User Profile', style: TextStyle(fontSize: 20)),
                   ],
                 ),
                 onTap: () {
@@ -123,12 +123,12 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 title: Row(
                   children: [
+                    Icon(Icons.generating_tokens, size: 30),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.01,
+                    ),
                     const Text('Generate Recipe',
                         style: TextStyle(fontSize: 20)),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.02,
-                    ),
-                    Icon(Icons.generating_tokens, size: 35),
                   ],
                 ),
                 onTap: () {
@@ -141,11 +141,11 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 title: Row(
                   children: [
-                    const Text('Add Recipe', style: TextStyle(fontSize: 20)),
+                    Icon(Icons.cookie, size: 29),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.01,
                     ),
-                    Icon(Icons.cookie, size: 30),
+                    const Text('Add Recipe', style: TextStyle(fontSize: 20)),
                   ],
                 ),
                 onTap: () {
@@ -158,11 +158,11 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 title: Row(
                   children: [
-                    const Text('Ratings', style: TextStyle(fontSize: 20)),
+                    Icon(Icons.add, size: 33),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.01,
                     ),
-                    Icon(Icons.add, size: 30),
+                    const Text('Ratings', style: TextStyle(fontSize: 20)),
                   ],
                 ),
                 onTap: () {
@@ -175,12 +175,12 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 title: Row(
                   children: [
-                    const Text('Add/Remove Ingredients',
-                        style: TextStyle(fontSize: 20)),
+                    Icon(Icons.edit, size: 28),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.02,
                     ),
-                    Icon(Icons.edit, size: 35),
+                    const Text('Ingredients Manager',
+                        style: TextStyle(fontSize: 20)),
                   ],
                 ),
                 onTap: () {
@@ -193,11 +193,11 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 title: Row(
                   children: [
-                    const Text('FAQ', style: TextStyle(fontSize: 20)),
+                    Icon(Icons.question_answer, size: 28),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.02,
                     ),
-                    Icon(Icons.question_answer, size: 30),
+                    const Text('FAQ', style: TextStyle(fontSize: 20)),
                   ],
                 ),
                 onTap: () {
@@ -208,11 +208,11 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 title: Row(
                   children: [
-                    Text('About Us', style: TextStyle(fontSize: 20)),
+                    Icon(Icons.info, size: 28),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.02,
                     ),
-                    Icon(Icons.info, size: 30),
+                    Text('About Us', style: TextStyle(fontSize: 20)),
                   ],
                 ),
                 onTap: () {
@@ -223,11 +223,11 @@ class _AuthScreenState extends State<AuthScreen> {
               ListTile(
                 title: Row(
                   children: [
-                    const Text('Log Out', style: TextStyle(fontSize: 20)),
+                    Icon(Icons.logout, size: 30),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.01,
                     ),
-                    Icon(Icons.logout, size: 30),
+                    const Text('Log Out', style: TextStyle(fontSize: 20)),
                   ],
                 ),
                 onTap: () {
@@ -241,26 +241,26 @@ class _AuthScreenState extends State<AuthScreen> {
         body: Center(
           child: Column(children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
+              height: MediaQuery.of(context).size.height * 0.025,
             ),
             Image(
-              width: 380,
+              width: 280,
               image: AssetImage(
                 'assets/images/logo/logo.png',
               ),
             ),
             SizedBox(height: 20),
-            Text(
-              "Bio Title",
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(
-              height: 15,
-            ),
             Container(
-              height: 300,
-              width: 380,
-              color: Colors.brown,
+              height: MediaQuery.of(context).size.height * 0.05,
+              width: MediaQuery.of(context).size.width * 0.9,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: Text(
+                  "Welcome to WasteAway",
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
+                ),
+              ),
             ),
           ]),
         ),
