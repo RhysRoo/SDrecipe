@@ -102,6 +102,7 @@ class FAQ_page extends StatelessWidget {
                             onPressed: () {
                               // Handle button press
                             },
+
                             style: ElevatedButton.styleFrom(
                               primary: Colors.green,
                               padding: const EdgeInsets.symmetric(
@@ -109,7 +110,6 @@ class FAQ_page extends StatelessWidget {
                               minimumSize: const Size(0, 50),
                             ),
                             child: const Text(
-                              'Search',
                               style: TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.bold,
@@ -146,6 +146,7 @@ class FAQ_page extends StatelessWidget {
                   'A: Users select ingredients through the form, triggering the recipe generation process. The system generates recipes based on selected ingredients and user food restrictions.'),
             ],
           ),
+
           const QAItem(
             title:
                 'Q: Can I customize the generated recipes based on dietary restrictions?',

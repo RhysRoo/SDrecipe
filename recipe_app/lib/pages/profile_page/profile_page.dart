@@ -64,16 +64,13 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            SizedBox(
-              height: 10,
-            ),
             _buildProfileImage(),
             SizedBox(
                 //Y-Axis Pos under profile picture
-                height: MediaQuery.of(context).size.height * 0.018),
+                height: MediaQuery.of(context).size.height * 0.01),
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.125, // Adjust the height of Username/Food restriction card
+                  0.135, // Adjust the height of Username/Food restriction card
               width:
                   //X-Axis for Username/food restriction card
                   MediaQuery.of(context).size.width * 1.0,
@@ -99,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.22, // Height of user information card
+                  0.23, // Height of user information card
               width: MediaQuery.of(context).size.width * 1.0,
               child: Card(
                 elevation: 5.0,
@@ -128,8 +125,8 @@ class _ProfilePageState extends State<ProfilePage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
+              child: const Padding(
+                padding: EdgeInsets.all(12.0),
                 child: Column(
                   children: [
                     Text(
@@ -211,7 +208,7 @@ class _ProfilePageState extends State<ProfilePage> {
           },
           child: const Text(
             'Delete Information',
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 13),
           ),
         ),
         ElevatedButton(
@@ -220,7 +217,7 @@ class _ProfilePageState extends State<ProfilePage> {
           },
           child: const Text(
             'Change Information',
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 13),
           ),
         ),
       ],
