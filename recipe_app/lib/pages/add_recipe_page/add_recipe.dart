@@ -1,4 +1,8 @@
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
+import 'package:flutter_log/pages/add_recipe_page/add_recipe_manager.dart';
+import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.dart';
 
 class AddRecipe extends StatefulWidget {
   const AddRecipe({Key? key}) : super(key: key);
@@ -8,12 +12,14 @@ class AddRecipe extends StatefulWidget {
 }
 
 class _AddRecipeState extends State<AddRecipe> {
+  AddRemoveRecipeManager addRemoveRecipeManager = AddRemoveRecipeManager();
+  IngredientManager ingredientManager = IngredientManager();
   final TextEditingController _recipeNameController = TextEditingController();
   final TextEditingController _ingredientController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
-  List<Map<String, dynamic>> _ingredients = [];
+  final List<Map<String, dynamic>> _ingredients = [];
   String _selectedUnit = 'Select Unit';
-  List<String> _units = ['Select Unit', 'Cups', 'Grams', 'Pieces'];
+  final List<String> _units = ['Select Unit', 'Cups', 'Grams', 'Pieces'];
 
   @override
   Widget build(BuildContext context) {
@@ -84,22 +90,11 @@ class _AddRecipeState extends State<AddRecipe> {
                       });
                     },
                   ),
+                  const SizedBox(width: 16.0),
                   IconButton(
                     icon: const Icon(Icons.add),
                     onPressed: () {
-                      setState(() {
-                        String ingredient = _ingredientController.text;
-                        String quantity = _quantityController.text;
-                        _ingredients.add({
-                          'ingredient': ingredient,
-                          'quantity': quantity.isNotEmpty
-                              ? '$quantity $_selectedUnit'
-                              : null,
-                        });
-                        _ingredientController.clear();
-                        _quantityController.clear();
-                        _selectedUnit = 'Select Unit';
-                      });
+                      _addIngredient();
                     },
                   ),
                 ],
@@ -122,7 +117,6 @@ class _AddRecipeState extends State<AddRecipe> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      // TODO: Save the recipe with ingredients to the system
                       _saveRecipe();
                     },
                     child: const Text('Save Recipe'),
@@ -130,7 +124,6 @@ class _AddRecipeState extends State<AddRecipe> {
                   const SizedBox(width: 16.0),
                   ElevatedButton(
                     onPressed: () {
-                      // Clear all ingredients
                       setState(() {
                         _ingredients.clear();
                       });
@@ -180,11 +173,113 @@ class _AddRecipeState extends State<AddRecipe> {
     );
   }
 
-  void _saveRecipe() {
-    // TODO: Implement the logic to save the recipe with ingredients to the system
+  Future<void> _addIngredient() async {
+    String ingredient = _ingredientController.text;
+    String quantity = _quantityController.text;
+
+    // Validation: Check if ingredient and quantity are not empty
+    if (await _validateIngredient(ingredient, quantity)) {
+      setState(() {
+        _ingredients.add({
+          'ingredient': ingredient,
+          'quantity': quantity.isNotEmpty ? '$quantity $_selectedUnit' : null,
+        });
+        _ingredientController.clear();
+        _quantityController.clear();
+        _selectedUnit = 'Select Unit';
+      });
+    }
+  }
+
+  Future<bool> _validateIngredient(String ingredient, String quantity) async {
+    if (ingredient.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter an ingredient.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+
+    // Show loading indicator while checking ingredient validity
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Checking ingredient validity...'),
+        backgroundColor: Colors.blue,
+      ),
+    );
+
+    // Simulate an API call to check ingredient validity
+    await Future.delayed(const Duration(seconds: 2));
+
+    // Replace the condition with your actual API check for ingredient validity
+    if (await ingredientManager.checkIngredientIsValid(ingredient, quantity) ==
+        false) {
+      // Hide loading indicator and show an error Snackbar
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content:
+              Text('Ingredient not found. Please enter a valid ingredient.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+
+    // Check if quantity is not zero
+    if (quantity.isNotEmpty) {
+      double parsedQuantity = double.tryParse(quantity) ?? 0;
+      if (parsedQuantity <= 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please enter a valid quantity greater than 0.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return false;
+      }
+    }
+
+    // If everything is valid, return true
+    return true;
+  }
+
+  Future<void> _saveRecipe() async {
     String recipeName = _recipeNameController.text;
-    // Save recipe name and ingredients to the system
-    print('Recipe Name: $recipeName');
-    print('Ingredients: $_ingredients');
+
+    // Validation: Check if recipe name and ingredients are not empty
+    if (recipeName.isNotEmpty && _ingredients.isNotEmpty) {
+      // Save recipe name and ingredients to the system
+      await addRemoveRecipeManager.saveRecipe(_ingredients, recipeName);
+      setState(() {
+        _ingredients.clear();
+      });
+    } else {
+      // Display specific error messages for empty fields
+      if (recipeName.isEmpty && _ingredients.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please enter a recipe name and add ingredients.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      } else if (recipeName.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please enter a recipe name.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please add ingredients.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 }
