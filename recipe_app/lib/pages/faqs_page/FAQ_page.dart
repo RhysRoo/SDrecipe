@@ -1,3 +1,5 @@
+// ignore_for_file: sort_child_properties_last, deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class QAItem extends StatelessWidget {
@@ -46,7 +48,7 @@ class FAQ_page extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Frequently Asked Questions'),
+        title: const Text('Frequently Asked Questions'),
         backgroundColor: Colors.green,
       ),
       body: ListView(
@@ -60,7 +62,7 @@ class FAQ_page extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
@@ -73,12 +75,12 @@ class FAQ_page extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Expanded(
+                          const Expanded(
                             child: SizedBox(
                               height: 50.0,
                               child: TextField(
@@ -95,18 +97,19 @@ class FAQ_page extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           ElevatedButton(
                             onPressed: () {
                               // Handle button press
                             },
-                            // style: ElevatedButton.styleFrom(
-                            //   primary: Colors.green,
-                            //   padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-                            //   minimumSize: Size(0, 50),
-                            // ),
-                            child: Text(
-                              'Search',
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.green,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 24.0, vertical: 12.0),
+                              minimumSize: const Size(0, 50),
+                            ),
+                            child: const Text(
+                              'Your Button Text', // Add your button text here
                               style: TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.bold,
@@ -122,28 +125,28 @@ class FAQ_page extends StatelessWidget {
               ),
             ],
           ),
-          QAItem(
+          const QAItem(
             title: 'Q: What is the main goal of the Recipe Generator app?',
             children: [
               Text(
                   'A: The core concept of this system is to mitigate environmental impact by reducing food waste, aligning with sustainable practices.'),
             ],
           ),
-          QAItem(
+          const QAItem(
             title: 'Q: Who are the primary users of the Recipe Generator app?',
             children: [
               Text(
                   'A: The primary users are registered WasteAway users who seek to reduce food waste and generate personalized recipes.'),
             ],
           ),
-          QAItem(
+          const QAItem(
             title: 'Q: How does the Recipe Generation feature work?',
             children: [
               Text(
                   'A: Users select ingredients through the form, triggering the recipe generation process. The system generates recipes based on selected ingredients and user food restrictions.'),
             ],
           ),
-          QAItem(
+          const QAItem(
             title:
                 'Q: Can I customize the generated recipes based on dietary restrictions?',
             children: [
@@ -151,7 +154,7 @@ class FAQ_page extends StatelessWidget {
                   'A: Yes, users can set dietary preferences and restrictions, ensuring that the generated recipes align with their specific needs.'),
             ],
           ),
-          QAItem(
+          const QAItem(
             title:
                 'Q: What happens if I don\'t provide enough ingredients for the generation process?',
             children: [
@@ -159,21 +162,21 @@ class FAQ_page extends StatelessWidget {
                   'A: If not enough ingredients or ingredient types are provided, an error message will be displayed, prompting users to select more ingredients and re-initiate the process.'),
             ],
           ),
-          QAItem(
+          const QAItem(
             title: 'Q: How are ingredients saved in the app?',
             children: [
               Text(
                   'A: Users can save ingredients through the Save Ingredients feature. The ingredient manager validates the data, and the ingredients are stored in the backend attached to the user\'s profile.'),
             ],
           ),
-          QAItem(
+          const QAItem(
             title: 'Q: Can I edit my user profile details?',
             children: [
               Text(
                   'A: Yes, users can edit their user profile details, including name, email, password, food restrictions, and bio. The updated information is then reflected in the backend.'),
             ],
           ),
-          QAItem(
+          const QAItem(
             title:
                 'Q: What happens if I enter incorrect data during profile editing?',
             children: [
@@ -181,21 +184,21 @@ class FAQ_page extends StatelessWidget {
                   'A: If there\'s invalid data, the app displays an error message (e.g., "Invalid Name Entry" or "Invalid Password Entry"). Users correct the form and resubmit.'),
             ],
           ),
-          QAItem(
+          const QAItem(
             title: 'Q: How does the app handle expired ingredients?',
             children: [
               Text(
                   'A: The app notifies users of expired ingredients during the recipe generation process. Users can choose to continue without expired items or halt the process to add more ingredients.'),
             ],
           ),
-          QAItem(
+          const QAItem(
             title: 'Q: Can I add my own recipes to the app?',
             children: [
               Text(
                   'A: Yes, users can add their own recipes through the Add Own Recipes feature. The system validates the submitted details, and upon success, the custom recipe is added to the app\'s database.'),
             ],
           ),
-          QAItem(
+          const QAItem(
             title:
                 'Q: What happens if I make errors while adding my own recipe?',
             children: [
@@ -203,17 +206,17 @@ class FAQ_page extends StatelessWidget {
                   'A: If there are errors (e.g., missing fields), the app displays an error message, allowing users to review and correct their form before submission.'),
             ],
           ),
-          SizedBox(height: 16),
-          // TextButton(
-          //   onPressed: () {
-          //     // Add code for handling the button press
-          //   },
-          //   style: TextButton.styleFrom(
-          //     backgroundColor: Colors.green[700],
-          //     primary: Colors.white,
-          //   ),
-          //   child: Text('Add Question'),
-          // ),
+          const SizedBox(height: 16),
+          TextButton(
+            onPressed: () {
+              // Add code for handling the button press
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.green[700],
+              primary: Colors.white,
+            ),
+            child: const Text('Add Question'),
+          ),
         ],
       ),
     );
