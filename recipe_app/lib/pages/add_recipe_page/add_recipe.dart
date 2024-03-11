@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_log/pages/add_recipe_page/add_recipe_manager.dart';
+import 'package:flutter_log/pages/add_recipe_page/show_recipes.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.dart';
 
 class AddRecipe extends StatefulWidget {
@@ -29,6 +30,28 @@ class _AddRecipeState extends State<AddRecipe> {
       appBar: AppBar(
         backgroundColor: Colors.green[700],
         title: const Text('Add/Remove Recipes'),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              // Navigate to the "ShowRecipePage" when the button is pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ShowRecipePage()),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(
+                  255, 75, 175, 80), // Change the button color to green
+            ),
+            child: const Row(
+              children: [
+                Icon(Icons.cookie_outlined), // Change the icon to 'visibility'
+                SizedBox(width: 8.0), // Add some spacing between icon and text
+                Text('View Recipes'), // Change the label to 'View Recipes'
+              ],
+            ),
+          ),
+        ],
       ),
       backgroundColor: Colors.green[200],
       body: Padding(
@@ -132,17 +155,23 @@ class _AddRecipeState extends State<AddRecipe> {
                     onPressed: () {
                       _saveRecipe();
                     },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 32.0),
+                    ),
                     child: const Text('Save Recipe'),
                   ),
-                  const SizedBox(width: 16.0),
+                  const SizedBox(width: 30.0),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
                         _ingredients.clear();
                       });
                     },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.red),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 32.0),
                     ),
                     child: const Text('Clear Ingredients'),
                   ),
