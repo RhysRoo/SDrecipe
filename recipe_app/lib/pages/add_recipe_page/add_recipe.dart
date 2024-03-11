@@ -17,6 +17,8 @@ class _AddRecipeState extends State<AddRecipe> {
   final TextEditingController _recipeNameController = TextEditingController();
   final TextEditingController _ingredientController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
+  final TextEditingController _foodRestrictionController =
+      TextEditingController();
   final List<Map<String, dynamic>> _ingredients = [];
   String _selectedUnit = 'Select Unit';
   final List<String> _units = ['Select Unit', 'Cups', 'Grams', 'Pieces'];
@@ -48,6 +50,17 @@ class _AddRecipeState extends State<AddRecipe> {
                 controller: _recipeNameController,
                 decoration: const InputDecoration(
                   hintText: 'Enter recipe name',
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              const Text(
+                'Food Restriction:',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              ),
+              TextField(
+                controller: _foodRestrictionController,
+                decoration: const InputDecoration(
+                  hintText: 'Enter Food Restriction',
                 ),
               ),
               const SizedBox(height: 16.0),
@@ -248,11 +261,15 @@ class _AddRecipeState extends State<AddRecipe> {
 
   Future<void> _saveRecipe() async {
     String recipeName = _recipeNameController.text;
+    String foodRestriction = _foodRestrictionController.text;
 
     // Validation: Check if recipe name and ingredients are not empty
-    if (recipeName.isNotEmpty && _ingredients.isNotEmpty) {
+    if (recipeName.isNotEmpty &&
+        _ingredients.isNotEmpty &&
+        foodRestriction.isNotEmpty) {
       // Save recipe name and ingredients to the system
-      await addRemoveRecipeManager.saveRecipe(_ingredients, recipeName);
+      await addRemoveRecipeManager.saveRecipe(
+          _ingredients, recipeName, foodRestriction);
       setState(() {
         _ingredients.clear();
       });
