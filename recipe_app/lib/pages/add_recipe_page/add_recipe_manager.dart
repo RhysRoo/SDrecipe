@@ -9,8 +9,10 @@ class AddRemoveRecipeManager {
   UserManager userManager = UserManager();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<void> saveRecipe(  // Bug Storing the ingredients [Recipe Name, {ingredientName, quantity, ingredient Name, quantity}]
-      List<Map<String, dynamic>> ingredients, String recipeName) async {
+  Future<void> saveRecipe(
+      // Bug Storing the ingredients [Recipe Name, {ingredientName, quantity, ingredient Name, quantity}]
+      List<Map<String, dynamic>> ingredients,
+      String recipeName) async {
     String uid = await userManager.getCurrentUserUID();
 
     print(ingredients);
@@ -18,9 +20,8 @@ class AddRemoveRecipeManager {
     // Add the recipeName to each ingredient map
     List<Map<String, dynamic>> convertedList = ingredients.map((ingredient) {
       return {
-        'ingredientName': ingredient['ingredientName'],
+        'ingredient': ingredient['ingredient'],
         'quantity': ingredient['quantity'],
-        'recipeName': recipeName,
       };
     }).toList();
 
@@ -29,9 +30,9 @@ class AddRemoveRecipeManager {
     if (uid.isNotEmpty) {
       try {
         await firestore
-            .collection("UserIngredients")
+            .collection("Recipes")
             .doc(uid)
-            .set({'ingredients': convertedList});
+            .set({'ingredients': convertedList, 'recipeName': recipeName});
         print('Ingredients Stored');
       } catch (e) {
         print("Error Ingredients Not Stored: $e");
