@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_log/pages/add_recipe_page/add_recipe_manager.dart';
-import 'package:flutter_log/pages/add_recipe_page/show_recipes.dart';
+import 'package:flutter_log/pages/add_recipe_page/remove_recipes.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.dart';
 
+// Validation Rules e.g., Units, API to check food restriction, Recipe Name checks against previous recipes, Units storage in database, Quantity validation
 class AddRecipe extends StatefulWidget {
   const AddRecipe({Key? key}) : super(key: key);
 
@@ -33,21 +34,19 @@ class _AddRecipeState extends State<AddRecipe> {
         actions: [
           ElevatedButton(
             onPressed: () {
-              // Navigate to the "ShowRecipePage" when the button is pressed
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const ShowRecipePage()),
               );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(
-                  255, 75, 175, 80), // Change the button color to green
+              backgroundColor: const Color.fromARGB(255, 75, 175, 80),
             ),
             child: const Row(
               children: [
-                Icon(Icons.cookie_outlined), // Change the icon to 'visibility'
-                SizedBox(width: 8.0), // Add some spacing between icon and text
-                Text('View Recipes'), // Change the label to 'View Recipes'
+                Icon(Icons.cookie_outlined),
+                SizedBox(width: 8.0),
+                Text('View Recipes'),
               ],
             ),
           ),
@@ -65,121 +64,79 @@ class _AddRecipeState extends State<AddRecipe> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                'Recipe Name:',
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
-              TextField(
-                controller: _recipeNameController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter recipe name',
-                ),
-              ),
+              _buildRecipeDetailsInput(),
               const SizedBox(height: 16.0),
-              const Text(
-                'Food Restriction:',
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
-              TextField(
-                controller: _foodRestrictionController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter Food Restriction',
-                ),
-              ),
+              _buildHeader('Ingredients:'),
+              _buildIngredientInput(),
               const SizedBox(height: 16.0),
-              const Text(
-                'Ingredients:',
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _ingredientController,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter ingredient',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 16.0),
-                  Expanded(
-                    child: TextField(
-                      controller: _quantityController,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        hintText: 'Quantity',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 16.0),
-                  DropdownButton<String>(
-                    value: _selectedUnit,
-                    items: _units.map((unit) {
-                      return DropdownMenuItem<String>(
-                        value: unit,
-                        child: Text(unit),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedUnit = value!;
-                      });
-                    },
-                  ),
-                  const SizedBox(width: 16.0),
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    onPressed: () {
-                      _addIngredient();
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16.0),
-              const Text(
-                'Recipe Ingredients:',
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
+              _buildHeader('Recipe Ingredients:'),
               Expanded(
                 child: _ingredients.isEmpty
-                    ? Container(
-                        alignment: Alignment.center,
-                        child: const Text('No ingredients added yet.'),
-                      )
+                    ? _buildNoIngredientsWidget()
                     : _buildIngredientsList(),
               ),
               const SizedBox(height: 16.0),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      _saveRecipe();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 32.0),
-                    ),
-                    child: const Text('Save Recipe'),
-                  ),
-                  const SizedBox(width: 30.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _ingredients.clear();
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 32.0),
-                    ),
-                    child: const Text('Clear Ingredients'),
-                  ),
-                ],
-              ),
+              _buildButtonsRow(),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(String title) {
+    return Text(
+      title,
+      style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+    );
+  }
+
+  Widget _buildTextField(TextEditingController controller, String hintText) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: hintText,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
+      ),
+    );
+  }
+
+  Widget _buildRecipeDetailsInput() {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildHeader('Recipe Name:'),
+              _buildTextField(_recipeNameController, 'Enter recipe name'),
+            ],
+          ),
+        ),
+        const SizedBox(width: 16.0),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildHeader('Food Restriction:'),
+              _buildTextField(
+                  _foodRestrictionController, 'Enter Food Restriction'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNoIngredientsWidget() {
+    return Container(
+      alignment: Alignment.center,
+      child: const Text(
+        'No ingredients added yet.',
+        style: TextStyle(fontSize: 16.0),
       ),
     );
   }
@@ -193,6 +150,7 @@ class _AddRecipeState extends State<AddRecipe> {
         return Card(
           elevation: 3,
           margin: const EdgeInsets.symmetric(vertical: 8),
+          color: Colors.green[200], // Change the card background color
           child: ListTile(
             title: Text(
               ingredient['ingredient'],
@@ -212,6 +170,84 @@ class _AddRecipeState extends State<AddRecipe> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildButtonsRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            _saveRecipe();
+          },
+          style: ElevatedButton.styleFrom(
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+          ),
+          child: const Text('Save Recipe'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              _ingredients.clear();
+            });
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+          ),
+          child: const Text('Clear Ingredients'),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildIngredientInput() {
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            controller: _ingredientController,
+            decoration: const InputDecoration(
+              hintText: 'Enter ingredient',
+            ),
+          ),
+        ),
+        const SizedBox(width: 16.0),
+        Expanded(
+          child: TextField(
+            controller: _quantityController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              hintText: 'Quantity',
+            ),
+          ),
+        ),
+        const SizedBox(width: 16.0),
+        DropdownButton<String>(
+          value: _selectedUnit,
+          items: _units.map((unit) {
+            return DropdownMenuItem<String>(
+              value: unit,
+              child: Text(unit),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedUnit = value!;
+            });
+          },
+        ),
+        const SizedBox(width: 16.0),
+        IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: () {
+            _addIngredient();
+          },
+        ),
+      ],
     );
   }
 
@@ -301,6 +337,8 @@ class _AddRecipeState extends State<AddRecipe> {
           _ingredients, recipeName, foodRestriction);
       setState(() {
         _ingredients.clear();
+        _recipeNameController.clear();
+        _foodRestrictionController.clear();
       });
     } else {
       // Display specific error messages for empty fields

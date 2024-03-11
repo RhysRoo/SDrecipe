@@ -70,4 +70,41 @@ class AddRemoveRecipeManager {
     print(recipes);
     return recipes;
   }
+
+  Future<void> deleteRecipe(
+      String recipeName, List<Map<String, dynamic>> ingredients) async {
+    String uid = await userManager.getCurrentUserUID();
+
+    if (uid.isNotEmpty) {
+      try {
+        // Query for the document to delete based on recipe name and ingredients
+        QuerySnapshot querySnapshot = await firestore
+            .collection("Recipes")
+            .doc(uid)
+            .collection("UserRecipes")
+            .where('recipeName', isEqualTo: recipeName)
+            .where('ingredients', isEqualTo: ingredients)
+            .get();
+
+        // Check if any documents match the query
+        if (querySnapshot.docs.isNotEmpty) {
+          // Delete the first matching document
+          await firestore
+              .collection("Recipes")
+              .doc(uid)
+              .collection("UserRecipes")
+              .doc(querySnapshot.docs.first.id)
+              .delete();
+
+          print('Recipe deleted successfully');
+          // Optionally, you can update the UI or perform any other actions after deletion.
+          await getAllRecipes();
+        } else {
+          print('Recipe not found');
+        }
+      } catch (e) {
+        print("Error deleting recipe: $e");
+      }
+    }
+  }
 }
