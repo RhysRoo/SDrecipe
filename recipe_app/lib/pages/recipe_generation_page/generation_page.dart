@@ -37,13 +37,14 @@ class GenerationPage extends StatelessWidget {
                   color: Colors.teal[600],
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.025,
                       ),
-                      Text('Generate Recipe 1', style: TextStyle(fontSize: 20)),
+                      const Text('Generate Recipe 1',
+                          style: TextStyle(fontSize: 20)),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
@@ -58,7 +59,7 @@ class GenerationPage extends StatelessWidget {
                             color: Colors.deepOrange,
                             child: MaterialButton(
                               onPressed: () {},
-                              child: Icon(Icons.arrow_back, size: 40),
+                              child: const Icon(Icons.arrow_back, size: 40),
                             ),
                           ),
                           Container(
@@ -67,7 +68,8 @@ class GenerationPage extends StatelessWidget {
                             color: Colors.yellow,
                             child: MaterialButton(
                               onPressed: () {},
-                              child: Icon(Icons.generating_tokens, size: 40),
+                              child:
+                                  const Icon(Icons.generating_tokens, size: 40),
                             ),
                           ),
                           Container(
@@ -76,7 +78,7 @@ class GenerationPage extends StatelessWidget {
                             color: Colors.blue,
                             child: MaterialButton(
                               onPressed: () {},
-                              child: Icon(Icons.arrow_forward, size: 40),
+                              child: const Icon(Icons.arrow_forward, size: 40),
                             ),
                           ),
                         ],
@@ -86,8 +88,8 @@ class GenerationPage extends StatelessWidget {
                         height: 50,
                         width: 400,
                         color: Colors.purple,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                        child: const Padding(
+                          padding: EdgeInsets.all(10.0),
                           child: TextField(
                               decoration: InputDecoration(
                                   fillColor: Colors.deepOrange)),
@@ -97,7 +99,8 @@ class GenerationPage extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.03,
                       ),
-                      Text('Generate Recipe 2', style: TextStyle(fontSize: 20)),
+                      const Text('Generate Recipe 2',
+                          style: TextStyle(fontSize: 20)),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
@@ -112,7 +115,7 @@ class GenerationPage extends StatelessWidget {
                             color: Colors.deepOrange,
                             child: MaterialButton(
                               onPressed: () {},
-                              child: Icon(Icons.arrow_back, size: 40),
+                              child: const Icon(Icons.arrow_back, size: 40),
                             ),
                           ),
                           Container(
@@ -121,7 +124,8 @@ class GenerationPage extends StatelessWidget {
                             color: Colors.yellow,
                             child: MaterialButton(
                               onPressed: () {},
-                              child: Icon(Icons.generating_tokens, size: 40),
+                              child:
+                                  const Icon(Icons.generating_tokens, size: 40),
                             ),
                           ),
                           Container(
@@ -130,7 +134,7 @@ class GenerationPage extends StatelessWidget {
                             color: Colors.blue,
                             child: MaterialButton(
                               onPressed: () {},
-                              child: Icon(Icons.arrow_forward, size: 40),
+                              child: const Icon(Icons.arrow_forward, size: 40),
                             ),
                           ),
                         ],
@@ -144,7 +148,8 @@ class GenerationPage extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.03,
                       ),
-                      Text('Generate Recipe 3', style: TextStyle(fontSize: 20)),
+                      const Text('Generate Recipe 3',
+                          style: TextStyle(fontSize: 20)),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
@@ -159,7 +164,7 @@ class GenerationPage extends StatelessWidget {
                             color: Colors.deepOrange,
                             child: MaterialButton(
                               onPressed: () {},
-                              child: Icon(Icons.arrow_back, size: 40),
+                              child: const Icon(Icons.arrow_back, size: 40),
                             ),
                           ),
                           Container(
@@ -168,7 +173,8 @@ class GenerationPage extends StatelessWidget {
                             color: Colors.yellow,
                             child: MaterialButton(
                               onPressed: () {},
-                              child: Icon(Icons.generating_tokens, size: 40),
+                              child:
+                                  const Icon(Icons.generating_tokens, size: 40),
                             ),
                           ),
                           Container(
@@ -177,7 +183,7 @@ class GenerationPage extends StatelessWidget {
                             color: Colors.blue,
                             child: MaterialButton(
                               onPressed: () {},
-                              child: Icon(Icons.arrow_forward, size: 40),
+                              child: const Icon(Icons.arrow_forward, size: 40),
                             ),
                           ),
                         ],
@@ -192,7 +198,8 @@ class GenerationPage extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.03,
                       ),
-                      Text('Generate Recipe 4', style: TextStyle(fontSize: 20)),
+                      const Text('Generate Recipe 4',
+                          style: TextStyle(fontSize: 20)),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
@@ -207,7 +214,7 @@ class GenerationPage extends StatelessWidget {
                             color: Colors.deepOrange,
                             child: MaterialButton(
                               onPressed: () {},
-                              child: Icon(Icons.arrow_back, size: 40),
+                              child: const Icon(Icons.arrow_back, size: 40),
                             ),
                           ),
                           Container(
@@ -216,7 +223,8 @@ class GenerationPage extends StatelessWidget {
                             color: Colors.yellow,
                             child: MaterialButton(
                               onPressed: () {},
-                              child: Icon(Icons.generating_tokens, size: 40),
+                              child:
+                                  const Icon(Icons.generating_tokens, size: 40),
                             ),
                           ),
                           Container(
@@ -225,7 +233,7 @@ class GenerationPage extends StatelessWidget {
                             color: Colors.blue,
                             child: MaterialButton(
                               onPressed: () {},
-                              child: Icon(Icons.arrow_forward, size: 40),
+                              child: const Icon(Icons.arrow_forward, size: 40),
                             ),
                           ),
                         ],
@@ -245,7 +253,7 @@ class GenerationPage extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.bottomCenter,
-                child: Text(
+                child: const Text(
                   'Lets Generate Them Recipes!',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
                 ),
