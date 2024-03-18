@@ -34,8 +34,8 @@ class RecipeService {
   }
 
   Future<List<dynamic>> fetchRecipes(List<String> ingredients) async {
-    const String apiId = 'YOUR_API_ID';
-    const String apiKey = 'YOUR_API_KEY';
+    const String apiId = 'API_ID';
+    const String apiKey = 'API_KEY';
 
     String ingredientQuery = ingredients.join(',');
 
