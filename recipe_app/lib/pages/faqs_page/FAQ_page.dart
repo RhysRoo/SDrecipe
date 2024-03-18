@@ -103,7 +103,7 @@ class FAQ_page extends StatelessWidget {
                               // Handle button press
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.green,
+                              // primary: Colors.green,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 24.0, vertical: 12.0),
                               minimumSize: const Size(0, 50),
@@ -213,7 +213,7 @@ class FAQ_page extends StatelessWidget {
             },
             style: TextButton.styleFrom(
               backgroundColor: Colors.green[700],
-              primary: Colors.white,
+              // primary: Colors.white,
             ),
             child: const Text('Add Question'),
           ),
