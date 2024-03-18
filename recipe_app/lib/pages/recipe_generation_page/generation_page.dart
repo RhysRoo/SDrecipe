@@ -11,254 +11,41 @@ class GenerationPage extends StatelessWidget {
         title: const Text('Generation Page'),
       ),
       backgroundColor: Colors.green[200],
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
+          Expanded(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.95,
+              margin: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.025,
+                right: MediaQuery.of(context).size.width * 0.025,
+                top: MediaQuery.of(context).size.height * 0.01,
               ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                  ),
-                ],
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.teal[600],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.009),
-              Container(
-                //Ui Panel Height & Width
-                height: MediaQuery.of(context).size.height * 0.75,
-                width: MediaQuery.of(context).size.width * 0.95,
-
-                decoration: BoxDecoration(
-                  //Ui Panel Styling
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.teal[600],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.025,
-                      ),
-                      const Text('Generate Recipe 1',
-                          style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.055,
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            color: Colors.deepOrange,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child: const Icon(Icons.arrow_back, size: 40),
-                            ),
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            color: Colors.yellow,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child:
-                                  const Icon(Icons.generating_tokens, size: 40),
-                            ),
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            color: Colors.blue,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child: const Icon(Icons.arrow_forward, size: 40),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        //Currently Selected Recipe
-                        height: 50,
-                        width: 400,
-                        color: Colors.purple,
-                        child: const Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: TextField(
-                              decoration: InputDecoration(
-                                  fillColor: Colors.deepOrange)),
-                        ),
-                      ),
-                      //recipe 2
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      const Text('Generate Recipe 2',
-                          style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.055,
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            color: Colors.deepOrange,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child: const Icon(Icons.arrow_back, size: 40),
-                            ),
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            color: Colors.yellow,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child:
-                                  const Icon(Icons.generating_tokens, size: 40),
-                            ),
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            color: Colors.blue,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child: const Icon(Icons.arrow_forward, size: 40),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        //Currently Selected Recipe
-                        height: 50,
-                        width: 400,
-                        color: Colors.purple,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      const Text('Generate Recipe 3',
-                          style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.055,
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            color: Colors.deepOrange,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child: const Icon(Icons.arrow_back, size: 40),
-                            ),
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            color: Colors.yellow,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child:
-                                  const Icon(Icons.generating_tokens, size: 40),
-                            ),
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            color: Colors.blue,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child: const Icon(Icons.arrow_forward, size: 40),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        //Currently Selected Recipe
-                        height: 50,
-                        width: 400,
-                        color: Colors.purple,
-                      ),
-                      //recipe 2
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      const Text('Generate Recipe 4',
-                          style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.055,
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            color: Colors.deepOrange,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child: const Icon(Icons.arrow_back, size: 40),
-                            ),
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            color: Colors.yellow,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child:
-                                  const Icon(Icons.generating_tokens, size: 40),
-                            ),
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width * 0.27,
-                            color: Colors.blue,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child: const Icon(Icons.arrow_forward, size: 40),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        //Currently Selected Recipe
-                        height: 50,
-                        width: 400,
-                        color: Colors.purple,
-                      ),
-                    ],
-                  ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 60,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
+                onPrimary: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
+              onPressed: () {
+                // Handle button press
+              },
+              child: Text(
+                'Generate Recipes',
+                style: TextStyle(fontSize: 20),
               ),
-              Container(
-                alignment: Alignment.bottomCenter,
-                child: const Text(
-                  'Lets Generate Them Recipes!',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-                ),
-              ),
-            ],
+            ),
           ),
         ],
       ),
