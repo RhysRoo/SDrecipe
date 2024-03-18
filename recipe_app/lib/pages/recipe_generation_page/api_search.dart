@@ -30,12 +30,12 @@ class RecipeService {
     List<Recipe> recipes = recipesJson.map((recipeJson) => Recipe.fromJson(recipeJson['recipe'])).toList();
     // filter recipes to only include those with ingredients in ingredientNames
     List<Recipe> filtered = filteredRecipes(ingredientNames, recipes);
-    return filtered;
+    return filtered.take(5).toList();
   }
 
   Future<List<dynamic>> fetchRecipes(List<String> ingredients) async {
-    const String apiId = 'API_ID';
-    const String apiKey = 'API_KEY';
+    const String apiId = '87adcf60';
+    const String apiKey = 'bba2c4af46d564ff8eb6075aa1b36307';
 
     String ingredientQuery = ingredients.join(',');
 
@@ -54,5 +54,15 @@ class RecipeService {
       print(e.toString());
       return [];
     }
+  }
+
+  Future<List<String>> getRecipeNames() async {
+    List<Recipe> recipes = await fetchRecipesBasedOnUserIngredients();
+    return recipes.map((recipe) => recipe.label).toList();
+  }
+
+  Future<List<String>> getRecipeUrls() async {
+    List<Recipe> recipes = await fetchRecipesBasedOnUserIngredients();
+    return recipes.map((recipe) => recipe.url).toList();
   }
 }
