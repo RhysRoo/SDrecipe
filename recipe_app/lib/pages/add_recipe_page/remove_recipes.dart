@@ -145,18 +145,18 @@ class _ShowRecipePageState extends State<ShowRecipePage> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text("Confirm Delete"),
-                      content:
-                          Text("Are you sure you want to delete the recipe?"),
+                      title: const Text("Confirm Delete"),
+                      content: const Text(
+                          "Are you sure you want to delete the recipe?"),
                       actions: [
                         ElevatedButton(
-                          child: Text("Cancel"),
+                          child: const Text("Cancel"),
                           onPressed: () {
                             Navigator.of(context).pop(); // Close the dialog
                           },
                         ),
                         ElevatedButton(
-                          child: Text("Delete"),
+                          child: const Text("Delete"),
                           onPressed: () {
                             // Call the function to delete the recipe
                             _deleteRecipe(recipeName, ingredients);
