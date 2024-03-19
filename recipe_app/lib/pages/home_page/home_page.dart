@@ -155,23 +155,8 @@ class _AuthScreenState extends State<AuthScreen> {
                           builder: (context) => const AddRecipe()));
                 },
               ),
-              ListTile(
-                title: Row(
-                  children: [
-                    Icon(Icons.add, size: 33),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.01,
-                    ),
-                    const Text('Ratings', style: TextStyle(fontSize: 20)),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RatingPage()));
-                },
-              ),
+              
+            
               ListTile(
                 title: Row(
                   children: [

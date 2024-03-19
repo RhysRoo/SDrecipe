@@ -107,7 +107,7 @@ class AboutUsPage extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.009),
                 Container(
                   // Ui Panel
-                  height: MediaQuery.of(context).size.height * 2.55,
+                  height: MediaQuery.of(context).size.height * 3.2,//page len
                   width: MediaQuery.of(context).size.width * 0.95,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -121,7 +121,7 @@ class AboutUsPage extends StatelessWidget {
                       'Our aim is to significantly reduce the amount of food waste being produced. This is beneficial to both the environment and saving money.\n\n'
                       'Less wasted food means fewer resources used in production. Further environmental benefits include reducing Greenhouse Gas Emissions, Rotting food in landfills produces methane, a potent greenhouse gas. Cutting waste helps mitigate climate change. Wasting less food means more money in our pockets.\n\n'
                       'The WasteAway application allows you to enter ingredients that you need to use before their “use by date” expires. Simply enter the ingredients you have into the App and you will be guided to exciting recipes that use what you have available. No more chucking out that “half a pineapple” or “pack of cream cheese”. This is the App that every household needs.',
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: 20),
                     ),
                     const SizedBox(height: 16),
                     Column(
