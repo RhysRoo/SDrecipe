@@ -46,7 +46,7 @@ class AboutUsPage extends StatelessWidget {
   void _launchEmail4() async {
     final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
-      path: 'up2120303@myport.ac.uk',
+      path: 'up2125866@myport.ac.uk',
     );
     if (await canLaunch(emailLaunchUri.toString())) {
       await launch(emailLaunchUri.toString());
