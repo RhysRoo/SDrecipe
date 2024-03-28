@@ -48,6 +48,8 @@ void main() {
       expect(uid, '');
     });
   });
+
+  // getFoodRestriction Test
 }
 
 // MockCollectionReference class to mock the CollectionReference object

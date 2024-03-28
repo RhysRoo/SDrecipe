@@ -6,6 +6,10 @@ import 'package:http/http.dart' as http;
 class IngredientAPI {
   // Returns a boolean value that determines if the ingredient is valid
   Future<bool> ingredientAPICheck(String ingredientName) async {
+    if (ingredientName == '' || ingredientName.isEmpty) {
+      return false;
+    }
+
     final String apiUrl =
         'https://world.openfoodfacts.org/cgi/search.pl?search_terms=$ingredientName&search_simple=1&action=process&json=1';
 
