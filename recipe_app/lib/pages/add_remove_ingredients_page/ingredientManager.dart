@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/open_food_api.dart';
 import 'package:flutter_log/pages/profile_page/userManager.dart';
 
@@ -9,7 +10,7 @@ import 'package:flutter_log/pages/profile_page/userManager.dart';
 class IngredientManager {
   IngredientAPI api = IngredientAPI();
   UserManager user = UserManager();
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   // Returns the list of ingredients from the cloud that the user has entered
   Future<List<List<String>>> getUserIngredients() async {
