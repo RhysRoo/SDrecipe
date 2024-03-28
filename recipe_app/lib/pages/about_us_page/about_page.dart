@@ -46,7 +46,7 @@ class AboutUsPage extends StatelessWidget {
   void _launchEmail4() async {
     final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
-      path: 'up2120303@myport.ac.uk',
+      path: 'up2125866@myport.ac.uk',
     );
     if (await canLaunch(emailLaunchUri.toString())) {
       await launch(emailLaunchUri.toString());
@@ -79,12 +79,13 @@ class AboutUsPage extends StatelessWidget {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About Us', style: TextStyle(fontSize: 45)),
-        backgroundColor: Colors.green,
+        title: const Text('About Us', style: TextStyle(fontSize: 45)),//title
+        backgroundColor: Colors.green,//background
         toolbarHeight: MediaQuery.of(context).size.height * 0.06,
         shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
       ),
@@ -104,10 +105,10 @@ class AboutUsPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.009),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.009),//s
+                //main container
                 Container(
-                  // Ui Panel
-                  height: MediaQuery.of(context).size.height * 2.55,
+                  height: MediaQuery.of(context).size.height * 3.2,//page legnth
                   width: MediaQuery.of(context).size.width * 0.95,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -115,13 +116,13 @@ class AboutUsPage extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.all(16),
                   child: Column(children: [
+                    //about us text
                     const Text(
-
                       'WasteAway is an exciting new application designed to help cut down on food waste. In the United Kingdom, approximately 9.5 million tonnes of food go to waste each year, a staggering amount. Meanwhile, 8.4 million people in the UK struggle with food poverty. It’s a heartbreaking paradox: while so much food is discarded, many individuals and families are left without enough to eat.\n\n'
                       'Our aim is to significantly reduce the amount of food waste being produced. This is beneficial to both the environment and saving money.\n\n'
                       'Less wasted food means fewer resources used in production. Further environmental benefits include reducing Greenhouse Gas Emissions, Rotting food in landfills produces methane, a potent greenhouse gas. Cutting waste helps mitigate climate change. Wasting less food means more money in our pockets.\n\n'
                       'The WasteAway application allows you to enter ingredients that you need to use before their “use by date” expires. Simply enter the ingredients you have into the App and you will be guided to exciting recipes that use what you have available. No more chucking out that “half a pineapple” or “pack of cream cheese”. This is the App that every household needs.',
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: 20),
                     ),
                     const SizedBox(height: 16),
                     Column(
@@ -145,6 +146,7 @@ class AboutUsPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment
                                     .start, // Align text to the left
                                 children: [
+                                  //image container for profiles
                                   Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.4,
@@ -152,7 +154,7 @@ class AboutUsPage extends StatelessWidget {
                                         0.3,
                                     decoration: BoxDecoration(
                                       image: const DecorationImage(
-                                        image: AssetImage(
+                                        image: AssetImage(//fetch image
                                             'images/about_page/blank.jpg'),
                                         fit: BoxFit.cover,
                                       ),
@@ -193,7 +195,7 @@ class AboutUsPage extends StatelessWidget {
                                     padding: const EdgeInsets.fromLTRB(
                                         8.0, 4.0, 8.0, 8.0),
                                     child: GestureDetector(
-                                      onTap: _launchEmail2,
+                                      onTap: _launchEmail2,//email link
                                       child: const Text(
                                         'Contact by email',
                                         style: TextStyle(
@@ -214,11 +216,11 @@ class AboutUsPage extends StatelessWidget {
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
-                                    color: Colors.black), // Black outline
+                                    color: Colors.black), 
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment
-                                    .start, // Align text to the left
+                                    .start, 
                                 children: [
                                   Container(
                                     width:
@@ -234,7 +236,7 @@ class AboutUsPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
                                           color: Colors
-                                              .black), // Black outline for image
+                                              .black), 
                                     ),
                                   ),
                                   const Padding(
@@ -285,7 +287,7 @@ class AboutUsPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // First Container
+                            // third Container
                             Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.height * 0.55,
@@ -294,11 +296,11 @@ class AboutUsPage extends StatelessWidget {
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
-                                    color: Colors.black), // Black outline
+                                    color: Colors.black), 
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment
-                                    .start, // Align text to the left
+                                    .start, 
                                 children: [
                                   Container(
                                     width:
@@ -314,7 +316,7 @@ class AboutUsPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
                                           color: Colors
-                                              .black), // Black outline for image
+                                              .black), 
                                     ),
                                   ),
                                   const Padding(
@@ -360,7 +362,7 @@ class AboutUsPage extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 20),
-                            // Second Container
+                            // forth Container
                             Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.height * 0.55,
@@ -369,11 +371,11 @@ class AboutUsPage extends StatelessWidget {
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
-                                    color: Colors.black), // Black outline
+                                    color: Colors.black), 
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment
-                                    .start, // Align text to the left
+                                    .start, 
                                 children: [
                                   Container(
                                     width:
@@ -389,7 +391,7 @@ class AboutUsPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
                                           color: Colors
-                                              .black), // Black outline for image
+                                              .black), 
                                     ),
                                   ),
                                   const Padding(
@@ -437,10 +439,10 @@ class AboutUsPage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        Row(//new row
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // Third Container (identical to the first)
+                            // fifth Container
                             Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.height * 0.55,
@@ -449,11 +451,11 @@ class AboutUsPage extends StatelessWidget {
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
-                                    color: Colors.black), // Black outline
+                                    color: Colors.black), 
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment
-                                    .start, // Align text to the left
+                                    .start, 
                                 children: [
                                   Container(
                                     width:
@@ -469,7 +471,7 @@ class AboutUsPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
                                           color: Colors
-                                              .black), // Black outline for image
+                                              .black), 
                                     ),
                                   ),
                                   const Padding(
@@ -515,7 +517,7 @@ class AboutUsPage extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 20),
-                            // Fourth Container (identical to the second)
+                            // sixth container
                             Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.height * 0.55,
@@ -524,11 +526,11 @@ class AboutUsPage extends StatelessWidget {
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
-                                    color: Colors.black), // Black outline
+                                    color: Colors.black), 
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment
-                                    .start, // Align text to the left
+                                    .start, 
                                 children: [
                                   Container(
                                     width:
@@ -544,7 +546,7 @@ class AboutUsPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
                                           color: Colors
-                                              .black), // Black outline for image
+                                              .black), 
                                     ),
                                   ),
                                   const Padding(
