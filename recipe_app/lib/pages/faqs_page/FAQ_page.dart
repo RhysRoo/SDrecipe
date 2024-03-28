@@ -2,12 +2,15 @@
 
 import 'package:flutter/material.dart';
 
+
+//questions and awnser set up
 class QAItem extends StatelessWidget {
   final String title;
   final List<Widget> children;
   final Color backgroundColor;
   final Color titleColor;
   final Color childrenColor;
+
 
   const QAItem({
     Key? key,
@@ -48,15 +51,15 @@ class FAQ_page extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Frequently Asked Questions'),
-        backgroundColor: Colors.green,
+        title: const Text('Frequently Asked Questions'),//title
+        backgroundColor: Colors.green,//background
       ),
       body: ListView(
         children: [
           Row(
             children: [
               Expanded(
-                child: Container(
+                child: Container(//search container
                   color: Colors.green[700],
                   height: MediaQuery.of(context).size.height * 0.20,
                   child: Column(
@@ -83,7 +86,7 @@ class FAQ_page extends StatelessWidget {
                           const Expanded(
                             child: SizedBox(
                               height: 50.0,
-                              child: TextField(
+                              child: TextField(//text box to search (not functional)
                                 decoration: InputDecoration(
                                   hintText: 'Search...',
                                   hintStyle: TextStyle(color: Colors.grey),
@@ -100,7 +103,7 @@ class FAQ_page extends StatelessWidget {
                           const SizedBox(width: 10),
                           ElevatedButton(
                             onPressed: () {
-                              // Handle button press
+                              // button to search (not functional)
                             },
                             style: ElevatedButton.styleFrom(
                               primary: Colors.green,
@@ -109,7 +112,7 @@ class FAQ_page extends StatelessWidget {
                               minimumSize: const Size(0, 50),
                             ),
                             child: const Text(
-                              'Your Button Text', // Add your button text here
+                              'search', // search button
                               style: TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.bold,
@@ -125,6 +128,7 @@ class FAQ_page extends StatelessWidget {
               ),
             ],
           ),
+          //coad for each q and a
           const QAItem(
             title: 'Q: What is the main goal of the Recipe Generator app?',
             children: [
@@ -207,7 +211,7 @@ class FAQ_page extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          TextButton(
+          TextButton(// button for add question (not functional)
             onPressed: () {
               // Add code for handling the button press
             },
