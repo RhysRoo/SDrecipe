@@ -7,7 +7,6 @@ import 'package:flutter_log/pages/add_recipe_page/add_recipe.dart';
 import 'package:flutter_log/pages/faqs_page/FAQ_page.dart';
 import 'package:flutter_log/pages/home_page/food_notifications/notifications.dart';
 import 'package:flutter_log/pages/profile_page/profile_page.dart';
-import 'package:flutter_log/pages/ratings_page/rating_page.dart';
 import 'package:flutter_log/pages/recipe_generation_page/generation_page.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/add_remove_ingredients_page.dart';
 
@@ -155,8 +154,6 @@ class _AuthScreenState extends State<AuthScreen> {
                           builder: (context) => const AddRecipe()));
                 },
               ),
-              
-            
               ListTile(
                 title: Row(
                   children: [
