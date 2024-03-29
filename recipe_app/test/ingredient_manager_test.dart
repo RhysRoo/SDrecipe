@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/open_food_api.dart';
 import 'package:flutter_log/pages/profile_page/userManager.dart';
@@ -21,6 +23,8 @@ class MockIngredientAPI extends Mock implements IngredientAPI {}
 void main() {
   late IngredientManager manager;
   late MockIngredientAPI mockApi;
+  late FirebaseFirestore fakeFirestore;
+  late MockFirebaseAuth mockAuth;
 
   setUp(() {
     // Mock API
@@ -28,11 +32,12 @@ void main() {
 
     // Mock FirebaseAuth and FirebaseFirestore
     final FirebaseAuth auth = MockFirebaseAuth();
-    final FirebaseFirestore firestore = MockFirebaseFirestore();
+    fakeFirestore = FakeFirebaseFirestore();
+    mockAuth = MockFirebaseAuth();
 
     // Mock UserManager with FirebaseAuth and FirebaseFirestore mocks
     final UserManager userManager =
-        UserManager(auth: auth, firestore: firestore);
+        UserManager(auth: auth, firestore: fakeFirestore);
 
     // Initialize IngredientManager with the mocked UserManager and API
     manager = IngredientManager();
@@ -40,7 +45,51 @@ void main() {
     manager.api = mockApi;
   });
 
-  group('validateQuantity', () {
+  group('Ingredient Manager: getIngredients() Test', () {
+    test('Valid Collection Retrieval', () async {
+      // Error Returning []
+      fakeFirestore.collection('UserIngredients').doc('dummyUid').set({
+        'ingredients': [
+          {"name": "Lemon", "weight": "30", "expiryDate": "2024-07-03"}
+        ],
+      });
+
+      when(manager.user.getCurrentUserUID())
+          .thenAnswer((_) async => 'dummyUid');
+
+      List<List<String>> result = await manager.getUserIngredients();
+
+      print(result);
+
+      expect(result, [
+        ["Lemon", "30", "2024-07-03"]
+      ]);
+    });
+
+    test('Invalid UID Retrieval should return []', () async {
+      fakeFirestore.collection('UserIngredients').doc('dummyUid').set({
+        'ingredients': [
+          {"name": "Lemon", "weight": "30", "expiryDate": "2024-07-03"}
+        ],
+      });
+
+      when(manager.user.getCurrentUserUID()).thenAnswer((_) async => '');
+
+      List<List<String>> result = await manager.getUserIngredients();
+
+      expect(result, []);
+    });
+
+    test('No Collection Documentation should return []', () async {
+      when(manager.user.getCurrentUserUID()).thenAnswer((_) async => '');
+
+      List<List<String>> result = await manager.getUserIngredients();
+
+      expect(result, []);
+    });
+  });
+
+  group('Ingredient Manager: validateQuantity() Test', () {
     test('returns true for quantity >= 10 grams', () {
       // Arrange
       const validQuantity = '15';
@@ -64,7 +113,7 @@ void main() {
     });
   });
 
-  group('convertStringtoDatetime', () {
+  group('Ingredient Manager: convertStringtoDatetime() Test', () {
     test(
         'convertStringtoDatetime returns correct DateTime for valid date string',
         () {
@@ -106,7 +155,7 @@ void main() {
     });
   });
 
-  group('checkDateTimeAgainstTodaysDate', () {
+  group('Ingredient Manager: checkDateTimeAgainstTodaysDate() Test', () {
     test(
         'checkDateTimeAgainstTodaysDate returns true for valid date before today',
         () {
@@ -165,7 +214,7 @@ void main() {
     });
   });
 
-  group('checkUserDateTime', () {
+  group('Ingredient Manager: checkUserDateTime() Test', () {
     test('checkUserDateTime returns true for valid date after today', () {
       // Arrange
       final manager = IngredientManager();

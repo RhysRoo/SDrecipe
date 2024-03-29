@@ -9,7 +9,7 @@ import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
 void main() {
-  group('UserManager tests', () {
+  group('UserManager Tests', () {
     late UserManager userManager;
     late MockFirebaseAuth mockAuth;
     late FirebaseFirestore fakeFirestore;
