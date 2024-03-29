@@ -1,15 +1,46 @@
 // ignore_for_file: subtype_of_sealed_class, must_be_immutable
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_log/pages/profile_page/userManager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 
 // Mock FirebaseAuth and FirebaseFirestore classes
 class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
-class MockFirebaseFirestore extends Mock implements FirebaseFirestore {}
+class MockFirebaseFirestore extends Mock implements FirebaseFirestore {
+  @override
+  CollectionReference<Map<String, dynamic>> collection(String collectionPath) {
+    // Check if the collectionPath matches "UserDetails"
+    if (collectionPath == 'UserDetails') {
+      // Return a mock CollectionReference specifically for "UserDetails"
+      return MockCollectionReference();
+    } else {
+      throw Exception('Unexpected collection path: $collectionPath');
+    }
+  }
+}
+
+// MockUser class to mock the User object
+class MockUser extends Mock implements User {
+  @override
+  String get uid => 'mockUID';
+}
+
+class MockDocumentSnapshot extends Mock
+    implements DocumentSnapshot<Map<String, dynamic>> {
+  final Map<String, dynamic> _data;
+
+  MockDocumentSnapshot(this._data);
+
+  @override
+  Map<String, dynamic>? data() => _data;
+}
+
+// Must Link to Snapshot
+class MockCollectionReference extends Mock
+    implements CollectionReference<Map<String, dynamic>> {}
 
 void main() {
   late UserManager userManager;
@@ -49,26 +80,40 @@ void main() {
     });
   });
 
-  // ############### getFoodRestriction Test ###############
-}
+  // Test is faulty due to nullability
+  group('getFoodRestriction', () {
+    test('Valid UID promotes Valid foodRestriction', () async {
+      const String uid = 'UID';
 
-// MockCollectionReference class to mock the CollectionReference object
-class MockCollectionReference extends Mock
-    implements CollectionReference<Map<String, dynamic>> {}
+      // Mock Document Snapshot
+      final Map<String, dynamic> userProfileData = {
+        'foodRestriction': 'Vegitarian'
+      };
 
-// MockUser class to mock the User object
-class MockUser extends Mock implements User {
-  @override
-  String get uid => 'mockUID';
-}
+      final MockDocumentSnapshot mockDocumentSnapshot =
+          MockDocumentSnapshot(userProfileData);
 
-// MockDocumentSnapshot class to mock the DocumentSnapshot object
-class MockDocumentSnapshot extends Mock
-    implements DocumentSnapshot<Map<String, dynamic>> {
-  final Map<String, dynamic> _data;
+      when(userManager.getCurrentUserUID()).thenAnswer((_) async => uid);
 
-  MockDocumentSnapshot(this._data);
+      when(mockFirestore.collection('UserDetails').doc(uid).get())
+          .thenAnswer((_) async => mockDocumentSnapshot);
 
-  @override
-  Map<String, dynamic> data() => _data;
+      // Call the method under test
+      final foodRestriction = await userManager.getFoodRestriction();
+
+      // Assert that the returned food restriction matches the expected value
+      expect(foodRestriction, 'Vegetarian');
+    });
+
+    test('Invalid UID promotes Invalid foodRestriction', () async {
+      // Mock currentUser to return null
+      when(mockAuth.currentUser).thenReturn(null);
+
+      // Call the method being tested
+      final uid = await userManager.getCurrentUserUID();
+
+      // Verify that the returned UID is an empty string
+      expect(uid, '');
+    });
+  });
 }

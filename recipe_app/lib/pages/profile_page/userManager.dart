@@ -36,11 +36,13 @@ class UserManager {
         return foodRestriction;
       } else {
         print("Food Restriction: Issues Occurred");
-        return '';
+        dynamic foodRestriction = null;
+        return foodRestriction;
       }
     } catch (e) {
       print("Issue obtaining food restriction: $e");
-      return '';
+      dynamic foodRestriction = null;
+      return foodRestriction;
     }
   }
 }
