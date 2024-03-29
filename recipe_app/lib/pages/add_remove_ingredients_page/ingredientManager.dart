@@ -9,7 +9,7 @@ import 'package:flutter_log/pages/profile_page/userManager.dart';
 class IngredientManager {
   IngredientAPI api = IngredientAPI();
   UserManager user = UserManager();
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   // Returns the list of ingredients from the cloud that the user has entered
   Future<List<List<String>>> getUserIngredients() async {
