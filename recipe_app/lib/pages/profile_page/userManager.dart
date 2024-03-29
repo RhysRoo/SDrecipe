@@ -24,7 +24,7 @@ class UserManager {
     }
   }
 
-  Future<String> getFoodRestriction() async {
+  Future<String?> getFoodRestriction() async {
     try {
       String? uid = await getCurrentUserUID();
       DocumentSnapshot<Map<String, dynamic>>? documentSnapshot =
@@ -36,13 +36,11 @@ class UserManager {
         return foodRestriction;
       } else {
         print("Food Restriction: Issues Occurred");
-        dynamic foodRestriction = null;
-        return foodRestriction;
+        return null;
       }
     } catch (e) {
       print("Issue obtaining food restriction: $e");
-      dynamic foodRestriction = null;
-      return foodRestriction;
+      return null;
     }
   }
 }
