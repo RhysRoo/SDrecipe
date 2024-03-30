@@ -11,9 +11,6 @@ import 'package:mockito/mockito.dart';
 // Mock class for UserManager
 class MockUserManager extends Mock implements UserManager {}
 
-// Mock class for FirebaseFirestore
-class MockFirebaseFirestore extends Mock implements FirebaseFirestore {}
-
 // Mock class for FirebaseAuth
 class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
@@ -31,43 +28,149 @@ void main() {
     mockApi = MockIngredientAPI();
 
     // Mock FirebaseAuth and FirebaseFirestore
-    final FirebaseAuth auth = MockFirebaseAuth();
     fakeFirestore = FakeFirebaseFirestore();
     mockAuth = MockFirebaseAuth();
 
     // Mock UserManager with FirebaseAuth and FirebaseFirestore mocks
     final UserManager userManager =
-        UserManager(auth: auth, firestore: fakeFirestore);
+        UserManager(auth: mockAuth, firestore: fakeFirestore);
 
     // Initialize IngredientManager with the mocked UserManager and API
     manager = IngredientManager();
     manager.user = userManager;
     manager.api = mockApi;
+    manager.firestore = fakeFirestore;
+  });
+
+  group('Ingredient Manager: storeUserIngredients() Test', () {
+    // Prepare more testing examples
+    test('Store User Ingredients', () async {
+      // Prepare test data
+      List<List<String>> listIngredients = [
+        ["Lemon", "30", "2024-07-03"],
+        // Add more ingredients as needed
+      ];
+
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
+
+      // Invoke the method
+      await manager.storeUserIngredients(listIngredients);
+
+      // Verify the result
+      final storedDocument = await fakeFirestore
+          .collection('UserIngredients')
+          .doc('dummyUid')
+          .get();
+      final storedIngredients = storedDocument.data()?['ingredients'];
+
+      print(storedIngredients);
+
+      expect(storedIngredients, [
+        {"name": "Lemon", "weight": "30", "expiryDate": "2024-07-03"},
+        // Add more expected ingredients as needed
+      ]);
+    });
+
+    test('Store User Ingredients', () async {
+      // Prepare test data
+      List<List<String>> listIngredients = [
+        ["Lemon", "30", "2024-07-03"], ["Melon", "30", "2024-07-01"],
+        // Add more ingredients as needed
+      ];
+
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
+
+      // Invoke the method
+      await manager.storeUserIngredients(listIngredients);
+
+      // Verify the result
+      final storedDocument = await fakeFirestore
+          .collection('UserIngredients')
+          .doc('dummyUid')
+          .get();
+      final storedIngredients = storedDocument.data()?['ingredients'];
+
+      expect(storedIngredients, [
+        {"name": "Lemon", "weight": "30", "expiryDate": "2024-07-03"},
+        {"name": "Melon", "weight": "30", "expiryDate": "2024-07-01"}
+        // Add more expected ingredients as needed
+      ]);
+    });
   });
 
   group('Ingredient Manager: getIngredients() Test', () {
     test('Valid Collection Retrieval', () async {
-      // Error Returning []
+      // Set up the fake Firestore document with the expected data
+      fakeFirestore.collection('UserIngredients').doc('dummyUid').set({
+        'ingredients': [
+          {
+            'name': 'Lemon',
+            'weight': '30',
+            'expiryDate': '2024-07-03',
+          }
+        ]
+      });
+
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
+
+      // Call the method under test
+      List<List<String>> result = await manager.getUserIngredients();
+
+      // Verify the result
+      expect(result, [
+        ['Lemon', '30', '2024-07-03']
+      ]);
+    });
+
+    test('Longer Valid Collection Retrieval', () async {
+      // Set up the fake Firestore document with the expected data
+      fakeFirestore.collection('UserIngredients').doc('dummyUid').set({
+        'ingredients': [
+          {
+            'name': 'Lemon',
+            'weight': '30',
+            'expiryDate': '2024-06-03',
+          },
+          {
+            'name': 'Melon',
+            'weight': '30',
+            'expiryDate': '2024-07-01',
+          }
+        ]
+      });
+
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
+
+      // Call the method under test
+      List<List<String>> result = await manager.getUserIngredients();
+
+      // Verify the result
+      expect(result, [
+        ['Lemon', '30', '2024-06-03'],
+        ['Melon', '30', '2024-07-01']
+      ]);
+    });
+
+    test('Invalid UID Retrieval should return []', () async {
       fakeFirestore.collection('UserIngredients').doc('dummyUid').set({
         'ingredients': [
           {"name": "Lemon", "weight": "30", "expiryDate": "2024-07-03"}
         ],
       });
 
-      when(manager.user.getCurrentUserUID())
-          .thenAnswer((_) async => 'dummyUid');
+      when(manager.user.getCurrentUserUID()).thenAnswer((_) async => '');
 
       List<List<String>> result = await manager.getUserIngredients();
 
-      print(result);
-
-      expect(result, [
-        ["Lemon", "30", "2024-07-03"]
-      ]);
+      expect(result, []);
     });
 
-    test('Invalid UID Retrieval should return []', () async {
-      fakeFirestore.collection('UserIngredients').doc('dummyUid').set({
+    test('Null UID Retrieval should return []', () async {
+      fakeFirestore.collection('UserIngredients').doc(null).set({
         'ingredients': [
           {"name": "Lemon", "weight": "30", "expiryDate": "2024-07-03"}
         ],

@@ -22,6 +22,7 @@ class IngredientManager {
             await firestore.collection("UserIngredients").doc(uid).get();
 
         if (documentSnapshot.exists) {
+          print("Exists");
           Map<String, dynamic> data = documentSnapshot.data() ?? {};
           List<Map<String, dynamic>> ingredientsData =
               List<Map<String, dynamic>>.from(data['ingredients'] ?? []);
@@ -50,13 +51,12 @@ class IngredientManager {
     // The Linker between getting previous data and submitting new data
 
     // Anonymous function access to _storeUserIngredients
-    await _storeUserIngredients(listIngredients);
+    await storeUserIngredients(listIngredients);
   }
 
   // Stores the ingredients into the cloud
-  Future<void> _storeUserIngredients(List<List<String>> listIngredients) async {
+  Future<void> storeUserIngredients(List<List<String>> listIngredients) async {
     String uid = await user.getCurrentUserUID();
-    print(listIngredients);
 
     List<Map<String, dynamic>> convertedList = // Conversion into a JSON Format
         listIngredients.map((ingredient) {
