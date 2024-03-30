@@ -33,7 +33,7 @@ class UserManager {
           await _firestore?.collection("UserDetails").doc(uid).get();
 
       if (documentSnapshot!.exists) {
-        dynamic foodRestriction = documentSnapshot?.data()?["foodRestriction"];
+        dynamic foodRestriction = documentSnapshot.data()?["foodRestriction"];
         print("Food Restriction: $foodRestriction");
         return foodRestriction;
       } else {

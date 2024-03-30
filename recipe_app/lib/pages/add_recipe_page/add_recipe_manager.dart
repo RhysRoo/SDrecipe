@@ -9,7 +9,7 @@ import 'package:flutter_log/pages/profile_page/userManager.dart';
 
 class AddRemoveRecipeManager {
   UserManager userManager = UserManager();
-  late final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<void> saveRecipe(List<Map<String, dynamic>> ingredients,
       String recipeName, String foodRestiction) async {

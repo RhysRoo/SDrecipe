@@ -126,6 +126,7 @@ void main() {
           .collection('UserIngredients')
           .doc('dummyUid')
           .get();
+          
       final storedIngredients = storedDocument.data()?['ingredients'];
 
       expect(storedIngredients, [
