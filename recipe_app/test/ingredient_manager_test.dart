@@ -72,6 +72,42 @@ void main() {
       ]);
     });
 
+    test('Null UID should return null', () async {
+      // Prepare test data
+      List<List<String>> listIngredients = [
+        ["Lemon", "30", "2024-07-03"], ["Melon", "30", "2024-07-01"],
+        // Add more ingredients as needed
+      ];
+
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(null);
+
+      // Invoke the method
+      await manager.storeUserIngredients(listIngredients);
+
+      // Verify the result
+      final storedDocument =
+          await fakeFirestore.collection('UserIngredients').doc(null).get();
+      final storedIngredients = storedDocument.data()?['ingredients'];
+
+      expect(storedIngredients, null);
+    });
+
+    test('Incorrect listIngredients should return null', () async {
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(MockUser(uid: "dummyUid"));
+
+      // Invoke the method
+      await manager.storeUserIngredients([]);
+
+      // Verify the result
+      final storedDocument =
+          await fakeFirestore.collection('UserIngredients').doc(null).get();
+      final storedIngredients = storedDocument.data()?['ingredients'];
+
+      expect(storedIngredients, null);
+    });
+
     test('Store User Ingredients', () async {
       // Prepare test data
       List<List<String>> listIngredients = [

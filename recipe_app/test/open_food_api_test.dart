@@ -2,10 +2,11 @@ import 'package:flutter_log/pages/add_remove_ingredients_page/open_food_api.dart
 import 'package:test/test.dart';
 
 void main() {
+  // Api call may change from time to time
   group('IngredientAPI', () {
     test('Valid ingredient', () async {
       final api = IngredientAPI();
-      final result = await api.ingredientAPICheck('banana');
+      final result = await api.ingredientAPICheck('eggs');
       expect(result, true);
     });
 
