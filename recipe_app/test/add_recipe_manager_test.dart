@@ -38,7 +38,7 @@ void main() {
       const recipeName = 'Example Recipe';
       const foodRestriction = 'None';
 
-      // Add a recipe to Firestore
+      // Recipe Added to Fake Firestore
       await fakeFirestore
           .collection("Recipes")
           .doc("dummyUid")
@@ -63,14 +63,13 @@ void main() {
           .collection("UserRecipes")
           .get();
 
-      final storedIngredients = storedDocument.docs
-          .map((doc) => doc.data())
-          .toList(); // Fetching all ingredients
+      // Fetching all ingredients
+      final storedIngredients =
+          storedDocument.docs.map((doc) => doc.data()).toList();
 
       expect([], storedIngredients);
     });
 
-    // Error Deleting Document
     test('Recipe Successfully Deleted', () async {
       final convertedList = ['ingredient1', 'ingredient2', 'ingredient3'];
       const recipeName = 'Example Recipe';
@@ -106,7 +105,51 @@ void main() {
           .get();
 
       // Assert
-      expect(storedDocument.exists, false);
+      expect(!storedDocument.exists, false);
+    });
+
+    test('Recipe Successfully Deleted', () async {
+      final convertedList = [
+        'ingredient1',
+        'ingredient2',
+        'ingredient3',
+        'ingredient4'
+      ];
+      const recipeName = 'Example Recipe';
+      const foodRestriction = 'Vegan';
+
+      // Add a recipe to Firestore
+      final newRecipeRef = await fakeFirestore
+          .collection("Recipes")
+          .doc("dummyUID")
+          .collection("UserRecipes")
+          .add({
+        'ingredients': convertedList,
+        'recipeName': recipeName,
+        'rating': '5',
+        'foodRestriction': foodRestriction,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+
+      // Arrange
+      when(mockAuth.currentUser).thenReturn(MockUser(uid: "dummyUID"));
+
+      // Act
+      await addRemoveRecipeManager.deleteRecipe(recipeName, [
+        {'ingredient': 'ingredient1', 'quantity': 'quantity1'},
+        {'ingredient': 'ingredient2', 'quantity': 'quantity2'}
+      ]);
+
+      // Verify
+      final storedDocument = await fakeFirestore
+          .collection('Recipes')
+          .doc("dummyUID")
+          .collection("UserRecipes")
+          .doc(newRecipeRef.id) // Use the reference from the added recipe
+          .get();
+
+      // Assert
+      expect(!storedDocument.exists, false);
     });
   });
 

@@ -126,7 +126,7 @@ void main() {
           .collection('UserIngredients')
           .doc('dummyUid')
           .get();
-          
+
       final storedIngredients = storedDocument.data()?['ingredients'];
 
       expect(storedIngredients, [
@@ -359,7 +359,7 @@ void main() {
       // Arrange
       final manager = IngredientManager();
       const validDateString =
-          '2024-03-31'; // Change to a valid date string after today
+          '2024-08-31'; // Change to a valid date string after today
 
       // Act
       final result = manager.checkUserDateTime(validDateString);

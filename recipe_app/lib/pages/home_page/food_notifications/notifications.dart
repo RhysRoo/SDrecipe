@@ -3,7 +3,7 @@
 import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.dart';
 
 class NotificationManager {
-  final IngredientManager ingredientManager = IngredientManager();
+  IngredientManager ingredientManager = IngredientManager();
 
   // Returns a list of the expired items that are deleted from the cloud
   Future<List<Map<String, String>>> removeExpiredIngredientsAndNotify() async {
