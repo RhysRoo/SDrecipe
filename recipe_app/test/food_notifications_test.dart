@@ -49,30 +49,168 @@ void main() {
     notificationManager.ingredientManager = ingredient_manager;
   });
 
-  // Mocking Complete Just Testing
-  test('Test removing expired ingredients and notification', () async {
-    // Arrange
-    fakeFirestore.collection('UserIngredients').doc('dummyUid').set({
-      'ingredients': [
-        {
-          'name': 'Lemon',
-          'weight': '30',
-          'expiryDate': '2021-07-03',
-        }
-      ]
+  group('Notifications Manager: removeExpiredIngredientsAndNotify() Test', () {
+    test(
+        'Expired ingredient firestore should return map of expired ingredients [{}]',
+        () async {
+      // Arrange
+      fakeFirestore.collection('UserIngredients').doc('dummyUid').set({
+        'ingredients': [
+          {
+            'name': 'Lemon',
+            'weight': '30',
+            'expiryDate': '2021-07-03',
+          }
+        ]
+      });
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
+
+      // Act
+      final removedIngredients =
+          await notificationManager.removeExpiredIngredientsAndNotify();
+
+      // Assert
+
+      expect(removedIngredients.length, 1);
+
+      // Assert that the first removed ingredient has the expected name and expiry date
+      expect(removedIngredients[0]['name'], 'Lemon');
+      expect(removedIngredients[0]['expiryDate'], '2021-07-03');
     });
-    // Mock the current user
-    when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
 
-    List<List<String>> result = await ingredient_manager.getUserIngredients();
+    test(
+        'Expired and Unexpired ingredient firestore should return map of expired ingredients [{}]',
+        () async {
+      // Arrange
+      fakeFirestore.collection('UserIngredients').doc('dummyUid').set({
+        'ingredients': [
+          {
+            'name': 'Lemon',
+            'weight': '30',
+            'expiryDate': '2021-07-03',
+          },
+          {
+            'name': 'Melon',
+            'weight': '30',
+            'expiryDate': '2025-07-03',
+          },
+        ]
+      });
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
 
-    Future.delayed(const Duration(seconds: 2));
+      // Act
+      final removedIngredients =
+          await notificationManager.removeExpiredIngredientsAndNotify();
 
-    // Act
-    final removedIngredients =
-        await notificationManager.removeExpiredIngredientsAndNotify();
+      // Assert
 
-    // Act
-    expect(removedIngredients, []);
+      expect(removedIngredients.length, 1);
+
+      expect(removedIngredients, [
+        {"name": "Lemon", "expiryDate": "2021-07-03"}
+      ]);
+    });
+
+    test(
+        'Expired and Unexpired ingredient firestore should return map of expired ingredients [{}]',
+        () async {
+      // Arrange
+      fakeFirestore.collection('UserIngredients').doc('dummyUid').set({
+        'ingredients': [
+          {
+            'name': 'Lemon',
+            'weight': '30',
+            'expiryDate': '2021-07-03',
+          },
+          {
+            'name': 'Melon',
+            'weight': '30',
+            'expiryDate': '2025-07-03',
+          },
+          {
+            'name': 'Carrot',
+            'weight': '30',
+            'expiryDate': '2022-01-03',
+          },
+          {
+            'name': 'Peach',
+            'weight': '30',
+            'expiryDate': '2023-01-03',
+          },
+        ]
+      });
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
+
+      // Act
+      final removedIngredients =
+          await notificationManager.removeExpiredIngredientsAndNotify();
+
+      // Assert
+
+      expect(removedIngredients.length, 3);
+
+      expect(removedIngredients, [
+        {"name": "Lemon", "expiryDate": "2021-07-03"},
+        {"name": "Carrot", "expiryDate": "2022-01-03"},
+        {"name": "Peach", "expiryDate": "2023-01-03"},
+      ]);
+    });
+    test('Null UID / Unauthorised should return []', () async {
+      // Arrange
+      fakeFirestore.collection('UserIngredients').doc(null).set({
+        'ingredients': [
+          {
+            'name': 'Lemon',
+            'weight': '30',
+            'expiryDate': '2021-07-03',
+          },
+          {
+            'name': 'Melon',
+            'weight': '30',
+            'expiryDate': '2025-07-03',
+          },
+          {
+            'name': 'Carrot',
+            'weight': '30',
+            'expiryDate': '2022-01-03',
+          },
+          {
+            'name': 'Peach',
+            'weight': '30',
+            'expiryDate': '2023-01-03',
+          },
+        ]
+      });
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(null);
+
+      // Act
+      final removedIngredients =
+          await notificationManager.removeExpiredIngredientsAndNotify();
+
+      // Assert
+
+      expect(removedIngredients.length, 0);
+
+      expect(removedIngredients, []);
+    });
+
+    test('No firestore should return []', () async {
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(MockUser(uid: "dummyUid"));
+
+      // Act
+      final removedIngredients =
+          await notificationManager.removeExpiredIngredientsAndNotify();
+
+      // Assert
+
+      expect(removedIngredients.length, 0);
+
+      expect(removedIngredients, []);
+    });
   });
 }
