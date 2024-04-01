@@ -10,14 +10,14 @@ import 'package:flutter_log/pages/profile_page/profile_page.dart';
 import 'package:flutter_log/pages/recipe_generation_page/generation_page.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/add_remove_ingredients_page.dart';
 
-class AuthScreen extends StatefulWidget {
-  const AuthScreen({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _AuthScreenState createState() => _AuthScreenState();
 }
 
-class _AuthScreenState extends State<AuthScreen> {
+class _AuthScreenState extends State<HomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   NotificationManager notificationManager = NotificationManager();
 
