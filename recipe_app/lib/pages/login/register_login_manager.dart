@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print
+// ignore_for_file: file_names, avoid_print, use_build_context_synchronously
 
 // To Add -> Test that does not store the same email already in firebase
 // To Integrate -> Integrate within the original program

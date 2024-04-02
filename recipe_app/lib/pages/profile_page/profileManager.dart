@@ -1,12 +1,20 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_log/pages/profile_page/userManager.dart';
 import 'package:flutter_log/pages/profile_page/userModel.dart';
 
 class ProfileManager {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  UserManager userManager = UserManager();
+  late UserManager userManager;
+  late FirebaseAuth? auth = FirebaseAuth.instance;
+  late FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  ProfileManager({FirebaseAuth? auth, FirebaseFirestore? firestore}) {
+    this.auth = auth ?? FirebaseAuth.instance;
+    this.firestore = firestore ?? FirebaseFirestore.instance;
+    userManager = UserManager(auth: this.auth!, firestore: this.firestore);
+  }
 
   bool checkInputLength(final String input) {
     return input.length <= 200;

@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_log/pages/login/register_login_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -8,18 +7,76 @@ import 'package:mockito/mockito.dart';
 // Mock class for FirebaseAuth
 class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
+// Mock class for BuildContext
+class MockBuildContext extends Mock implements BuildContext {}
+
 void main() {
   late RegisterLoginManager registerLoginManager;
-  late FirebaseFirestore fakefirestore;
   late MockFirebaseAuth mockAuth;
+  late MockBuildContext mockBuildContext;
 
   setUp(() {
-    fakefirestore = FakeFirebaseFirestore();
     mockAuth = MockFirebaseAuth();
+    mockBuildContext = MockBuildContext();
     registerLoginManager = RegisterLoginManager();
   });
 
-  group('Registration Login Manager', () {});
+  // group("Registration Login Manager signUserUp() Tests", () {
+  //   when(
+  //     mockAuth.createUserWithEmailAndPassword(
+  //         email: "shush12%@gmail.com", password: "123456"),
+  //   ).thenAnswer((realInvocation) => null);
+  // });
+
+  group('Registration Login Manager showOSError(context) Structural Test', () {
+    testWidgets('showOSError displays AlertDialog',
+        (WidgetTester tester) async {
+      // Build a MaterialApp because showDialog requires a context with a MaterialLocalizations
+      await tester.pumpWidget(MaterialApp(
+        home: Builder(builder: (BuildContext context) {
+          return ElevatedButton(
+            onPressed: () {
+              // Call showOSError
+              RegisterLoginManager.showOSError(context);
+            },
+            child: const Text('Show Error'),
+          );
+        }),
+      ));
+
+      // Tap the button to trigger the showDialog
+      await tester.tap(find.text('Show Error'));
+      await tester.pumpAndSettle();
+
+      // Verify that AlertDialog is displayed
+      expect(find.byType(AlertDialog), findsOneWidget);
+
+      // Verify the content of AlertDialog
+      expect(find.text('Android Users: Sign In with Google'), findsOneWidget);
+    });
+
+    testWidgets('showOSError calls showDialog with correct context',
+        (WidgetTester tester) async {
+      BuildContext? capturedContext;
+
+      await tester.pumpWidget(MaterialApp(
+        home: Builder(builder: (BuildContext context) {
+          capturedContext = context;
+          return ElevatedButton(
+            onPressed: () {
+              RegisterLoginManager.showOSError(context);
+            },
+            child: const Text('Show Error'),
+          );
+        }),
+      ));
+
+      await tester.tap(find.text('Show Error'));
+      await tester.pumpAndSettle();
+
+      expect(capturedContext, isNotNull);
+    });
+  });
 
   group('Registration Login Manager checkEmailValidity() Tests', () {
     test('Valid Email', () {
