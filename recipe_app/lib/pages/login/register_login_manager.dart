@@ -1,10 +1,26 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // To Add -> Test that does not store the same email already in firebase
 // To Integrate -> Integrate within the original program
 
 class RegisterLoginManager {
-  RegisterLoginManager() {}
+  // Future<bool> isEmailAlreadyRegistered(String email) async {
+  //   if (_firestore == null) {
+  //     print('Firestore instance is not provided.');
+  //     return false;
+  //   }
+
+  //   try {
+  //     final snapshot = await _firestore!.collection('users').doc(email).get();
+  //     return snapshot.exists;
+  //   } catch (e) {
+  //     print('Error checking email existence: $e');
+  //     return false;
+  //   }
+  // }
 
   bool checkEmailValidity(final String email) {
     if (email.length >= 3 && email.length < 254 && email.contains('@')) {

@@ -1,12 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_log/pages/login/register_login_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+
+// Mock class for FirebaseAuth
+class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
 void main() {
   late RegisterLoginManager registerLoginManager;
+  late FirebaseFirestore fakefirestore;
+  late MockFirebaseAuth mockAuth;
 
   setUp(() {
+    fakefirestore = FakeFirebaseFirestore();
+    mockAuth = MockFirebaseAuth();
     registerLoginManager = RegisterLoginManager();
   });
+
+  // group('Registration Login Manager ', () {
+  //   test('Registration Login Manager isAlreadyRegistered() Test', () {
+  //     FirebaseAuth.instance
+  //         .createUserWithEmailAndPassword(email: "Hello", password: 'Hello');
+  //   });
+  // });
 
   group('Registration Login Manager checkEmailValidity() Tests', () {
     test('Valid Email', () {

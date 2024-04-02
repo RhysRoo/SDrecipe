@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_log/pages/login_page.dart';
-import 'package:flutter_log/pages/register_page.dart';
+import 'package:flutter_log/pages/login/register_login_manager.dart';
+import 'package:flutter_log/pages/login/login_page.dart';
+import 'package:flutter_log/pages/login/register_page.dart';
 
 // Allows for switching between the register and log in pages 
 class LoginOrRegisterPage extends StatefulWidget {

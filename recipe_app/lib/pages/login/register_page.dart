@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_log/auth/appleSignIn.dart';
 import 'package:flutter_log/auth/googleSignIn.dart';
 import 'package:flutter_log/pages/home_page/home_page.dart';
+import 'package:flutter_log/pages/login/register_login_manager.dart';
 import 'package:flutter_log/pages/login/ui_components/button_forget.dart';
+import 'package:flutter_log/pages/login/ui_components/login_or_register.dart';
 import 'package:flutter_log/pages/login/ui_components/login_tile.dart';
 import 'package:flutter_log/pages/login/ui_components/logo_tile.dart';
 import 'package:flutter_log/pages/login/ui_components/text_fields.dart';
 
+// DO NOT TOUCH THIS CODE
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
   const RegisterPage({super.key, required this.onTap});
@@ -19,6 +22,9 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPage extends State<RegisterPage> {
+  // Appropriate Logic Manager
+  final registerLoginManager = RegisterLoginManager();
+
   // Text Editing Controller
   final emailController = TextEditingController();
 
@@ -42,6 +48,9 @@ class _RegisterPage extends State<RegisterPage> {
 
   // Sign User Up
   void signUserUp() async {
+    final String email = emailController.text.trim();
+    final String trimmedPassword = passwordController.text.trim();
+    final String trimmedConfirmPassword = confirmPasswordController.text.trim();
     // Loading Circle
     showDialog(
       context: context,
@@ -63,10 +72,11 @@ class _RegisterPage extends State<RegisterPage> {
     }
 
     try {
-      if (passwordController.text == confirmPasswordController.text) {
+      if (registerLoginManager.confirmPassword(
+          trimmedPassword, trimmedConfirmPassword)) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
+          email: email,
+          password: trimmedPassword,
         );
       } else {
         showErrorMessage("Passwords do not match");
