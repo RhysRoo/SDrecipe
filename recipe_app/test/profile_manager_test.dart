@@ -32,6 +32,59 @@ void main() {
     profileManager.firestore = fakeFirestore;
   });
 
+  group('Profile Manager deleteUserDetails()', () {
+    test('deleteUserDetails should not update due to no data or invalid uid',
+        () async {
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
+
+      // Call the method under test
+      await profileManager.deleteUserDetails();
+
+      // Verify that user details are updated in Firestore
+      final storedDocument =
+          await fakeFirestore.collection('UserDetails').doc('dummyUid').get();
+      final storedUserData = storedDocument.data();
+
+      // Expecting storedUserData: null
+      expect(storedUserData, null);
+    });
+
+    test('deleteUserDetails should not update due to no data or invalid uid',
+        () async {
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(null);
+
+      // Call the method under test
+      await profileManager.deleteUserDetails();
+
+      // Verify that user details are updated in Firestore
+      final storedDocument =
+          await fakeFirestore.collection('UserDetails').doc('dummyUid').get();
+      final storedUserData = storedDocument.data();
+
+      // Expecting storedUserData: null
+      expect(storedUserData, null);
+    });
+
+    test('deleteUserDetails should not update due to no data or invalid uid',
+        () async {
+      // Mock the current user
+      when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
+
+      // Call the method under test
+      await profileManager.deleteUserDetails();
+
+      // Verify that user details are updated in Firestore
+      final storedDocument =
+          await fakeFirestore.collection('UserDetails').doc(null).get();
+      final storedUserData = storedDocument.data();
+
+      // Expecting storedUserData: null
+      expect(storedUserData, null);
+    });
+  });
+
   group('Profile Manager storeUserDetails() Tests', () {
     test('storeUserDetails stores user details in Firestore', () async {
       // Mock the current user
