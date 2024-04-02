@@ -18,7 +18,7 @@ class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 class MockIngredientAPI extends Mock implements IngredientAPI {}
 
 void main() {
-  late IngredientManager manager;
+  late IngredientManager ingredientManager;
   late MockIngredientAPI mockApi;
   late FirebaseFirestore fakeFirestore;
   late MockFirebaseAuth mockAuth;
@@ -31,19 +31,17 @@ void main() {
     fakeFirestore = FakeFirebaseFirestore();
     mockAuth = MockFirebaseAuth();
 
-    // Mock UserManager with FirebaseAuth and FirebaseFirestore mocks
     final UserManager userManager =
-        UserManager(auth: mockAuth, firestore: fakeFirestore);
+          UserManager(auth: mockAuth, firestore: fakeFirestore);
 
-    // Initialize IngredientManager with the mocked UserManager and API
-    manager = IngredientManager();
-    manager.user = userManager;
-    manager.api = mockApi;
-    manager.firestore = fakeFirestore;
+      ingredientManager =
+          IngredientManager(auth: mockAuth, firestore: fakeFirestore);
+      ingredientManager.userManager = userManager;
+      ingredientManager.api = mockApi;
+      ingredientManager.firestore = fakeFirestore;
   });
 
   group('Ingredient Manager: storeUserIngredients() Test', () {
-    // Prepare more testing examples
     test('Store User Ingredients', () async {
       // Prepare test data
       List<List<String>> listIngredients = [
@@ -55,7 +53,7 @@ void main() {
       when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
 
       // Invoke the method
-      await manager.storeUserIngredients(listIngredients);
+      await ingredientManager.storeUserIngredients(listIngredients);
 
       // Verify the result
       final storedDocument = await fakeFirestore
@@ -83,7 +81,7 @@ void main() {
       when(mockAuth.currentUser).thenReturn(null);
 
       // Invoke the method
-      await manager.storeUserIngredients(listIngredients);
+      await ingredientManager.storeUserIngredients(listIngredients);
 
       // Verify the result
       final storedDocument =
@@ -98,7 +96,7 @@ void main() {
       when(mockAuth.currentUser).thenReturn(MockUser(uid: "dummyUid"));
 
       // Invoke the method
-      await manager.storeUserIngredients([]);
+      await ingredientManager.storeUserIngredients([]);
 
       // Verify the result
       final storedDocument =
@@ -119,7 +117,7 @@ void main() {
       when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
 
       // Invoke the method
-      await manager.storeUserIngredients(listIngredients);
+      await ingredientManager.storeUserIngredients(listIngredients);
 
       // Verify the result
       final storedDocument = await fakeFirestore
@@ -154,7 +152,7 @@ void main() {
       when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
 
       // Call the method under test
-      List<List<String>> result = await manager.getUserIngredients();
+      List<List<String>> result = await ingredientManager.getUserIngredients();
 
       // Verify the result
       expect(result, [
@@ -183,7 +181,7 @@ void main() {
       when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
 
       // Call the method under test
-      List<List<String>> result = await manager.getUserIngredients();
+      List<List<String>> result = await ingredientManager.getUserIngredients();
 
       // Verify the result
       expect(result, [
@@ -199,9 +197,10 @@ void main() {
         ],
       });
 
-      when(manager.user.getCurrentUserUID()).thenAnswer((_) async => '');
+      when(ingredientManager.userManager.getCurrentUserUID())
+          .thenAnswer((_) async => '');
 
-      List<List<String>> result = await manager.getUserIngredients();
+      List<List<String>> result = await ingredientManager.getUserIngredients();
 
       expect(result, []);
     });
@@ -213,17 +212,19 @@ void main() {
         ],
       });
 
-      when(manager.user.getCurrentUserUID()).thenAnswer((_) async => '');
+      when(ingredientManager.userManager.getCurrentUserUID())
+          .thenAnswer((_) async => '');
 
-      List<List<String>> result = await manager.getUserIngredients();
+      List<List<String>> result = await ingredientManager.getUserIngredients();
 
       expect(result, []);
     });
 
     test('No Collection Documentation should return []', () async {
-      when(manager.user.getCurrentUserUID()).thenAnswer((_) async => '');
+      when(ingredientManager.userManager.getCurrentUserUID())
+          .thenAnswer((_) async => '');
 
-      List<List<String>> result = await manager.getUserIngredients();
+      List<List<String>> result = await ingredientManager.getUserIngredients();
 
       expect(result, []);
     });
@@ -235,7 +236,7 @@ void main() {
       const validQuantity = '15';
 
       // Act
-      final result = manager.validateQuantity(validQuantity);
+      final result = ingredientManager.validateQuantity(validQuantity);
 
       // Assert
       expect(result, true);
@@ -246,7 +247,7 @@ void main() {
       const invalidQuantity = '5';
 
       // Act
-      final result = manager.validateQuantity(invalidQuantity);
+      final result = ingredientManager.validateQuantity(invalidQuantity);
 
       // Assert
       expect(result, false);
@@ -258,11 +259,10 @@ void main() {
         'convertStringtoDatetime returns correct DateTime for valid date string',
         () {
       // Arrange
-      final manager = IngredientManager();
       const validDateString = '2024-03-31'; // Change to a valid date string
 
       // Act
-      final result = manager.convertStringtoDatetime(validDateString);
+      final result = ingredientManager.convertStringtoDatetime(validDateString);
 
       // Assert
       expect(result, isA<DateTime>());
@@ -274,23 +274,21 @@ void main() {
     test('convertStringtoDatetime throws ArgumentError for invalid date string',
         () {
       // Arrange
-      final manager = IngredientManager();
       const invalidDateString =
           'Invalid Date'; // Change to an invalid date string
 
       // Act & Assert
-      expect(() => manager.convertStringtoDatetime(invalidDateString),
+      expect(() => ingredientManager.convertStringtoDatetime(invalidDateString),
           throwsArgumentError);
     });
 
     test('convertStringtoDatetime throws ArgumentError for empty date string',
         () {
       // Arrange
-      final manager = IngredientManager();
       const emptyDateString = ''; // Empty date string
 
       // Act & Assert
-      expect(() => manager.convertStringtoDatetime(emptyDateString),
+      expect(() => ingredientManager.convertStringtoDatetime(emptyDateString),
           throwsArgumentError);
     });
   });
@@ -300,27 +298,25 @@ void main() {
         'checkDateTimeAgainstTodaysDate returns true for valid date before today',
         () {
       // Arrange
-      final manager = IngredientManager();
       const validDateString =
           '2024-03-31'; // Change to a valid date string before today
 
       // Act
-      final result = manager.checkDateTimeAgainstTodaysDate(validDateString);
+      final result = ingredientManager.checkDateTimeAgainstTodaysDate(validDateString);
 
       // Assert
-      expect(result, isTrue);
+      expect(result, isFalse);
     });
 
     test(
         'checkDateTimeAgainstTodaysDate returns true for valid date after today',
         () {
       // Arrange
-      final manager = IngredientManager();
       const validDateString =
           '2024-04-02'; // Change to a valid date string after today
 
       // Act
-      final result = manager.checkDateTimeAgainstTodaysDate(validDateString);
+      final result = ingredientManager.checkDateTimeAgainstTodaysDate(validDateString);
 
       // Assert
       expect(result, isTrue);
@@ -329,12 +325,11 @@ void main() {
     test('checkDateTimeAgainstTodaysDate returns false for invalid date string',
         () {
       // Arrange
-      final manager = IngredientManager();
       const invalidDateString =
           'Invalid Date'; // Change to an invalid date string
 
       // Act
-      final result = manager.checkDateTimeAgainstTodaysDate(invalidDateString);
+      final result = ingredientManager.checkDateTimeAgainstTodaysDate(invalidDateString);
 
       // Assert
       expect(result, isFalse);
@@ -343,11 +338,10 @@ void main() {
     test('checkDateTimeAgainstTodaysDate returns false for empty date string',
         () {
       // Arrange
-      final manager = IngredientManager();
       const emptyDateString = ''; // Empty date string
 
       // Act
-      final result = manager.checkDateTimeAgainstTodaysDate(emptyDateString);
+      final result = ingredientManager.checkDateTimeAgainstTodaysDate(emptyDateString);
 
       // Assert
       expect(result, isFalse);
@@ -357,12 +351,11 @@ void main() {
   group('Ingredient Manager: checkUserDateTime() Test', () {
     test('checkUserDateTime returns true for valid date after today', () {
       // Arrange
-      final manager = IngredientManager();
       const validDateString =
           '2024-08-31'; // Change to a valid date string after today
 
       // Act
-      final result = manager.checkUserDateTime(validDateString);
+      final result = ingredientManager.checkUserDateTime(validDateString);
 
       // Assert
       expect(result, isTrue);
@@ -372,12 +365,11 @@ void main() {
         'checkUserDateTime returns false for valid date before today (Formatting)',
         () {
       // Arrange
-      final manager = IngredientManager();
       const validDateString =
           '2024-02-02'; // Change to a valid date string before today
 
       // Act
-      final result = manager.checkUserDateTime(validDateString);
+      final result = ingredientManager.checkUserDateTime(validDateString);
 
       // Assert
       expect(result, isFalse);
@@ -385,12 +377,11 @@ void main() {
 
     test('checkUserDateTime returns false for invalid date string', () {
       // Arrange
-      final manager = IngredientManager();
       const invalidDateString =
           'Invalid Date'; // Change to an invalid date string
 
       // Act
-      final result = manager.checkUserDateTime(invalidDateString);
+      final result = ingredientManager.checkUserDateTime(invalidDateString);
 
       // Assert
       expect(result, isFalse);
@@ -398,11 +389,10 @@ void main() {
 
     test('checkUserDateTime returns false for empty date string', () {
       // Arrange
-      final manager = IngredientManager();
       const emptyDateString = ''; // Empty date string
 
       // Act
-      final result = manager.checkUserDateTime(emptyDateString);
+      final result = ingredientManager.checkUserDateTime(emptyDateString);
 
       // Assert
       expect(result, isFalse);

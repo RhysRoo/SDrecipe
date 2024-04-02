@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/open_food_api.dart';
 import 'package:flutter_log/pages/profile_page/userManager.dart';
 
@@ -8,12 +9,20 @@ import 'package:flutter_log/pages/profile_page/userManager.dart';
 
 class IngredientManager {
   IngredientAPI api = IngredientAPI();
-  UserManager user = UserManager();
+  late FirebaseAuth? auth = FirebaseAuth.instance;
   late FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late UserManager userManager;
+
+  IngredientManager({FirebaseAuth? auth, FirebaseFirestore? firestore}) {
+    userManager = UserManager(
+        auth: auth ?? this.auth, firestore: firestore ?? this.firestore);
+  }
 
   // Returns the list of ingredients from the cloud that the user has entered
   Future<List<List<String>>> getUserIngredients() async {
-    String uid = await user.getCurrentUserUID();
+    String uid = await userManager.getCurrentUserUID();
+
+    print('User uid: $uid');
     List<List<String>> result = [];
 
     if (uid.isNotEmpty) {
@@ -56,7 +65,9 @@ class IngredientManager {
 
   // Stores the ingredients into the cloud
   Future<void> storeUserIngredients(List<List<String>> listIngredients) async {
-    String uid = await user.getCurrentUserUID();
+    String uid = await userManager.getCurrentUserUID();
+
+    print("User UID: $uid");
 
     List<Map<String, dynamic>> convertedList = // Conversion into a JSON Format
         listIngredients.map((ingredient) {

@@ -8,6 +8,10 @@ class ProfileManager {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   UserManager userManager = UserManager();
 
+  bool checkInputLength(final String input) {
+    return input.length <= 200;
+  }
+
   Future<void> storeUserDetails(UserModel user) async {
     try {
       String? uid = await userManager.getCurrentUserUID();

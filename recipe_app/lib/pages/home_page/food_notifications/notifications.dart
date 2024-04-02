@@ -14,6 +14,8 @@ class NotificationManager {
       List<List<String>> userIngredients =
           await ingredientManager.getUserIngredients();
 
+      print("userIngredients: $userIngredients");
+
       // Prepare a list to notify the user about removed ingredients
       List<Map<String, String>> removedIngredients = [];
       List<List<String>> nonExpired = [];

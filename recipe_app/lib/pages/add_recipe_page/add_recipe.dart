@@ -266,6 +266,7 @@ class _AddRecipeState extends State<AddRecipe> {
         _quantityController.clear();
         _selectedUnit = 'Select Unit';
       });
+      print(_ingredients);
     }
   }
 
@@ -340,6 +341,7 @@ class _AddRecipeState extends State<AddRecipe> {
         _recipeNameController.clear();
         _foodRestrictionController.clear();
       });
+      print(_ingredients);
     } else {
       // Display specific error messages for empty fields
       if (recipeName.isEmpty && _ingredients.isEmpty) {

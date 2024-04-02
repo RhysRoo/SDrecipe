@@ -39,8 +39,7 @@ void main() {
         UserManager(auth: mockAuth, firestore: fakeFirestore);
 
     // Initialize IngredientManager with the mocked UserManager and API
-    ingredient_manager = IngredientManager();
-    ingredient_manager.user = userManager;
+    ingredient_manager = IngredientManager(auth: mockAuth, firestore: fakeFirestore);
     ingredient_manager.api = mockApi;
     ingredient_manager.firestore = fakeFirestore;
 

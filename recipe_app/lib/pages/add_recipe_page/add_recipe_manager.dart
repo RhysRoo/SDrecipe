@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_log/pages/profile_page/userManager.dart';
 
 // Consideration: Number of Ingredients a Recipe Should Have
@@ -8,14 +9,14 @@ import 'package:flutter_log/pages/profile_page/userManager.dart';
 // Rating value
 
 class AddRemoveRecipeManager {
-  UserManager userManager = UserManager();
-  late FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late UserManager userManager;
 
   Future<void> saveRecipe(List<Map<String, dynamic>> ingredients,
       String recipeName, String foodRestiction) async {
+    userManager = UserManager(firestore: firestore, auth: auth);
     String uid = await userManager.getCurrentUserUID();
-
-    print(ingredients);
 
     // Add the recipeName to each ingredient map
     List<Map<String, dynamic>> convertedList = ingredients.map((ingredient) {
@@ -48,8 +49,11 @@ class AddRemoveRecipeManager {
   }
 
   Future<List<Map<String, dynamic>>?> getAllRecipes() async {
+    userManager = UserManager(firestore: firestore, auth: auth);
     String uid = await userManager.getCurrentUserUID();
     List<Map<String, dynamic>>? recipes = [];
+
+    print("uid: $uid");
 
     if (uid.isNotEmpty) {
       try {
@@ -73,6 +77,7 @@ class AddRemoveRecipeManager {
 
   Future<void> deleteRecipe(
       String recipeName, List<Map<String, dynamic>> ingredients) async {
+    userManager = UserManager(auth: auth, firestore: firestore);
     String uid = await userManager.getCurrentUserUID();
 
     if (uid.isNotEmpty) {

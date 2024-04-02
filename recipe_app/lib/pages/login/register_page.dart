@@ -7,7 +7,6 @@ import 'package:flutter_log/auth/googleSignIn.dart';
 import 'package:flutter_log/pages/home_page/home_page.dart';
 import 'package:flutter_log/pages/login/register_login_manager.dart';
 import 'package:flutter_log/pages/login/ui_components/button_forget.dart';
-import 'package:flutter_log/pages/login/ui_components/login_or_register.dart';
 import 'package:flutter_log/pages/login/ui_components/login_tile.dart';
 import 'package:flutter_log/pages/login/ui_components/logo_tile.dart';
 import 'package:flutter_log/pages/login/ui_components/text_fields.dart';

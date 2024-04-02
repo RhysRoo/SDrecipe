@@ -311,7 +311,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a last name';
                       }
-                      if (value.length < 2) {
+                      if (value.length < 2 &&
+                          profileManager.checkInputLength(value)) {
                         return 'Last name must be at least 2 characters';
                       }
                       return null;
