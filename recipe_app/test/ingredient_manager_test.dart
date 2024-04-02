@@ -32,13 +32,13 @@ void main() {
     mockAuth = MockFirebaseAuth();
 
     final UserManager userManager =
-          UserManager(auth: mockAuth, firestore: fakeFirestore);
+        UserManager(auth: mockAuth, firestore: fakeFirestore);
 
-      ingredientManager =
-          IngredientManager(auth: mockAuth, firestore: fakeFirestore);
-      ingredientManager.userManager = userManager;
-      ingredientManager.api = mockApi;
-      ingredientManager.firestore = fakeFirestore;
+    ingredientManager =
+        IngredientManager(auth: mockAuth, firestore: fakeFirestore);
+    ingredientManager.userManager = userManager;
+    ingredientManager.api = mockApi;
+    ingredientManager.firestore = fakeFirestore;
   });
 
   group('Ingredient Manager: storeUserIngredients() Test', () {
@@ -61,8 +61,6 @@ void main() {
           .doc('dummyUid')
           .get();
       final storedIngredients = storedDocument.data()?['ingredients'];
-
-      print(storedIngredients);
 
       expect(storedIngredients, [
         {"name": "Lemon", "weight": "30", "expiryDate": "2024-07-03"},
@@ -302,7 +300,8 @@ void main() {
           '2024-03-31'; // Change to a valid date string before today
 
       // Act
-      final result = ingredientManager.checkDateTimeAgainstTodaysDate(validDateString);
+      final result =
+          ingredientManager.checkDateTimeAgainstTodaysDate(validDateString);
 
       // Assert
       expect(result, isFalse);
@@ -316,7 +315,8 @@ void main() {
           '2024-04-02'; // Change to a valid date string after today
 
       // Act
-      final result = ingredientManager.checkDateTimeAgainstTodaysDate(validDateString);
+      final result =
+          ingredientManager.checkDateTimeAgainstTodaysDate(validDateString);
 
       // Assert
       expect(result, isTrue);
@@ -329,7 +329,8 @@ void main() {
           'Invalid Date'; // Change to an invalid date string
 
       // Act
-      final result = ingredientManager.checkDateTimeAgainstTodaysDate(invalidDateString);
+      final result =
+          ingredientManager.checkDateTimeAgainstTodaysDate(invalidDateString);
 
       // Assert
       expect(result, isFalse);
@@ -341,7 +342,8 @@ void main() {
       const emptyDateString = ''; // Empty date string
 
       // Act
-      final result = ingredientManager.checkDateTimeAgainstTodaysDate(emptyDateString);
+      final result =
+          ingredientManager.checkDateTimeAgainstTodaysDate(emptyDateString);
 
       // Assert
       expect(result, isFalse);

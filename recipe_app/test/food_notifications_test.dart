@@ -20,7 +20,7 @@ class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 class MockIngredientAPI extends Mock implements IngredientAPI {}
 
 void main() {
-  late IngredientManager ingredient_manager;
+  late IngredientManager ingredientManager;
   late MockIngredientAPI mockApi;
   late FirebaseFirestore fakeFirestore;
   late MockFirebaseAuth mockAuth;
@@ -34,18 +34,18 @@ void main() {
     fakeFirestore = FakeFirebaseFirestore();
     mockAuth = MockFirebaseAuth();
 
-    // Mock UserManager with FirebaseAuth and FirebaseFirestore mocks
     final UserManager userManager =
         UserManager(auth: mockAuth, firestore: fakeFirestore);
 
-    // Initialize IngredientManager with the mocked UserManager and API
-    ingredient_manager = IngredientManager(auth: mockAuth, firestore: fakeFirestore);
-    ingredient_manager.api = mockApi;
-    ingredient_manager.firestore = fakeFirestore;
+    ingredientManager =
+        IngredientManager(auth: mockAuth, firestore: fakeFirestore);
+    ingredientManager.userManager = userManager;
+    ingredientManager.api = mockApi;
+    ingredientManager.firestore = fakeFirestore;
 
     // Initialise Notification Manager with the mocked Ingredient Manager
     notificationManager = NotificationManager();
-    notificationManager.ingredientManager = ingredient_manager;
+    notificationManager.ingredientManager = ingredientManager;
   });
 
   group('Notifications Manager: removeExpiredIngredientsAndNotify() Test', () {

@@ -9,9 +9,15 @@ import 'package:flutter_log/pages/profile_page/userManager.dart';
 // Rating value
 
 class AddRemoveRecipeManager {
-  FirebaseAuth auth = FirebaseAuth.instance;
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late FirebaseAuth? auth;
+  late FirebaseFirestore firestore;
   late UserManager userManager;
+
+  AddRemoveRecipeManager({FirebaseAuth? auth, FirebaseFirestore? firestore}) {
+    this.auth = auth ?? FirebaseAuth.instance;
+    this.firestore = firestore ?? FirebaseFirestore.instance;
+    userManager = UserManager(auth: this.auth!, firestore: this.firestore);
+  }
 
   Future<void> saveRecipe(List<Map<String, dynamic>> ingredients,
       String recipeName, String foodRestiction) async {

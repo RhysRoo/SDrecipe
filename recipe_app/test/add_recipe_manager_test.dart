@@ -24,11 +24,8 @@ void main() {
     fakeFirestore = FakeFirebaseFirestore();
     mockAuth = MockFirebaseAuth();
 
-    final UserManager userManager =
-        UserManager(auth: mockAuth, firestore: fakeFirestore);
-
-    addRemoveRecipeManager = AddRemoveRecipeManager();
-    addRemoveRecipeManager.userManager = userManager;
+    addRemoveRecipeManager =
+        AddRemoveRecipeManager(auth: mockAuth, firestore: fakeFirestore);
     addRemoveRecipeManager.firestore = fakeFirestore;
   });
 
