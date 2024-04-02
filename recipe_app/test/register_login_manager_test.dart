@@ -19,12 +19,7 @@ void main() {
     registerLoginManager = RegisterLoginManager();
   });
 
-  // group('Registration Login Manager ', () {
-  //   test('Registration Login Manager isAlreadyRegistered() Test', () {
-  //     FirebaseAuth.instance
-  //         .createUserWithEmailAndPassword(email: "Hello", password: 'Hello');
-  //   });
-  // });
+  group('Registration Login Manager', () {});
 
   group('Registration Login Manager checkEmailValidity() Tests', () {
     test('Valid Email', () {

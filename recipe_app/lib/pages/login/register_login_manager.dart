@@ -3,7 +3,106 @@
 // To Add -> Test that does not store the same email already in firebase
 // To Integrate -> Integrate within the original program
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
 class RegisterLoginManager {
+  // Sign User In
+  static Future<void> signIn(
+      String email, String password, BuildContext context) async {
+    // Loading Circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    void showErrorMessage(String message) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              title: Text("Incorrect Email Address"),
+            );
+          });
+    }
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Add User Details
+
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // Pop Context
+      Navigator.pop(context);
+      // Wrong Username
+      showErrorMessage(e.code);
+    }
+  }
+
+  static void showOSError(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text("Android Users: Sign In with Google"),
+          );
+        });
+  }
+
+  void signUserUp(
+      BuildContext context,
+      TextEditingController emailController,
+      TextEditingController passwordController,
+      TextEditingController confirmPasswordController) async {
+    final String email = emailController.text.trim();
+    final String trimmedPassword = passwordController.text.trim();
+    final String trimmedConfirmPassword = confirmPasswordController.text.trim();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    void showErrorMessage(String message) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text("Incorrect Email Address or Already Signed Up"),
+          );
+        },
+      );
+    }
+
+    try {
+      if (confirmPassword(trimmedPassword, trimmedConfirmPassword)) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: trimmedPassword,
+        );
+      } else {
+        showErrorMessage("Passwords do not match");
+      }
+
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      showErrorMessage(e.code);
+    }
+  }
+
   bool checkEmailValidity(final String email) {
     if (email.length >= 3 && email.length < 254 && email.contains('@')) {
       var atIndex = email.indexOf('@');
