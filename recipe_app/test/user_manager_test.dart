@@ -22,6 +22,8 @@ void main() {
 
     group('User Manager: getUserUID() Tests', () {
       test('Test: getUserUID() with current user', () async {
+        when(mockAuth.currentUser).thenReturn(MockUser(uid: 'dummyUid'));
+
         final result = await userManager.getCurrentUserUID();
 
         expect(result, 'dummyUid');

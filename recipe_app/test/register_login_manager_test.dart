@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_log/auth/appleSignIn.dart';
+import 'package:flutter_log/auth/googleSignIn.dart';
+import 'package:flutter_log/pages/login/login_page.dart';
 import 'package:flutter_log/pages/login/register_login_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -10,23 +13,24 @@ class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 // Mock class for BuildContext
 class MockBuildContext extends Mock implements BuildContext {}
 
+// Mock class for GoogleSignInHandler
+class MockGoogleSignInHandler extends Mock implements GoogleSignInHandler {}
+
+// Mock class for AppleSignInHandler
+class MockAppleSignInHandler extends Mock implements AppleSignInHandler {}
+
 void main() {
   late RegisterLoginManager registerLoginManager;
+  late MockGoogleSignInHandler mockGoogleSignInHandler;
   late MockFirebaseAuth mockAuth;
   late MockBuildContext mockBuildContext;
 
   setUp(() {
+    mockGoogleSignInHandler = MockGoogleSignInHandler();
     mockAuth = MockFirebaseAuth();
     mockBuildContext = MockBuildContext();
     registerLoginManager = RegisterLoginManager();
   });
-
-  // group("Registration Login Manager signUserUp() Tests", () {
-  //   when(
-  //     mockAuth.createUserWithEmailAndPassword(
-  //         email: "shush12%@gmail.com", password: "123456"),
-  //   ).thenAnswer((realInvocation) => null);
-  // });
 
   group('Registration Login Manager showOSError(context) Structural Test', () {
     testWidgets('showOSError displays AlertDialog',

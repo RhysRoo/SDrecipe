@@ -293,7 +293,7 @@ void main() {
 
   group('Ingredient Manager: checkDateTimeAgainstTodaysDate() Test', () {
     test(
-        'checkDateTimeAgainstTodaysDate returns true for valid date before today',
+        'checkDateTimeAgainstTodaysDate returns false for valid date before today',
         () {
       // Arrange
       const validDateString =
@@ -312,7 +312,7 @@ void main() {
         () {
       // Arrange
       const validDateString =
-          '2024-04-02'; // Change to a valid date string after today
+          '2024-08-02'; // Change to a valid date string after today
 
       // Act
       final result =
