@@ -85,7 +85,7 @@ void main() {
       home: Scaffold(
         body: LogTile(
           imagePath:
-              '/Users/josh-v/Documents/RecipeApp/SDrecipe/recipe_app/lib/fitnessImage/fitnessLogo.jpeg', // Provide a sample image path
+              '/Users/josh-v/Documents/RecipeApp/SDrecipe/recipe_app/lib/fitnessImage/fitnessLogo.jpeg',
           onTap: () {}, // Mock onTap function
         ),
       ),
@@ -165,5 +165,59 @@ void main() {
     expect(inputDecoration!.filled, isTrue);
     expect(inputDecoration.hintText, equals('Enter your text'));
     expect(inputDecoration.hintStyle!.color, equals(Colors.grey[500]));
+  });
+
+  testWidgets('MyTextField obscureText test', (WidgetTester tester) async {
+    final TextEditingController controller = TextEditingController();
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: MyTextField(
+          control: controller,
+          hintText: 'Password',
+          obscureText: true,
+        ),
+      ),
+    ));
+
+    final textField = find.byType(TextField);
+    expect(tester.widget<TextField>(textField).obscureText, isTrue);
+  });
+
+  testWidgets('MyTextField controller test', (WidgetTester tester) async {
+    final TextEditingController controller = TextEditingController();
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: MyTextField(
+          control: controller,
+          hintText: 'Enter your text',
+          obscureText: false,
+        ),
+      ),
+    ));
+
+    await tester.enterText(find.byType(TextField), 'Test Input');
+    expect(controller.text, equals('Test Input'));
+  });
+
+  testWidgets('MyTextField onChanged callback test',
+      (WidgetTester tester) async {
+    String? changedValue;
+    final TextEditingController controller = TextEditingController();
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: MyTextField(
+          control: controller,
+          hintText: 'Enter your text',
+          obscureText: false,
+        ),
+      ),
+    ));
+
+    controller.addListener(() {
+      changedValue = controller.text;
+    });
+
+    await tester.enterText(find.byType(TextField), 'Updated Value');
+    expect(changedValue, equals('Updated Value'));
   });
 }
