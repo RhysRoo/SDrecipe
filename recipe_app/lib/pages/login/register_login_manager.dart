@@ -57,7 +57,7 @@ class RegisterLoginManager {
         });
   }
 
-  void signUserUp(
+  Future<String> signUserUp(
       BuildContext context,
       TextEditingController emailController,
       TextEditingController passwordController,
@@ -94,12 +94,14 @@ class RegisterLoginManager {
         );
       } else {
         showErrorMessage("Passwords do not match");
+        return "Invalid Sign In";
       }
-
       Navigator.pop(context);
+      return "Valid Sign In";
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       showErrorMessage(e.code);
+      return "Invalid Sign In";
     }
   }
 

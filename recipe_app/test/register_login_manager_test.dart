@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_log/auth/appleSignIn.dart';
 import 'package:flutter_log/auth/googleSignIn.dart';
@@ -18,10 +19,14 @@ class MockGoogleSignInHandler extends Mock implements GoogleSignInHandler {}
 // Mock class for AppleSignInHandler
 class MockAppleSignInHandler extends Mock implements AppleSignInHandler {}
 
+// Mock class for UserCredential
+class MockUserCredential extends Mock implements UserCredential {}
+
 void main() {
   late RegisterLoginManager registerLoginManager;
   late MockGoogleSignInHandler mockGoogleSignInHandler;
   late MockFirebaseAuth mockAuth;
+  late MockUserCredential mockUserCredential;
   late MockBuildContext mockBuildContext;
 
   setUp(() {
@@ -29,6 +34,7 @@ void main() {
     mockAuth = MockFirebaseAuth();
     mockBuildContext = MockBuildContext();
     registerLoginManager = RegisterLoginManager();
+    mockUserCredential = MockUserCredential();
   });
 
   group('Registration Login Manager showOSError(context) Structural Test', () {
