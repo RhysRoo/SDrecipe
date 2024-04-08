@@ -1,11 +1,11 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, library_private_types_in_public_api, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_log/pages/profile_page/profileManager.dart';
 import 'package:flutter_log/pages/profile_page/userModel.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -116,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
 

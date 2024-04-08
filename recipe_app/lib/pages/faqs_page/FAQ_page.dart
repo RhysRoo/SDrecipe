@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, deprecated_member_use
+// ignore_for_file: sort_child_properties_last, deprecated_member_use, file_names
 
 import 'package:flutter/material.dart';
 
@@ -44,7 +44,10 @@ class QAItem extends StatelessWidget {
   }
 }
 
+// ignore: camel_case_types
 class FAQ_page extends StatelessWidget {
+  const FAQ_page({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

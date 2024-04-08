@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_log/firebase_options.dart';

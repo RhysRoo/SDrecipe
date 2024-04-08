@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter_log/pages/add_recipe_page/add_recipe_manager.dart';
@@ -7,7 +7,7 @@ import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.
 
 // Validation Rules e.g., Units, API to check food restriction, Recipe Name checks against previous recipes, Units storage in database, Quantity validation
 class AddRecipe extends StatefulWidget {
-  const AddRecipe({Key? key}) : super(key: key);
+  const AddRecipe({super.key});
 
   @override
   _AddRecipeState createState() => _AddRecipeState();

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, use_build_context_synchronously
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, use_build_context_synchronously, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_log/pages/recipe_generation_page/generation_page.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/add_remove_ingredients_page.dart';
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({Key? key}) : super(key: key);
+  const AuthScreen({super.key});
 
   @override
   _AuthScreenState createState() => _AuthScreenState();

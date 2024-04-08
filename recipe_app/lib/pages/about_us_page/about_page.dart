@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutUsPage extends StatelessWidget {
-  const AboutUsPage({Key? key}) : super(key: key);
+  const AboutUsPage({super.key});
 
   // Method to launch email app
   void _launchEmail() async {
@@ -79,13 +79,12 @@ class AboutUsPage extends StatelessWidget {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About Us', style: TextStyle(fontSize: 45)),//title
-        backgroundColor: Colors.green,//background
+        title: const Text('About Us', style: TextStyle(fontSize: 45)), //title
+        backgroundColor: Colors.green, //background
         toolbarHeight: MediaQuery.of(context).size.height * 0.06,
         shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
       ),
@@ -105,10 +104,12 @@ class AboutUsPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.009),//s
+                SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.009), //s
                 //main container
                 Container(
-                  height: MediaQuery.of(context).size.height * 3.2,//page legnth
+                  height:
+                      MediaQuery.of(context).size.height * 3.2, //page legnth
                   width: MediaQuery.of(context).size.width * 0.95,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -195,7 +196,7 @@ class AboutUsPage extends StatelessWidget {
                                     padding: const EdgeInsets.fromLTRB(
                                         8.0, 4.0, 8.0, 8.0),
                                     child: GestureDetector(
-                                      onTap: _launchEmail2,//email link
+                                      onTap: _launchEmail2, //email link
                                       child: const Text(
                                         'Contact by email',
                                         style: TextStyle(
@@ -215,12 +216,10 @@ class AboutUsPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    color: Colors.black), 
+                                border: Border.all(color: Colors.black),
                               ),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment
-                                    .start, 
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
                                     width:
@@ -234,9 +233,7 @@ class AboutUsPage extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          color: Colors
-                                              .black), 
+                                      border: Border.all(color: Colors.black),
                                     ),
                                   ),
                                   const Padding(
@@ -295,12 +292,10 @@ class AboutUsPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    color: Colors.black), 
+                                border: Border.all(color: Colors.black),
                               ),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment
-                                    .start, 
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
                                     width:
@@ -314,9 +309,7 @@ class AboutUsPage extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          color: Colors
-                                              .black), 
+                                      border: Border.all(color: Colors.black),
                                     ),
                                   ),
                                   const Padding(
@@ -370,12 +363,10 @@ class AboutUsPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    color: Colors.black), 
+                                border: Border.all(color: Colors.black),
                               ),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment
-                                    .start, 
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
                                     width:
@@ -389,9 +380,7 @@ class AboutUsPage extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          color: Colors
-                                              .black), 
+                                      border: Border.all(color: Colors.black),
                                     ),
                                   ),
                                   const Padding(
@@ -439,7 +428,8 @@ class AboutUsPage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        Row(//new row
+                        Row(
+                          //new row
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             // fifth Container
@@ -450,12 +440,10 @@ class AboutUsPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    color: Colors.black), 
+                                border: Border.all(color: Colors.black),
                               ),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment
-                                    .start, 
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
                                     width:
@@ -469,9 +457,7 @@ class AboutUsPage extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          color: Colors
-                                              .black), 
+                                      border: Border.all(color: Colors.black),
                                     ),
                                   ),
                                   const Padding(
@@ -525,12 +511,10 @@ class AboutUsPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.lightGreen[900],
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    color: Colors.black), 
+                                border: Border.all(color: Colors.black),
                               ),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment
-                                    .start, 
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
                                     width:
@@ -544,9 +528,7 @@ class AboutUsPage extends StatelessWidget {
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          color: Colors
-                                              .black), 
+                                      border: Border.all(color: Colors.black),
                                     ),
                                   ),
                                   const Padding(

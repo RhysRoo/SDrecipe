@@ -27,7 +27,7 @@ void main() {
     testWidgets('FAQ_page widget should display app bar and list of QAItems',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: FAQ_page(),
         ),
       );
