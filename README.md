@@ -60,5 +60,10 @@ Non-Functional Requirements:
         - Rigorous testing procedures, including security testing, must be conducted to ensure reliability and integrity.
 
 Unit Tests for Speicification:
-    - The extent to which the specification has been met in a 2 month development deadline.
+    - The extent to which the specification has been met in a 2 month development deadline
     - /recipe_app/test/
+
+Configurations 
+    - Latest iOS device
+    - Flutter pub get 
+    - Compatibility with google cloud 
