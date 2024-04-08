@@ -10,14 +10,14 @@ import 'package:flutter_log/pages/profile_page/profile_page.dart';
 import 'package:flutter_log/pages/recipe_generation_page/generation_page.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/add_remove_ingredients_page.dart';
 
-class AuthScreen extends StatefulWidget {
-  const AuthScreen({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
   _AuthScreenState createState() => _AuthScreenState();
 }
 
-class _AuthScreenState extends State<AuthScreen> {
+class _AuthScreenState extends State<HomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   NotificationManager notificationManager = NotificationManager();
 
@@ -223,10 +223,10 @@ class _AuthScreenState extends State<AuthScreen> {
         body: Center(
           child: Column(children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.025,
+              height: MediaQuery.of(context).size.height * 0.2,
             ),
             Image(
-              width: 280,
+              width: 310,
               image: AssetImage(
                 'assets/images/logo/logo.png',
               ),
@@ -234,17 +234,16 @@ class _AuthScreenState extends State<AuthScreen> {
             SizedBox(height: 20),
             Container(
               height: MediaQuery.of(context).size.height * 0.05,
-              width: MediaQuery.of(context).size.width * 0.9,
+              width: MediaQuery.of(context).size.width * 0.62,
               color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 30),
-                child: Text(
-                  "Welcome to WasteAway",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
-                ),
+              alignment: Alignment.center,
+              child: Text(
+                "Welcome to WasteAway",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               ),
             ),
-          ]),
+          ]
+          ),
         ),
       ),
     );

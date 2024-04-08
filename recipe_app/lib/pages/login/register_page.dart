@@ -127,7 +127,7 @@ class _RegisterPage extends State<RegisterPage> {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const AuthScreen(),
+                                    builder: (context) => const HomePage(),
                                   ),
                                 ),
                               }
