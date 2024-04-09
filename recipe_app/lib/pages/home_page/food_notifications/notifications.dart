@@ -55,7 +55,7 @@ class NotificationManager {
   }
 
   Future<int> warnEfficiency() async {
-    int efficiencyValue = 10; // Efficiency Table Required
+    int efficiencyValue = 95; // Efficiency Function Required from Generation
     return efficiencyValue;
   }
 }
