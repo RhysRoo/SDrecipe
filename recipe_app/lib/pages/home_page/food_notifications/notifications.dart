@@ -53,4 +53,9 @@ class NotificationManager {
       return []; // Return an empty list in case of an error
     }
   }
+
+  Future<int> warnEfficiency() async {
+    int efficiencyValue = 10; // Efficiency Table Required
+    return efficiencyValue;
+  }
 }

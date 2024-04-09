@@ -27,6 +27,7 @@ class _AuthScreenState extends State<HomePage> {
 
     // Call the function to notify expired ingredients when the page is loaded
     _notifyExpiredIngredients();
+    _NotifyInefficiency();
   }
 
   Future<void> _signOut() async {
@@ -63,6 +64,47 @@ class _AuthScreenState extends State<HomePage> {
                       ),
                     )
                     .toList(),
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> _NotifyInefficiency() async {
+    // Call the function to obtain generation efficiency
+    int efficiencyVal = await notificationManager.warnEfficiency();
+
+    if (efficiencyVal < 90) {
+      // Display a pop-up with the names and expiry dates of removed expired ingredients
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('System Inefficiency Warning'),
+            content: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'The system efficiency is below optimal levels. Algorithm Efficiency: $efficiencyVal%',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 10), // Add some spacing
+                  Text(
+                    'Please take necessary caution to when dealing with food restriction.',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
               ),
             ),
             actions: [
@@ -242,8 +284,7 @@ class _AuthScreenState extends State<HomePage> {
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               ),
             ),
-          ]
-          ),
+          ]),
         ),
       ),
     );
