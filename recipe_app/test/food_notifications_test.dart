@@ -1,4 +1,3 @@
-// Mock class for UserManager
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -210,6 +209,16 @@ void main() {
       expect(removedIngredients.length, 0);
 
       expect(removedIngredients, []);
+    });
+  });
+
+  group('Notification Efficiency: warnEfficiency() Tests', () {
+    test('Obtain Efficiency', () async {
+      final efficiency = await notificationManager.warnEfficiency();
+      // Add your assertions here to validate the behavior of the function
+      // For example:
+      expect(efficiency,
+          greaterThan(0)); // Assert that efficiency is greater than 0
     });
   });
 }
