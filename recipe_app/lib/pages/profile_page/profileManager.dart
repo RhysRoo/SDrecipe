@@ -5,8 +5,8 @@ import 'package:flutter_log/pages/profile_page/userManager.dart';
 import 'package:flutter_log/pages/profile_page/userModel.dart';
 
 class ProfileManager {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final UserManager userManager = UserManager();
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  UserManager userManager = UserManager();
 
   Future<void> storeUserDetails(UserModel user) async {
     try {

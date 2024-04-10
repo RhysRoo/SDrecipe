@@ -44,7 +44,7 @@ class GoogleSignInHandler {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const AuthScreen(),
+          builder: (context) => const HomePage(),
         ),
       );
     } catch (error) {

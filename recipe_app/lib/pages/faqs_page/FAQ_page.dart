@@ -106,7 +106,7 @@ class FAQ_page extends StatelessWidget {
                               // button to search (not functional)
                             },
                             style: ElevatedButton.styleFrom(
-                              // primary: Colors.green,
+                              backgroundColor: Colors.green,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 24.0, vertical: 12.0),
                               minimumSize: const Size(0, 50),
@@ -216,8 +216,7 @@ class FAQ_page extends StatelessWidget {
               // Add code for handling the button press
             },
             style: TextButton.styleFrom(
-              backgroundColor: Colors.green[700],
-              // primary: Colors.white,
+              foregroundColor: Colors.white, backgroundColor: Colors.green[700],
             ),
             child: const Text('Add Question'),
           ),

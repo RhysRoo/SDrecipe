@@ -201,7 +201,7 @@ class _RegisterPage extends State<RegisterPage> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const AuthScreen(),
+                                              const HomePage(),
                                         ),
                                       )
                                     }
