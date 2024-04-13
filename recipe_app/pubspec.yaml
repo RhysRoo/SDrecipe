@@ -55,6 +55,7 @@ dependencies:
   firebase_storage_mocks: 0.6.1
   firebase_auth_mocks: 0.13.0
   google_sign_in_mocks: ^0.3.0
+  video_player: ^2.8.6
 
 
 dev_dependencies:
@@ -87,6 +88,7 @@ flutter:
     - lib/fitnessImage/
     - assets/images/logo/logo.png
     - assets/images/profile_page/demo_pic.jpeg
+    - assets/videos/intro_video.mov
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
