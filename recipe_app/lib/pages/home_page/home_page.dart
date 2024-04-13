@@ -101,7 +101,7 @@ class _AuthScreenState extends State<HomePage> {
                   decoration: BoxDecoration(color: Colors.green),
                   child: Text(
                     'Menu',
-                    style: TextStyle(fontSize: 40),
+                    style: TextStyle(fontSize: 0),
                   ),
                 ),
               ),
@@ -224,7 +224,7 @@ class _AuthScreenState extends State<HomePage> {
         body: Center(
           child: Column(children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.04,
+              height: MediaQuery.of(context).size.height * 0.1,
             ),
             Image(
               width: 310,
@@ -232,10 +232,12 @@ class _AuthScreenState extends State<HomePage> {
                 'assets/images/logo/logo.png',
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.03,
+            ),
             Container(
               height: MediaQuery.of(context).size.height * 0.05,
-              width: MediaQuery.of(context).size.width * 0.7,
+              width: MediaQuery.of(context).size.width * 0.8,
               color: Colors.white,
               alignment: Alignment.center,
               child: Text(
@@ -243,24 +245,25 @@ class _AuthScreenState extends State<HomePage> {
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.03,
+            ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.07,
-              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.height * 0.08,
+              width: MediaQuery.of(context).size.width * 0.8,
               color: Colors.white,
               alignment: Alignment.center,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: Text(
                     'To get started click on the icon on the top left or watch the introductory video below'),
               ),
             ),
-            SizedBox(height: 20),
             Container(
-              height: MediaQuery.of(context).size.height * 0.27,
+              height: MediaQuery.of(context).size.height * 0.10,
               width: MediaQuery.of(context).size.width * 0.7,
               child: Padding(
-                padding: const EdgeInsets.all(100.0),
+                padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -292,10 +295,11 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/videos/intro_video.mov')
-      ..initialize().then((_) {
-        setState(() {});
-      });
+    _controller =
+        VideoPlayerController.asset('assets/videos/wasteawayintrovid.mov')
+          ..initialize().then((_) {
+            setState(() {});
+          });
   }
 
   @override
