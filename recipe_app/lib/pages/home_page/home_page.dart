@@ -224,7 +224,7 @@ class _AuthScreenState extends State<HomePage> {
         body: Center(
           child: Column(children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
+              height: MediaQuery.of(context).size.height * 0.11,
             ),
             Image(
               width: 310,
@@ -233,7 +233,7 @@ class _AuthScreenState extends State<HomePage> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.03,
+              height: MediaQuery.of(context).size.height * 0.07,
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.05,
@@ -244,9 +244,6 @@ class _AuthScreenState extends State<HomePage> {
                 "Welcome to WasteAway",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.03,
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.08,
