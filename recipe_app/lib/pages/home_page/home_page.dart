@@ -245,9 +245,6 @@ class _AuthScreenState extends State<HomePage> {
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               ),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.03,
-            ),
             Container(
               height: MediaQuery.of(context).size.height * 0.08,
               width: MediaQuery.of(context).size.width * 0.8,
