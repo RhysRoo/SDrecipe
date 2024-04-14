@@ -7,21 +7,23 @@ import 'recipe.dart';
 class RecipeService {
   final IngredientManager ingredientManager = IngredientManager();
 
-  List<Recipe> filteredRecipes(List<String> ingredientNames, List<Recipe> recipes) {
-    List<Recipe> filteredRecipes = [];
-    for (Recipe recipe in recipes) {
-      List<String> recipeIngredients = recipe.ingredients.map((ingredient) => ingredient.food).toList();
-      List<String> missingIngredients = ingredientNames.where((ingredient) => !recipeIngredients.contains(ingredient)).toList();
-      if (missingIngredients.isEmpty) {
-        filteredRecipes.add(recipe);
-      }
-    }
-    return filteredRecipes;
-  }
+  // List<Recipe> filteredRecipes(List<String> ingredientNames, List<Recipe> recipes) {
+  //   List<Recipe> filteredRecipes = [];
+  //   for (Recipe recipe in recipes) {
+  //     List<String> recipeIngredients = recipe.ingredients.map((ingredient) => ingredient.food).toList();
+  //     List<String> missingIngredients = ingredientNames.where((ingredient) => !recipeIngredients.contains(ingredient)).toList();
+  //     if (missingIngredients.isEmpty) {
+  //       filteredRecipes.add(recipe);
+  //     }
+  //     filteredRecipes.add(recipe);
+  //   }
+  //   return filteredRecipes;
+  // }
 
   Future<List<Recipe>> fetchRecipesBasedOnUserIngredients() async {
     // Retrieve the user's ingredients
     List<List<String>> userIngredients = await ingredientManager.getUserIngredients();
+    print("all ingredients" + userIngredients.toString());
     // Extract the names of the ingredients
     List<String> ingredientNames = userIngredients.map((ingredient) => ingredient.first).toList();
     //get recipes from API with ingredients in
@@ -29,8 +31,8 @@ class RecipeService {
     //parse JSON data into Recipe objects
     List<Recipe> recipes = recipesJson.map((recipeJson) => Recipe.fromJson(recipeJson['recipe'])).toList();
     // filter recipes to only include those with ingredients in ingredientNames
-    List<Recipe> filtered = filteredRecipes(ingredientNames, recipes);
-    return filtered.take(5).toList();
+    //List<Recipe> filtered = filteredRecipes(ingredientNames, recipes);
+    return recipes.take(5).toList();
   }
 
   Future<List<dynamic>> fetchRecipes(List<String> ingredients) async {
