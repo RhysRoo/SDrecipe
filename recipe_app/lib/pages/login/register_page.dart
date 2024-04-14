@@ -55,7 +55,7 @@ class _RegisterPage extends State<RegisterPage> {
                 const SizedBox(height: 25),
                 MyTextField(
                   control: emailController,
-                  hintText: 'Username',
+                  hintText: 'Email',
                   obscureText: false,
                 ),
                 const SizedBox(height: 10),
