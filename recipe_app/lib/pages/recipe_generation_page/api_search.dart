@@ -1,4 +1,6 @@
 // recipe_service.dart
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.dart';

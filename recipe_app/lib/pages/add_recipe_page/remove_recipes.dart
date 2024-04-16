@@ -6,7 +6,7 @@ import 'package:flutter_log/pages/add_recipe_page/add_recipe_manager.dart';
 import 'package:intl/intl.dart';
 
 class ShowRecipePage extends StatefulWidget {
-  const ShowRecipePage({Key? key}) : super(key: key);
+  const ShowRecipePage({super.key});
 
   @override
   _ShowRecipePageState createState() => _ShowRecipePageState();

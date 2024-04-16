@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -24,25 +26,23 @@ class UserManager {
     }
   }
 
-  Future<String> getFoodRestriction() async {
+  Future<String?> getFoodRestriction() async {
     try {
       String? uid = await getCurrentUserUID();
       DocumentSnapshot<Map<String, dynamic>>? documentSnapshot =
           await _firestore?.collection("UserDetails").doc(uid).get();
 
       if (documentSnapshot!.exists) {
-        dynamic foodRestriction = documentSnapshot?.data()?["foodRestriction"];
+        dynamic foodRestriction = documentSnapshot.data()?["foodRestriction"];
         print("Food Restriction: $foodRestriction");
         return foodRestriction;
       } else {
         print("Food Restriction: Issues Occurred");
-        dynamic foodRestriction = null;
-        return foodRestriction;
+        return null;
       }
     } catch (e) {
       print("Issue obtaining food restriction: $e");
-      dynamic foodRestriction = null;
-      return foodRestriction;
+      return null;
     }
   }
 }

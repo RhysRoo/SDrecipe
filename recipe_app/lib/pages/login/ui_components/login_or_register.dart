@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_log/pages/login_page.dart';
-import 'package:flutter_log/pages/register_page.dart';
+import 'package:flutter_log/pages/login/login_page.dart';
+import 'package:flutter_log/pages/login/register_page.dart';
 
-// Allows for switching between the register and log in pages 
+// Allows for switching between the register and log in pages
 class LoginOrRegisterPage extends StatefulWidget {
   const LoginOrRegisterPage({super.key});
 
@@ -15,7 +15,7 @@ class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
 
   void togglePages() {
     setState(() {
-      showLoginPage = !showLoginPage;  // Toggles to load up the sufficient page
+      showLoginPage = !showLoginPage; // Toggles to load up the sufficient page
     });
   }
 

@@ -1,7 +1,6 @@
-// ignore_for_file: sort_child_properties_last, deprecated_member_use
+// ignore_for_file: sort_child_properties_last, deprecated_member_use, file_names
 
 import 'package:flutter/material.dart';
-
 
 //questions and awnser set up
 class QAItem extends StatelessWidget {
@@ -11,15 +10,14 @@ class QAItem extends StatelessWidget {
   final Color titleColor;
   final Color childrenColor;
 
-
   const QAItem({
-    Key? key,
+    super.key,
     required this.title,
     required this.children,
     this.backgroundColor = Colors.green,
     this.titleColor = Colors.black,
     this.childrenColor = Colors.white,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,20 +44,24 @@ class QAItem extends StatelessWidget {
   }
 }
 
+// ignore: camel_case_types
 class FAQ_page extends StatelessWidget {
+  const FAQ_page({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Frequently Asked Questions'),//title
-        backgroundColor: Colors.green,//background
+        title: const Text('Frequently Asked Questions'), //title
+        backgroundColor: Colors.green, //background
       ),
       body: ListView(
         children: [
           Row(
             children: [
               Expanded(
-                child: Container(//search container
+                child: Container(
+                  //search container
                   color: Colors.green[700],
                   height: MediaQuery.of(context).size.height * 0.20,
                   child: Column(
@@ -86,7 +88,8 @@ class FAQ_page extends StatelessWidget {
                           const Expanded(
                             child: SizedBox(
                               height: 50.0,
-                              child: TextField(//text box to search (not functional)
+                              child: TextField(
+                                //text box to search (not functional)
                                 decoration: InputDecoration(
                                   hintText: 'Search...',
                                   hintStyle: TextStyle(color: Colors.grey),
@@ -211,12 +214,14 @@ class FAQ_page extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          TextButton(// button for add question (not functional)
+          TextButton(
+            // button for add question (not functional)
             onPressed: () {
               // Add code for handling the button press
             },
             style: TextButton.styleFrom(
-              foregroundColor: Colors.white, backgroundColor: Colors.green[700],
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.green[700],
             ),
             child: const Text('Add Question'),
           ),

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, file_names, use_build_context_synchronously, duplicate_ignore
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_log/pages/home_page/home_page.dart';

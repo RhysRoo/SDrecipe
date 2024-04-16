@@ -3,7 +3,7 @@
 import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.dart';
 
 class NotificationManager {
-  final IngredientManager ingredientManager = IngredientManager();
+  late IngredientManager ingredientManager = IngredientManager();
 
   // Returns a list of the expired items that are deleted from the cloud
   Future<List<Map<String, String>>> removeExpiredIngredientsAndNotify() async {
@@ -13,6 +13,8 @@ class NotificationManager {
       // Retrieve user ingredients
       List<List<String>> userIngredients =
           await ingredientManager.getUserIngredients();
+
+      print("userIngredients: $userIngredients");
 
       // Prepare a list to notify the user about removed ingredients
       List<Map<String, String>> removedIngredients = [];
@@ -50,5 +52,10 @@ class NotificationManager {
       print('Error removing expired ingredients: $e');
       return []; // Return an empty list in case of an error
     }
+  }
+
+  Future<int> warnEfficiency() async {
+    int efficiencyValue = 95; // Efficiency Function Required from Generation
+    return efficiencyValue;
   }
 }

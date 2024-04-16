@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_log/auth/appleSignIn.dart';
 import 'package:flutter_log/auth/googleSignIn.dart';
 import 'package:flutter_log/pages/home_page/home_page.dart';
+import 'package:flutter_log/pages/login/register_login_manager.dart';
 import 'package:flutter_log/pages/login/ui_components/button_forget.dart';
 import 'package:flutter_log/pages/login/ui_components/login_tile.dart';
 import 'package:flutter_log/pages/login/ui_components/logo_tile.dart';
@@ -12,6 +15,7 @@ import 'package:flutter_log/pages/login/ui_components/text_fields.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
+
   const RegisterPage({super.key, required this.onTap});
 
   @override
@@ -19,67 +23,13 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPage extends State<RegisterPage> {
-  // Text Editing Controller
-  final emailController = TextEditingController();
-
-  final passwordController = TextEditingController();
-
-  final confirmPasswordController = TextEditingController();
-
+  final RegisterLoginManager _registrationManager = RegisterLoginManager();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final GoogleSignInHandler _googleSignInHandler = GoogleSignInHandler();
-
   final AppleSignInHandler _appleSignInHandler = AppleSignInHandler();
-
-  void showOSError() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return const AlertDialog(
-            title: Text("Android Users: Sign In with Google"),
-          );
-        });
-  }
-
-  // Sign User Up
-  void signUserUp() async {
-    // Loading Circle
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-
-    void showErrorMessage(String message) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return const AlertDialog(
-              title: Text("Incorrect Email Address or Already Signed Up"),
-            );
-          });
-    }
-
-    try {
-      if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        );
-      } else {
-        showErrorMessage("Passwords do not match");
-      }
-
-      Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
-      // Pop Context
-      Navigator.pop(context);
-      // Wrong Username
-      showErrorMessage(e.code);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,16 +39,12 @@ class _RegisterPage extends State<RegisterPage> {
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment:
-                  MainAxisAlignment.center, //Aligned for iOS phones
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 25),
-                // Logo Textfield
                 const LogoTiling(
                     imagePath: 'lib/fitnessImage/fitnessLogo.jpeg'),
-
                 const SizedBox(height: 25),
-
                 Text(
                   'Let\'s create your account!',
                   style: TextStyle(
@@ -106,44 +52,34 @@ class _RegisterPage extends State<RegisterPage> {
                     fontSize: 16,
                   ),
                 ),
-
                 const SizedBox(height: 25),
-
-                // Username TextField
                 MyTextField(
                   control: emailController,
                   hintText: 'Email',
                   obscureText: false,
                 ),
-
                 const SizedBox(height: 10),
-
-                // Password TextField
                 MyTextField(
                   control: passwordController,
                   hintText: 'Password',
                   obscureText: true,
                 ),
-
                 const SizedBox(height: 10),
-
                 MyTextField(
                   control: confirmPasswordController,
                   hintText: 'Confirm Password',
                   obscureText: true,
                 ),
-
                 const SizedBox(height: 25),
-
-                // Sign in Buttons
                 ButtonForget(
-                  onTap: signUserUp,
+                  onTap: () => _registrationManager.signUserUp(
+                      context,
+                      emailController,
+                      passwordController,
+                      confirmPasswordController),
                   text: 'Sign Up',
                 ),
-
                 const SizedBox(height: 50),
-
-                //Google + Apple Sign In Prompt
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
@@ -172,48 +108,38 @@ class _RegisterPage extends State<RegisterPage> {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 50),
-                // Google + Apple sign in buttons
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Google Button
                     LogTile(
-                        onTap: () => _googleSignInHandler.handleSignIn(context),
-                        imagePath: 'lib/fitnessImage/GoogleLogo.png'),
-
+                      onTap: () => _googleSignInHandler.handleSignIn(context),
+                      imagePath: 'lib/fitnessImage/GoogleLogo.png',
+                    ),
                     const SizedBox(width: 25),
-
-                    //Apple Button
                     LogTile(
-                        onTap: () async => {
-                              if (Platform.isIOS)
-                                {
-                                  await _appleSignInHandler
-                                      .handleSignIn(context),
-                                  if (FirebaseAuth.instance.currentUser != null)
-                                    {
-                                      // ignore: use_build_context_synchronously
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const HomePage(),
-                                        ),
-                                      )
-                                    }
-                                }
-                              else
-                                {showOSError()}
-                            },
-                        imagePath: 'lib/fitnessImage/AppleLogo.png')
+                      onTap: () async => {
+                        if (Platform.isIOS)
+                          {
+                            await _appleSignInHandler.handleSignIn(context),
+                            if (FirebaseAuth.instance.currentUser != null)
+                              {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomePage(),
+                                  ),
+                                ),
+                              }
+                          }
+                        else
+                          {RegisterLoginManager.showOSError(context)}
+                      },
+                      imagePath: 'lib/fitnessImage/AppleLogo.png',
+                    )
                   ],
                 ),
-
                 const SizedBox(height: 60),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

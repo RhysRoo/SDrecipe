@@ -1,6 +1,8 @@
-// ignore_for_file: avoid_print
+
+// ignore_for_file: avoid_print, file_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/open_food_api.dart';
 import 'package:flutter_log/pages/profile_page/userManager.dart';
 
@@ -8,12 +10,20 @@ import 'package:flutter_log/pages/profile_page/userManager.dart';
 
 class IngredientManager {
   IngredientAPI api = IngredientAPI();
-  UserManager user = UserManager();
+  late FirebaseAuth? auth = FirebaseAuth.instance;
   late FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late UserManager userManager;
+
+  IngredientManager({FirebaseAuth? auth, FirebaseFirestore? firestore}) {
+    userManager = UserManager(
+        auth: auth ?? this.auth, firestore: firestore ?? this.firestore);
+  }
 
   // Returns the list of ingredients from the cloud that the user has entered
   Future<List<List<String>>> getUserIngredients() async {
-    String uid = await user.getCurrentUserUID();
+    String uid = await userManager.getCurrentUserUID();
+
+    print('User uid: $uid');
     List<List<String>> result = [];
 
     if (uid.isNotEmpty) {
@@ -22,6 +32,7 @@ class IngredientManager {
             await firestore.collection("UserIngredients").doc(uid).get();
 
         if (documentSnapshot.exists) {
+          print("Exists");
           Map<String, dynamic> data = documentSnapshot.data() ?? {};
           List<Map<String, dynamic>> ingredientsData =
               List<Map<String, dynamic>>.from(data['ingredients'] ?? []);
@@ -50,13 +61,14 @@ class IngredientManager {
     // The Linker between getting previous data and submitting new data
 
     // Anonymous function access to _storeUserIngredients
-    await _storeUserIngredients(listIngredients);
+    await storeUserIngredients(listIngredients);
   }
 
   // Stores the ingredients into the cloud
-  Future<void> _storeUserIngredients(List<List<String>> listIngredients) async {
-    String uid = await user.getCurrentUserUID();
-    print(listIngredients);
+  Future<void> storeUserIngredients(List<List<String>> listIngredients) async {
+    String uid = await userManager.getCurrentUserUID();
+
+    print("User UID: $uid");
 
     List<Map<String, dynamic>> convertedList = // Conversion into a JSON Format
         listIngredients.map((ingredient) {

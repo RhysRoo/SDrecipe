@@ -6,7 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_log/auth/appleSignIn.dart';
 import 'package:flutter_log/auth/googleSignIn.dart';
-import 'package:flutter_log/pages/auth_page.dart';
+import 'package:flutter_log/pages/login/auth_page.dart';
+import 'package:flutter_log/pages/login/register_login_manager.dart';
 import 'package:flutter_log/pages/login/ui_components/button_forget.dart';
 import 'package:flutter_log/pages/login/ui_components/login_tile.dart';
 import 'package:flutter_log/pages/login/ui_components/logo_tile.dart';
@@ -23,65 +24,12 @@ class LoginPage extends StatefulWidget {
 // DO NOT TOUCH THIS CODE
 class _LoginPageState extends State<LoginPage> {
   // Text Editing Controller
-
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
 
-  // Google Sign In
+  // Apple and Google Sign In
   final GoogleSignInHandler _googleSignInHandler = GoogleSignInHandler();
-
-  // Apple Sign In
   final AppleSignInHandler _appleSignInHandler = AppleSignInHandler();
-
-  // Sign User In
-  void signUserIn() async {
-    // Loading Circle
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-
-    void showErrorMessage(String message) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return const AlertDialog(
-              title: Text("Incorrect Email Address"),
-            );
-          });
-    }
-
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-
-      // Add User Details
-
-      Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
-      // Pop Context
-      Navigator.pop(context);
-      // Wrong Username
-      showErrorMessage(e.code);
-    }
-  }
-
-  void showOSError() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return const AlertDialog(
-            title: Text("Android Users: Sign In with Google"),
-          );
-        });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,9 +94,12 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 25),
 
-                // Sign in Buttons
+                // Sign In Button
                 ButtonForget(
-                  onTap: signUserIn,
+                  onTap: () {
+                    RegisterLoginManager.signIn(
+                        emailController.text, passwordController.text, context);
+                  },
                   text: 'Sign In',
                 ),
 
@@ -216,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                                     }
                                 }
                               else
-                                {showOSError()}
+                                {RegisterLoginManager.showOSError(context)}
                             },
                         imagePath: 'lib/fitnessImage/AppleLogo.png')
                   ],

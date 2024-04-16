@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'ingredientManager.dart';
 
 class AddRemoveIngredients extends StatefulWidget {
-  const AddRemoveIngredients({Key? key}) : super(key: key);
+  const AddRemoveIngredients({super.key});
 
   @override
   _AddRemoveIngredientsState createState() => _AddRemoveIngredientsState();
