@@ -5,12 +5,12 @@ import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.
 class NotificationManager {
   final IngredientManager ingredientManager = IngredientManager();
 
-  // Returns a list of the expired items that are deleted from the cloud
+  /// Returns a list of the expired items that are deleted from the cloud
   Future<List<Map<String, String>>> removeExpiredIngredientsAndNotify() async {
     try {
       DateTime currentDate = DateTime.now();
 
-      // Retrieve user ingredients
+      /// Retrieve user ingredients
       List<List<String>> userIngredients =
           await ingredientManager.getUserIngredients();
 
@@ -23,18 +23,18 @@ class NotificationManager {
         String weight = userIngredient[1];
         String expiryDateString = userIngredient[2];
 
-        // Convert expiry date string to DateTime
+        /// Convert expiry date string to DateTime
         DateTime expiryDate = DateTime.parse(expiryDateString);
 
-        // Check if the ingredient has expired
+        /// Check if the ingredient has expired
         if (expiryDate.isBefore(currentDate)) {
-          // Add the ingredient details to the list
+          /// Add the ingredient details to the list
           removedIngredients.add({
             'name': name,
             'expiryDate': expiryDateString,
           });
         } else {
-          // Non-Expired ingredients stored
+          /// Non-Expired ingredients stored
           nonExpired.add([name, weight, expiryDateString]);
         }
       }
@@ -45,10 +45,14 @@ class NotificationManager {
         print('No Expired Ingredients to Return');
       }
 
-      return removedIngredients; // Return the list of removed ingredients
+      return removedIngredients;
+
+      /// Return the list of removed ingredients
     } catch (e) {
       print('Error removing expired ingredients: $e');
-      return []; // Return an empty list in case of an error
+      return [];
+
+      /// Return an empty list in case of an error
     }
   }
 }

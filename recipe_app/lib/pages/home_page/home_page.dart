@@ -26,7 +26,7 @@ class _AuthScreenState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    // Call the function to notify expired ingredients when the page is loaded
+    /// Call the function to notify expired ingredients when the page is loaded
     _notifyExpiredIngredients();
   }
 
@@ -40,12 +40,12 @@ class _AuthScreenState extends State<HomePage> {
   }
 
   Future<void> _notifyExpiredIngredients() async {
-    // Call the function to remove expired ingredients and get the details
+    /// Call the function to remove expired ingredients and get the details
     List<Map<String, String>> removedIngredients =
         await notificationManager.removeExpiredIngredientsAndNotify();
 
     if (removedIngredients.isNotEmpty) {
-      // Display a pop-up with the names and expiry dates of removed expired ingredients
+      /// Display a pop-up with the names and expiry dates of removed expired ingredients
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -69,7 +69,9 @@ class _AuthScreenState extends State<HomePage> {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop();
+
+                  /// Close the dialog
                 },
                 child: const Text('OK'),
               ),
