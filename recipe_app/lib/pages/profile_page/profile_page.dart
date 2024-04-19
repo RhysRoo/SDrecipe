@@ -55,22 +55,28 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
+
         backgroundColor: Colors.green[700],
         title: const Text('Profile Page'),
+        flexibleSpace: _buildProfileImage(),
+        toolbarHeight: 80,
+
       ),
       backgroundColor: Colors.green[200],
+      
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildProfileImage(),
+            
             SizedBox(
                 //Y-Axis Pos under profile picture
                 height: MediaQuery.of(context).size.height * 0.01),
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.135, // Adjust the height of Username/Food restriction card
+                  0.14, // Adjust the height of Username/Food restriction card
               width:
                   //X-Axis for Username/food restriction card
                   MediaQuery.of(context).size.width * 1.0,
@@ -96,7 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.23, // Height of user information card
+                  0.26, // Height of user information card
               width: MediaQuery.of(context).size.width * 1.0,
               child: Card(
                 elevation: 5.0,
@@ -117,10 +123,10 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 20, //spacing between user information and bio card
             ),
 
-            Card(
+            Card( // This is front end of bio card
               elevation: 5.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
@@ -139,7 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 20,
                     ),
                     Text(
-                        ' Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here'),
+                        'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
                   ],
                 ),
               ),
@@ -155,12 +161,13 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildProfileImage() {
-    return const Center(
+    return const Align(
+      alignment: Alignment(0.9, 0.7),
       child: CircleAvatar(
-        radius: 80,
+        radius: 45,
         foregroundImage: AssetImage('assets/images/profile_page/demo_pic.jpeg'),
       ),
-    );
+    ); 
   }
 
   // Update _buildInfoItem to handle null values

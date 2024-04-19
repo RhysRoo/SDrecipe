@@ -52,9 +52,11 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.green[700],
-          title: const Text('Add and Remove Ingredients Page'),
+          title: const Text('Add and Remove Ingredients Page' ,style: TextStyle(fontSize: 20),),
+          toolbarHeight: 80,
         ),
         backgroundColor: Colors.green[200],
+        
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -132,7 +134,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
             ),
           ),
         ),
-        const SizedBox(width: 30.0),
+        const SizedBox(width: 33.0),
         Expanded(
           child: TextField(
             controller: weightController,

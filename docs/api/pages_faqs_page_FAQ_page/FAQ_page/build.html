@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the build method from the FAQ_page class, for the Dart programming language.">
+  <title>build method - FAQ_page class - FAQ_page library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">flutter_log</a></li>
+    <li><a href="../../pages_faqs_page_FAQ_page/pages_faqs_page_FAQ_page-library.html">pages&#47;faqs_page&#47;FAQ_page.dart</a></li>
+    <li><a href="../../pages_faqs_page_FAQ_page/FAQ_page-class.html">FAQ_page</a></li>
+    <li class="self-crumb">build method</li>
+  </ol>
+  <div class="self-name">build</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="pages_faqs_page_FAQ_page&#47;FAQ_page-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-method">build</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
+<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+      <div class="features"><span class="feature">override</span></div>
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Describes the part of the user interface represented by this widget.</p>
+<p>The framework calls this method when this widget is inserted into the tree
+in a given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> and when the dependencies of this widget change
+(e.g., an <a href="https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html">InheritedWidget</a> referenced by this widget changes). This
+method can potentially be called in every frame and should not have any side
+effects beyond building a widget.</p>
+<p>The framework replaces the subtree below this widget with the widget
+returned by this method, either by updating the existing subtree or by
+removing the subtree and inflating a new subtree, depending on whether the
+widget returned by this method can update the root of the existing
+subtree, as determined by calling <a href="https://api.flutter.dev/flutter/widgets/Widget/canUpdate.html">Widget.canUpdate</a>.</p>
+<p>Typically implementations return a newly created constellation of widgets
+that are configured with information from this widget's constructor and
+from the given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>.</p>
+<p>The given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> contains information about the location in the
+tree at which this widget is being built. For example, the context
+provides the set of inherited widgets for this location in the tree. A
+given widget might be built with multiple different <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>
+arguments over time if the widget is moved around the tree or if the
+widget is inserted into the tree in multiple places at once.</p>
+<p>The implementation of this method must only depend on:</p>
+<ul>
+<li>the fields of the widget, which themselves must not change over time,
+and</li>
+<li>any ambient state obtained from the <code>context</code> using
+<a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
+</ul>
+<p>If a widget's <a href="../../pages_faqs_page_FAQ_page/FAQ_page/build.html">build</a> method is to depend on anything else, use a
+<a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> instead.</p>
+<p>See also:</p>
+<ul>
+<li><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html">StatelessWidget</a>, which contains the discussion on performance considerations.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text(&#39;Frequently Asked Questions&#39;),&#47;&#47;title
+      backgroundColor: Colors.green,&#47;&#47;background
+    ),
+    body: ListView(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Container(&#47;&#47;search container
+                color: Colors.green[700],
+                height: MediaQuery.of(context).size.height * 0.20,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          &#39;Search&#39;,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Expanded(
+                          child: SizedBox(
+                            height: 50.0,
+                            child: TextField(&#47;&#47;text box to search (not functional)
+                              decoration: InputDecoration(
+                                hintText: &#39;Search...&#39;,
+                                hintStyle: TextStyle(color: Colors.grey),
+                                border: OutlineInputBorder(),
+                                filled: true,
+                                fillColor: Colors.white,
+                              ),
+                              style: TextStyle(color: Colors.black),
+                              minLines: 1,
+                              maxLines: 1,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        ElevatedButton(
+                          onPressed: () {
+                            &#47;&#47; button to search (not functional)
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24.0, vertical: 12.0),
+                            minimumSize: const Size(0, 50),
+                          ),
+                          child: const Text(
+                            &#39;search&#39;, &#47;&#47; search button
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        &#47;&#47;coad for each q and a
+        const QAItem(
+          title: &#39;Q: What is the main goal of the Recipe Generator app?&#39;,
+          children: [
+            Text(
+                &#39;A: The core concept of this system is to mitigate environmental impact by reducing food waste, aligning with sustainable practices.&#39;),
+          ],
+        ),
+        const QAItem(
+          title: &#39;Q: Who are the primary users of the Recipe Generator app?&#39;,
+          children: [
+            Text(
+                &#39;A: The primary users are registered WasteAway users who seek to reduce food waste and generate personalized recipes.&#39;),
+          ],
+        ),
+        const QAItem(
+          title: &#39;Q: How does the Recipe Generation feature work?&#39;,
+          children: [
+            Text(
+                &#39;A: Users select ingredients through the form, triggering the recipe generation process. The system generates recipes based on selected ingredients and user food restrictions.&#39;),
+          ],
+        ),
+        const QAItem(
+          title:
+              &#39;Q: Can I customize the generated recipes based on dietary restrictions?&#39;,
+          children: [
+            Text(
+                &#39;A: Yes, users can set dietary preferences and restrictions, ensuring that the generated recipes align with their specific needs.&#39;),
+          ],
+        ),
+        const QAItem(
+          title:
+              &#39;Q: What happens if I don\&#39;t provide enough ingredients for the generation process?&#39;,
+          children: [
+            Text(
+                &#39;A: If not enough ingredients or ingredient types are provided, an error message will be displayed, prompting users to select more ingredients and re-initiate the process.&#39;),
+          ],
+        ),
+        const QAItem(
+          title: &#39;Q: How are ingredients saved in the app?&#39;,
+          children: [
+            Text(
+                &#39;A: Users can save ingredients through the Save Ingredients feature. The ingredient manager validates the data, and the ingredients are stored in the backend attached to the user\&#39;s profile.&#39;),
+          ],
+        ),
+        const QAItem(
+          title: &#39;Q: Can I edit my user profile details?&#39;,
+          children: [
+            Text(
+                &#39;A: Yes, users can edit their user profile details, including name, email, password, food restrictions, and bio. The updated information is then reflected in the backend.&#39;),
+          ],
+        ),
+        const QAItem(
+          title:
+              &#39;Q: What happens if I enter incorrect data during profile editing?&#39;,
+          children: [
+            Text(
+                &#39;A: If there\&#39;s invalid data, the app displays an error message (e.g., &quot;Invalid Name Entry&quot; or &quot;Invalid Password Entry&quot;). Users correct the form and resubmit.&#39;),
+          ],
+        ),
+        const QAItem(
+          title: &#39;Q: How does the app handle expired ingredients?&#39;,
+          children: [
+            Text(
+                &#39;A: The app notifies users of expired ingredients during the recipe generation process. Users can choose to continue without expired items or halt the process to add more ingredients.&#39;),
+          ],
+        ),
+        const QAItem(
+          title: &#39;Q: Can I add my own recipes to the app?&#39;,
+          children: [
+            Text(
+                &#39;A: Yes, users can add their own recipes through the Add Own Recipes feature. The system validates the submitted details, and upon success, the custom recipe is added to the app\&#39;s database.&#39;),
+          ],
+        ),
+        const QAItem(
+          title:
+              &#39;Q: What happens if I make errors while adding my own recipe?&#39;,
+          children: [
+            Text(
+                &#39;A: If there are errors (e.g., missing fields), the app displays an error message, allowing users to review and correct their form before submission.&#39;),
+          ],
+        ),
+        const SizedBox(height: 16),
+        TextButton(&#47;&#47; button for add question (not functional)
+          onPressed: () {
+            &#47;&#47; Add code for handling the button press
+          },
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.white, backgroundColor: Colors.green[700],
+          ),
+          child: const Text(&#39;Add Question&#39;),
+        ),
+      ],
+    ),
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">flutter_log</a></li>
+    <li><a href="../../pages_faqs_page_FAQ_page/pages_faqs_page_FAQ_page-library.html">FAQ_page</a></li>
+    <li><a href="../../pages_faqs_page_FAQ_page/FAQ_page-class.html">FAQ_page</a></li>
+    <li class="self-crumb">build method</li>
+</ol>
+
+
+    <h5>FAQ_page class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    flutter_log
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

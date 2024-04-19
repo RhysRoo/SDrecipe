@@ -30,7 +30,7 @@ class _AddRecipeState extends State<AddRecipe> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green[700],
-        title: const Text('Add/Remove Recipes'),
+        title: const Text('Add/Remove \n    Recipes'),
         actions: [
           ElevatedButton(
             onPressed: () {
@@ -51,6 +51,7 @@ class _AddRecipeState extends State<AddRecipe> {
             ),
           ),
         ],
+        toolbarHeight: 80,
       ),
       backgroundColor: Colors.green[200],
       body: Padding(
