@@ -55,22 +55,17 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
-
         backgroundColor: Colors.green[700],
         title: const Text('Profile Page'),
         flexibleSpace: _buildProfileImage(),
         toolbarHeight: 80,
-
       ),
       backgroundColor: Colors.green[200],
-      
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            
             SizedBox(
                 //Y-Axis Pos under profile picture
                 height: MediaQuery.of(context).size.height * 0.01),
@@ -122,11 +117,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 20, //spacing between user information and bio card
+            const SizedBox(
+              height: 10,
             ),
 
-            Card( // This is front end of bio card
+            Card(
+              // This is front end of bio card
               elevation: 5.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
@@ -167,7 +163,7 @@ class _ProfilePageState extends State<ProfilePage> {
         radius: 45,
         foregroundImage: AssetImage('assets/images/profile_page/demo_pic.jpeg'),
       ),
-    ); 
+    );
   }
 
   // Update _buildInfoItem to handle null values
