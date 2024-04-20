@@ -103,7 +103,7 @@ class _AuthScreenState extends State<HomePage> {
                   decoration: BoxDecoration(color: Colors.green),
                   child: Text(
                     'Menu',
-                    style: TextStyle(fontSize: 0),
+                    style: TextStyle(fontSize: 100),
                   ),
                 ),
               ),
