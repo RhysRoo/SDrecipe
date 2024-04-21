@@ -8,7 +8,7 @@ class LogoTiling extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(30),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.white),
         borderRadius: BorderRadius.circular(16),
@@ -16,7 +16,7 @@ class LogoTiling extends StatelessWidget {
       ),
       child: Image.asset(
         imagePath,
-        height: 70,
+        height: 250,
       ),
     );
   }

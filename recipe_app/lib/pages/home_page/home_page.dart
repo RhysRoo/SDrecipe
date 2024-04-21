@@ -9,7 +9,7 @@ import 'package:flutter_log/pages/home_page/food_notifications/notifications.dar
 import 'package:flutter_log/pages/profile_page/profile_page.dart';
 import 'package:flutter_log/pages/recipe_generation_page/generation_page.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/add_remove_ingredients_page.dart';
-import 'package:video_player/video_player.dart';
+import 'package:flutter_log/pages/home_page/components/video_player.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -138,12 +138,12 @@ class _AuthScreenState extends State<HomePage> {
             padding: EdgeInsets.zero,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.15,
+                height: MediaQuery.of(context).size.height * 0.1,
                 child: const DrawerHeader(
                   decoration: BoxDecoration(color: Colors.green),
                   child: Text(
                     'Menu',
-                    style: TextStyle(fontSize: 0),
+                    style: TextStyle(fontSize: 50),
                   ),
                 ),
               ),
@@ -318,66 +318,5 @@ class _AuthScreenState extends State<HomePage> {
         ),
       ),
     );
-  }
-}
-
-class VideoPlayerWidget extends StatefulWidget {
-  VideoPlayerWidget({Key? key}) : super(key: key);
-
-  @override
-  _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
-}
-
-class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
-  late VideoPlayerController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller =
-        VideoPlayerController.asset('assets/videos/wasteawayintrovid.mov')
-          ..initialize().then((_) {
-            setState(() {});
-          });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Introductory Video'),
-        backgroundColor: Colors.green[700],
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: Center(
-        child: _controller.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              )
-            : Container(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _controller.value.isPlaying
-                ? _controller.pause()
-                : _controller.play();
-          });
-        },
-        child: Icon(
-          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-        ),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
   }
 }
