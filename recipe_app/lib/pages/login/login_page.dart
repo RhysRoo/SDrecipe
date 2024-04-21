@@ -44,8 +44,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const SizedBox(height: 50),
                 // Logo Textfield
-                const LogoTiling(
-                    imagePath: 'lib/fitnessImage/fitnessLogo.jpeg'),
+                const LogoTiling(imagePath: 'assets/images/logo/logo.png'),
 
                 const SizedBox(height: 50),
 
