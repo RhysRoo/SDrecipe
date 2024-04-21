@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-// abstract class BottomNavBar extends StatefulWidget {
-//   const BottomNavBar({super.key});
-
 class VideoPlayerWidget extends StatefulWidget {
   VideoPlayerWidget({Key? key}) : super(key: key);
 
