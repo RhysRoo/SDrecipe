@@ -138,12 +138,12 @@ class _AuthScreenState extends State<HomePage> {
             padding: EdgeInsets.zero,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.15,
+                height: MediaQuery.of(context).size.height * 0.1,
                 child: const DrawerHeader(
                   decoration: BoxDecoration(color: Colors.green),
                   child: Text(
                     'Menu',
-                    style: TextStyle(fontSize: 0),
+                    style: TextStyle(fontSize: 50),
                   ),
                 ),
               ),
