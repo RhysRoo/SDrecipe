@@ -10,6 +10,7 @@ import 'package:flutter_log/pages/profile_page/profile_page.dart';
 import 'package:flutter_log/pages/recipe_generation_page/generation_page.dart';
 import 'package:flutter_log/pages/add_remove_ingredients_page/add_remove_ingredients_page.dart';
 import 'package:flutter_log/pages/home_page/components/video_player.dart';
+import 'package:flutter_log/pages/home_page/components/appdraw.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -132,136 +133,7 @@ class _AuthScreenState extends State<HomePage> {
           toolbarHeight: MediaQuery.of(context).size.height * 0.06,
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
         ),
-        drawer: Drawer(
-          width: MediaQuery.of(context).size.width * 0.79,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-                child: const DrawerHeader(
-                  decoration: BoxDecoration(color: Colors.green),
-                  child: Text(
-                    'Menu',
-                    style: TextStyle(fontSize: 50),
-                  ),
-                ),
-              ),
-              ListTile(
-                title: Row(
-                  children: [
-                    Icon(Icons.person, size: 30),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.01,
-                    ),
-                    const Text('User Profile', style: TextStyle(fontSize: 20)),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ProfilePage()));
-                },
-              ),
-              ListTile(
-                title: Row(
-                  children: [
-                    Icon(Icons.generating_tokens, size: 30),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.01,
-                    ),
-                    const Text('Generate Recipe',
-                        style: TextStyle(fontSize: 20)),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const GenerationPage()));
-                },
-              ),
-              ListTile(
-                title: Row(
-                  children: [
-                    Icon(Icons.cookie, size: 29),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.01,
-                    ),
-                    const Text('Add Recipe', style: TextStyle(fontSize: 20)),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AddRecipe()));
-                },
-              ),
-              ListTile(
-                title: Row(
-                  children: [
-                    Icon(Icons.edit, size: 28),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.02,
-                    ),
-                    const Text('Ingredients Manager',
-                        style: TextStyle(fontSize: 20)),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AddRemoveIngredients()));
-                },
-              ),
-              ListTile(
-                title: Row(
-                  children: [
-                    Icon(Icons.question_answer, size: 28),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.02,
-                    ),
-                    const Text('FAQ', style: TextStyle(fontSize: 20)),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FAQ_page()));
-                },
-              ),
-              ListTile(
-                title: Row(
-                  children: [
-                    Icon(Icons.info, size: 28),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.02,
-                    ),
-                    Text('About Us', style: TextStyle(fontSize: 20)),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AboutUsPage()));
-                },
-              ),
-              ListTile(
-                title: Row(
-                  children: [
-                    Icon(Icons.logout, size: 30),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.01,
-                    ),
-                    const Text('Log Out', style: TextStyle(fontSize: 20)),
-                  ],
-                ),
-                onTap: () {
-                  _signOut();
-                },
-              ),
-            ],
-          ),
-        ),
+        drawer: AppDrawer(_signOut),
         backgroundColor: Colors.green[200],
         body: Center(
           child: Column(children: [
