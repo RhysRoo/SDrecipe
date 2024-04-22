@@ -44,6 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
             firstName: userData['firstName'] ?? '',
             lastName: userData['lastName'] ?? '',
             foodRestriction: userData['foodRestriction'] ?? '',
+            bio: userData['bio'] ?? '',
           );
         });
       }
@@ -96,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height *
-                  0.23, // Height of user information card
+                  0.5, // Height of user information card
               width: MediaQuery.of(context).size.width * 1.0,
               child: Card(
                 elevation: 5.0,
@@ -111,6 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       _buildInfoItem('Age: ', 'age'),
                       _buildInfoItem('First Name: ', 'firstName'),
                       _buildInfoItem('Last Name: ', 'lastName'),
+                      _buildInfoItem('Bio: ', 'bio')
                     ],
                   ),
                 ),
@@ -118,31 +120,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(
               height: 10,
-            ),
-
-            Card(
-              elevation: 5.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Column(
-                  children: [
-                    Text(
-                      //This is where to put the Backend for the Bio Code
-                      'Bio Card',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                        ' Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here Add Bio here'),
-                  ],
-                ),
-              ),
             ),
 
             const SizedBox(height: 10.0),
@@ -332,6 +309,22 @@ class _ProfilePageState extends State<ProfilePage> {
                       return null;
                     },
                   ),
+                  TextFormField(
+                    controller: _bioController,
+                    decoration: const InputDecoration(labelText: 'Bio'),
+                    maxLines: 3,
+
+                    // Add a validator for the bio field
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a bio';
+                      }
+                      if (value.length < 10) {
+                        return 'Bio must be at least 10 characters';
+                      }
+                      return null;
+                    },
+                  ),
                 ],
               ),
             ),
@@ -355,6 +348,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       firstName: _firstNameController.text.trim(),
                       lastName: _lastNameController.text.trim(),
                       foodRestriction: _foodRestictionController.text.trim(),
+                      bio: _bioController.text.trim(),
                     );
 
                     // Save the user details
