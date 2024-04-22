@@ -97,6 +97,7 @@ void main() {
         foodRestriction: "None",
         lastName: "Doe",
         username: "johndoe123",
+        bio: "Hello, I am John Doe.",
       );
 
       // Call the method under test
@@ -126,6 +127,7 @@ void main() {
         foodRestriction: "None",
         lastName: "Doe",
         username: "johndoe123",
+        bio: "Hello, I am John Doe.",
       );
 
       // Call the method under test

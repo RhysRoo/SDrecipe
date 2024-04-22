@@ -6,12 +6,12 @@ void main() {
     test('toJson() method converts UserModel to JSON', () {
       // Create an instance of UserModel
       var user = const UserModel(
-        firstName: "John",
-        lastName: "Doe",
-        username: "johndoe",
-        age: "30",
-        foodRestriction: "Vegetarian",
-      );
+          firstName: "John",
+          lastName: "Doe",
+          username: "johndoe",
+          age: "30",
+          foodRestriction: "Vegetarian",
+          bio: "I love cooking.");
 
       // Convert UserModel instance to JSON
       var json = user.toJson();
@@ -32,12 +32,12 @@ void main() {
     test('toJson() method converts UserModel to JSON', () {
       // Create an instance of UserModel with different values
       var user = const UserModel(
-        firstName: "Alice",
-        lastName: "Smith",
-        username: "alice123",
-        age: "25",
-        foodRestriction: "None",
-      );
+          firstName: "Alice",
+          lastName: "Smith",
+          username: "alice123",
+          age: "25",
+          foodRestriction: "None",
+          bio: "Food lover.");
 
       // Convert UserModel instance to JSON
       var json = user.toJson();
@@ -58,13 +58,13 @@ void main() {
     test('toJson() method handles null id', () {
       // Create an instance of UserModel with null id
       var user = const UserModel(
-        id: null,
-        firstName: "Bob",
-        lastName: "Johnson",
-        username: "bob99",
-        age: "40",
-        foodRestriction: "Vegan",
-      );
+          id: null,
+          firstName: "Bob",
+          lastName: "Johnson",
+          username: "bob99",
+          age: "40",
+          foodRestriction: "Vegan",
+          bio: "I am a software developer.");
 
       // Convert UserModel instance to JSON
       var json = user.toJson();
@@ -85,13 +85,13 @@ void main() {
     test('toJson() method converts UserModel to JSON with null values', () {
       // Create an instance of UserModel with some values as null
       var user = const UserModel(
-        id: null,
-        firstName: "Jane",
-        lastName: "Doe",
-        username: '',
-        age: "28",
-        foodRestriction: '',
-      );
+          id: null,
+          firstName: "Jane",
+          lastName: "Doe",
+          username: '',
+          age: "28",
+          foodRestriction: '',
+          bio: '');
 
       // Convert UserModel instance to JSON
       var json = user.toJson();
