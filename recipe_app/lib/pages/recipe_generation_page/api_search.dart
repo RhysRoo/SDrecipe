@@ -22,24 +22,23 @@ class RecipeService {
   //   return filteredRecipes;
   // }
 
-  Future<List<Recipe>> fetchRecipesBasedOnUserIngredients() async {
+  Future<List<dynamic>> fetchRecipesBasedOnUserIngredients() async {
     // Retrieve the user's ingredients
     List<List<String>> userIngredients = await ingredientManager.getUserIngredients();
-    print("all ingredients" + userIngredients.toString());
     // Extract the names of the ingredients
     List<String> ingredientNames = userIngredients.map((ingredient) => ingredient.first).toList();
     //get recipes from API with ingredients in
     List<dynamic> recipesJson = await fetchRecipes(ingredientNames);
     //parse JSON data into Recipe objects
-    List<Recipe> recipes = recipesJson.map((recipeJson) => Recipe.fromJson(recipeJson['recipe'])).toList();
+    //List<Recipe> recipes = recipesJson.map((recipeJson) => Recipe.fromJson(recipeJson['recipe'])).toList();
     // filter recipes to only include those with ingredients in ingredientNames
     //List<Recipe> filtered = filteredRecipes(ingredientNames, recipes);
-    return recipes.take(5).toList();
+    return recipesJson.take(5).toList();
   }
 
   Future<List<dynamic>> fetchRecipes(List<String> ingredients) async {
-    const String apiId = '87adcf60';
-    const String apiKey = 'bba2c4af46d564ff8eb6075aa1b36307';
+    const String apiId = 'APIID';
+    const String apiKey = 'APIKEY';
 
     String ingredientQuery = ingredients.join(',');
 
@@ -61,12 +60,35 @@ class RecipeService {
   }
 
   Future<List<String>> getRecipeNames() async {
-    List<Recipe> recipes = await fetchRecipesBasedOnUserIngredients();
-    return recipes.map((recipe) => recipe.label).toList();
+    List<dynamic> recipes = await fetchRecipesBasedOnUserIngredients();
+    List<String> labels = [];
+
+    for (int i = 0; i < recipes.length && i < 5; i++) {
+      Map<String, dynamic> recipe = recipes[i]['recipe'];
+      labels.add(recipe['label']);
+    }
+    return labels;
   }
 
   Future<List<String>> getRecipeUrls() async {
-    List<Recipe> recipes = await fetchRecipesBasedOnUserIngredients();
-    return recipes.map((recipe) => recipe.url).toList();
+    List<dynamic> recipes = await fetchRecipesBasedOnUserIngredients();
+    List<String> urls = [];
+
+    for (int i = 0; i < recipes.length && i < 5; i++) {
+      Map<String, dynamic> recipe = recipes[i]['recipe'];
+      urls.add(recipe['url']);
+    }
+    return urls;
+  }
+
+  Future<List<String>> getRecipeImage() async {
+    List<dynamic> recipes = await fetchRecipesBasedOnUserIngredients();
+    List<String> images = [];
+
+    for (int i = 0; i < recipes.length && i < 5; i++) {
+      Map<String, dynamic> recipe = recipes[i]['recipe'];
+      images.add(recipe['image']);
+    }
+    return images;
   }
 }
