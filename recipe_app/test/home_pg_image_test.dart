@@ -6,7 +6,7 @@ void main() {
   testWidgets('Image widget should be created and rendered',
       (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: Scaffold(
         body: Image(
           width: 310,
