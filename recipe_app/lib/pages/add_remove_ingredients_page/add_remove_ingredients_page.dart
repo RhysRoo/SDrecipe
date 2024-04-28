@@ -13,6 +13,7 @@ class AddRemoveIngredients extends StatefulWidget {
 class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
   List<List<String>> ingredients = [];
 
+  BuildContext? dialogContext;
   final TextEditingController ingredientController = TextEditingController();
   final TextEditingController weightController = TextEditingController();
   final TextEditingController expiryController = TextEditingController();
@@ -205,17 +206,13 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     );
   }
 
-  // Adds ingredients to the cloud with necessary validation checks
-  Future<void> _addIngredient() async {
-    final newIngredient = ingredientController.text.trim();
-    final newIngredientWeight = weightController.text.trim();
-    final newExpiryDate = expiryController.text.trim();
-
-    // Display a loading indicator while checking for ingredient validity
+  void showMyDialog(BuildContext context) {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
+        // Assign the context to the dialogContext variable
+        dialogContext = context;
         return const AlertDialog(
           title: Text('Checking Ingredient Validity'),
           content: Row(
@@ -227,8 +224,28 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
           ),
         );
       },
-    );
+    ).then((value) {
+      // This block of code will execute after the dialog is dismissed
+      print('Dialog dismissed');
+      // Perform any other actions here
+    });
+  }
 
+  void closeDialog() {
+    // Close the dialog using the dialogContext
+    if (dialogContext != null) {
+      Navigator.of(dialogContext!).pop();
+      dialogContext = null; // Reset dialogContext after popping the dialog
+    }
+  }
+
+  // Adds ingredients to the cloud with necessary validation checks
+  Future<void> _addIngredient() async {
+    final newIngredient = ingredientController.text.trim();
+    final newIngredientWeight = weightController.text.trim();
+    final newExpiryDate = expiryController.text.trim();
+
+    showMyDialog(context);
     try {
       // Checks if fields aren't filled before the API validation checks
       if (newIngredient.isNotEmpty &&
@@ -243,6 +260,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
             manager.validateQuantity(newIngredientWeight) &&
             manager.checkUserDateTime(newExpiryDate) &&
             manager.checkDateTimeAgainstTodaysDate(newExpiryDate)) {
+          print('Passed These Checks');
           int existingIndex = ingredients.indexWhere((ingredient) =>
               ingredient[0] == newIngredient && ingredient[2] == newExpiryDate);
 
@@ -277,8 +295,7 @@ class _AddRemoveIngredientsState extends State<AddRemoveIngredients> {
     } catch (e) {
       print('Error adding ingredient: $e');
     } finally {
-      // Close the loading indicator dialog
-      Navigator.pop(context);
+      closeDialog();
     }
   }
 

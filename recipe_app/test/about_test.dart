@@ -6,7 +6,7 @@ void main() {
   testWidgets('AppBar Widget Test in AboutPage', (WidgetTester tester) async {
     // Build a MaterialApp with the AboutPage as a route
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: AboutUsPage(),
       ),
     );

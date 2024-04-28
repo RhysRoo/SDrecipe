@@ -1,4 +1,3 @@
-
 // ignore_for_file: avoid_print, file_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -124,6 +123,11 @@ class IngredientManager {
     // Check if the ingredientName contains any numbers
     if (RegExp(r'\d').hasMatch(ingredientName)) {
       // Ingredient name cannot contain numbers
+      return false;
+    }
+
+    if (RegExp(r'[a-zA-Z]').hasMatch(ingredientWeight)) {
+      // Ingredient weight cannot contain characters
       return false;
     }
 
