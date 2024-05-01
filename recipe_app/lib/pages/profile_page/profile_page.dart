@@ -1,11 +1,9 @@
-// ignore_for_file: avoid_print, library_private_types_in_public_api, use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:flutter_log/pages/profile_page/profileManager.dart';
 import 'package:flutter_log/pages/profile_page/userModel.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({Key? key});
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -61,71 +59,72 @@ class _ProfilePageState extends State<ProfilePage> {
         title: const Text('Profile Page'),
       ),
       backgroundColor: Colors.green[200],
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            _buildProfileImage(),
-            SizedBox(
-                //Y-Axis Pos under profile picture
-                height: MediaQuery.of(context).size.height * 0.01),
-            SizedBox(
-              height: MediaQuery.of(context).size.height *
-                  0.135, // Adjust the height of Username/Food restriction card
-              width:
-                  //X-Axis for Username/food restriction card
-                  MediaQuery.of(context).size.width * 1.0,
-              child: Card(
-                elevation: 5.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    children: [
-                      _buildInfoItem('Username: ', 'username'),
-                      _buildInfoItem('Food Restriction: ', 'foodRestriction')
-                    ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              _buildProfileImage(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+              SizedBox(
+                height: MediaQuery.of(context).size.height *
+                    0.175, // Adjust the height of Username/Food restriction card
+                width:
+                    //X-Axis for Username/food restriction card
+                    MediaQuery.of(context).size.width * 1.0,
+                child: Card(
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      children: [
+                        _buildInfoItem('Username: ', 'username'),
+                        _buildInfoItem('Food Restriction: ', 'foodRestriction')
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              //Y-Axis Pos for under username card
-              height: MediaQuery.of(context).size.height * 0.015,
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height *
-                  0.5, // Height of user information card
-              width: MediaQuery.of(context).size.width * 1.0,
-              child: Card(
-                elevation: 5.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    children: [
-                      _buildSectionTitle('User Information'),
-                      _buildInfoItem('Age: ', 'age'),
-                      _buildInfoItem('First Name: ', 'firstName'),
-                      _buildInfoItem('Last Name: ', 'lastName'),
-                      _buildInfoItem('Bio: ', 'bio')
-                    ],
+              SizedBox(
+                //Y-Axis Pos for under username card
+                height: MediaQuery.of(context).size.height * 0.015,
+              ),
+              SizedBox(
+                // Height of user information card
+                width: MediaQuery.of(context).size.width * 1.0,
+              height: MediaQuery.of(context).size.height * 0.50,
+                child: Card(
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildSectionTitle('User Information'),
+                        _buildInfoItem('Age: ', 'age'),
+                        _buildInfoItem('First Name: ', 'firstName'),
+                        _buildInfoItem('Last Name: ', 'lastName'),
+                        _buildInfoItem('Bio: ', 'bio')
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-
-            const SizedBox(height: 10.0),
-            //Button Y-Axis Pos
-            _buildActionButtons(),
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              const SizedBox(height: 10.0),
+              //Button Y-Axis Pos
+              _buildActionButtons(),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
@@ -154,9 +153,11 @@ class _ProfilePageState extends State<ProfilePage> {
             label,
             style: const TextStyle(fontSize: 20),
           ),
-          Text(
-            displayValue ?? 'N/A', // Use 'N/A' if the value is null
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          Expanded(
+            child: Text(
+              displayValue ?? 'N/A', // Use 'N/A' if the value is null
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),
@@ -312,18 +313,21 @@ class _ProfilePageState extends State<ProfilePage> {
                   TextFormField(
                     controller: _bioController,
                     decoration: const InputDecoration(labelText: 'Bio'),
-                    maxLines: 3,
+                    maxLines: null, // Allow the bio to wrap to the next line
 
                     // Add a validator for the bio field
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a bio';
-                      }
-                      if (value.length < 10) {
-                        return 'Bio must be at least 10 characters';
-                      }
-                      return null;
-                    },
+            validator: (value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter a bio';
+  }
+  if (value.length < 10) {
+    return 'Bio must be at least 10 characters';
+  }
+  if (value.length > 200) {
+    return 'Bio must be under 200 characters';
+  }
+  return null;
+},
                   ),
                 ],
               ),
