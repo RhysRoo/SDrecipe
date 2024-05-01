@@ -19,8 +19,7 @@ class _AddRecipeState extends State<AddRecipe> {
   final TextEditingController _recipeNameController = TextEditingController();
   final TextEditingController _ingredientController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
-  final TextEditingController _foodRestrictionController =
-      TextEditingController();
+  final TextEditingController _foodRestrictionController = TextEditingController();
   final List<Map<String, dynamic>> _ingredients = [];
   String _selectedUnit = 'Select Unit';
   final List<String> _units = ['Select Unit', 'Cups', 'Grams', 'Pieces'];
@@ -122,8 +121,7 @@ class _AddRecipeState extends State<AddRecipe> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _buildHeader('Food Restriction:'),
-              _buildTextField(
-                  _foodRestrictionController, 'Enter Food Restriction'),
+              _buildTextField(_foodRestrictionController, 'Enter Food Restriction'),
             ],
           ),
         ),
@@ -358,6 +356,13 @@ class _AddRecipeState extends State<AddRecipe> {
             backgroundColor: Colors.red,
           ),
         );
+            } else if (foodRestriction.isEmpty) { // This condition is missing in the original code
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter a food restriction.'), // This message is missing in the original code
+          backgroundColor: Colors.red,
+        ),
+      );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
