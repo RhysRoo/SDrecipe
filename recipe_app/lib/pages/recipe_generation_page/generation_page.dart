@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'api_search.dart';
 
 class GenerationPage extends StatefulWidget {
@@ -27,13 +28,19 @@ class _GenerationPageState extends State<GenerationPage> {
     'Click \'generate recipes\' to generate!',
   ];
 
+  List<String> imageUrls = [
+    '', '', '', '', ''
+  ];
+
   void updateContent() async {
     List<String> names = await _recipeService.getRecipeNames();
     List<String> urls = await _recipeService.getRecipeUrls();
+    List<String> images = await _recipeService.getRecipeImage();
 
     setState(() {
       sectionTitles = names;
-      sectionTexts = urls;
+      sectionTexts = urls.map((url) => url ?? 'URL not available').toList();
+      imageUrls = images;
     });
   }
 
@@ -93,25 +100,49 @@ class _GenerationPageState extends State<GenerationPage> {
   Widget _buildSection(BuildContext context, int index) {
     return Container(
       padding: const EdgeInsets.all(8),
-      child: Column(
+      child: Row(
         children: [
-          Text(
-            sectionTitles[index],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            sectionTexts[index],
-            style: const TextStyle(
-              color: Colors.white70,
-              fontSize: 14,
+          imageUrls[index].isNotEmpty ? Image.network(imageUrls[index], width: 100, height: 100, fit: BoxFit.cover,
+            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+              return const Icon(Icons.error); // Shows an error icon if the image fails to load
+            },
+          )
+              : Container(),
+          Expanded(
+            child: Column(
+              children: [
+                Text(
+                  sectionTitles[index],
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                InkWell(
+                  onTap: () => _launchURL(sectionTexts[index]),
+                  child: Text(
+                    "Link",
+                    style: const TextStyle(
+                      color: Colors.blue,
+                      fontSize: 14,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
   }
 }
