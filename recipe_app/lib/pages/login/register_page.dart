@@ -42,8 +42,7 @@ class _RegisterPage extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 25),
-                const LogoTiling(
-                    imagePath: 'lib/fitnessImage/fitnessLogo.jpeg'),
+                const LogoTiling(imagePath: 'assets/images/logo/logo.png'),
                 const SizedBox(height: 25),
                 Text(
                   'Let\'s create your account!',
