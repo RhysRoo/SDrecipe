@@ -213,18 +213,15 @@ class FAQ_page extends StatelessWidget {
                   'A: If there are errors (e.g., missing fields), the app displays an error message, allowing users to review and correct their form before submission.'),
             ],
           ),
-          const SizedBox(height: 16),
-          TextButton(
-            // button for add question (not functional)
-            onPressed: () {
-              // Add code for handling the button press
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.green[700],
-            ),
-            child: const Text('Add Question'),
+          const QAItem(
+            title:
+                'Q: What to do if your question is not here?',
+            children: [
+              Text(
+                  'A: Go to About us page and send one of the team members your question.'),
+            ],
           ),
+          
         ],
       ),
     );
