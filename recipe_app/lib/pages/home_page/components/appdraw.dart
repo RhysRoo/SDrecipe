@@ -14,17 +14,17 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: MediaQuery.of(context).size.width * 0.79,
+      width: MediaQuery.of(context).size.width * 0.7,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
+            height: MediaQuery.of(context).size.height * 0.145,
             child: const DrawerHeader(
               decoration: BoxDecoration(color: Colors.green),
               child: Text(
                 'Menu',
-                style: TextStyle(fontSize: 50),
+                style: TextStyle(fontSize: 35),
               ),
             ),
           ),
