@@ -77,7 +77,7 @@ class _GenerationPageState extends State<GenerationPage> {
             height: 60,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.green,
                 foregroundColor: Colors.white,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.zero,
@@ -87,7 +87,7 @@ class _GenerationPageState extends State<GenerationPage> {
                 updateContent();
               }),
               child: const Text(
-                'Change Content',
+                'generate recipes',
                 style: TextStyle(fontSize: 20),
               ),
             ),

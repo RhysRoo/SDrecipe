@@ -19,7 +19,7 @@ class AppDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
+            height: MediaQuery.of(context).size.height * 0.125,
             child: const DrawerHeader(
               decoration: BoxDecoration(color: Colors.green),
               child: Text(
