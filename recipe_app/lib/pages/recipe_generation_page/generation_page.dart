@@ -37,11 +37,19 @@ class _GenerationPageState extends State<GenerationPage> {
     List<String> urls = await _recipeService.getRecipeUrls();
     List<String> images = await _recipeService.getRecipeImage();
 
-    setState(() {
-      sectionTitles = names;
-      sectionTexts = urls.map((url) => url ?? 'URL not available').toList();
-      imageUrls = images;
-    });
+    if (names.isEmpty) {
+      setState(() {
+        sectionTitles = List.filled(5, 'No Recipe Found');
+        sectionTexts = List.filled(5, 'Please add some ingredients');
+        imageUrls = List.filled(5, '');
+      });
+    } else {
+      setState(() {
+        sectionTitles = names;
+        sectionTexts = urls.map((url) => url ?? 'URL not available').toList();
+        imageUrls = images;
+      });
+    }
   }
 
   @override

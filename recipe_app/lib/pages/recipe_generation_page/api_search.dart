@@ -2,12 +2,18 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
+import 'dart:js_interop';
 import 'package:http/http.dart' as http;
 import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.dart';
 import 'recipe.dart';
 
 class RecipeService {
-  final IngredientManager ingredientManager = IngredientManager();
+  final http.Client client;
+  final IngredientManager ingredientManager;
+
+  RecipeService({http.Client? client, IngredientManager? ingredientManager})
+      : this.client = client ?? http.Client(),
+        this.ingredientManager = ingredientManager ?? IngredientManager();
 
   // List<Recipe> filteredRecipes(List<String> ingredientNames, List<Recipe> recipes) {
   //   List<Recipe> filteredRecipes = [];
@@ -25,6 +31,10 @@ class RecipeService {
   Future<List<dynamic>> fetchRecipesBasedOnUserIngredients() async {
     // Retrieve the user's ingredients
     List<List<String>> userIngredients = await ingredientManager.getUserIngredients();
+    if (userIngredients.length <= 0) {
+      //error handling for no ingredients.
+      return[];
+    }
     // Extract the names of the ingredients
     List<String> ingredientNames = userIngredients.map((ingredient) => ingredient.first).toList();
     //get recipes from API with ingredients in
@@ -37,7 +47,7 @@ class RecipeService {
   }
 
   Future<List<dynamic>> fetchRecipes(List<String> ingredients) async {
-    const String apiId = 'APIID';
+    const String apiId = '87adcf60';
     const String apiKey = 'APIKEY';
 
     String ingredientQuery = ingredients.join(',');
