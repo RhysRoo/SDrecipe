@@ -1,32 +1,54 @@
-// import 'dart:html';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
-// import 'package:cloud_firestore/cloud_firestore.dart';
+class FirestoreService {
+  final CollectionReference question =
+  FirebaseFirestore.instance.collection('question');
 
-// class FAQ_Manager {
-//   Future<List<QueryDocumentSnapshot<Object?>>> getQuestionsWithFieldThreeTrue() async {
-//   try {
-//     // Reference to your collection in Firestore
-//     CollectionReference questionsCollection = _firestore.collection('your_collection_name');
+  // Add question to Firestore
+  Future<void> addQuestion(BuildContext context, String note) async {
+    // Validate note length
+    if (note.length > 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('FAQ note exceeds 200 characters.'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      throw Exception('FAQ note exceeds 200 characters.');
+    }
 
-//     // Query for documents where 'questions' array has 'field_three' set to true
-//     QuerySnapshot<Object?> querySnapshot = await questionsCollection
-//         .where('questions.2', isEqualTo: true)
-//         .get();
+    // Validate note format
+    if (note.runtimeType != String) {
+      throw Exception('FAQ note must be of string format.');
+    }
 
-//     // Print the query snapshot for debugging
-//     print('Query Snapshot: $querySnapshot');
+    // Add the question to Firestore
+    try {
+      await question.add({
+        'note': note,
+        'timestamp': Timestamp.now(),
+        'answer': '',
+        'TruthVal': false,
+      });
+    } catch (e) {
+      throw Exception('Failed to add FAQ question: $e');
+    }
+  }
 
-//     // Return the list of documents
-//     return querySnapshot.docs;
-//   } catch (e) {
-//     print('Error retrieving questions: $e');
-//     return [];
-//   }
-// }
+  // Get stream of questions
+  Stream<QuerySnapshot> getQuestionStream() {
+    // Query documents where 'TruthVal' is true
+    final questionStream =
+    question.where('TruthVal', isEqualTo: true).snapshots();
+    return questionStream;
+  }
 
-// }
-
-// void main() {
-//   FAQ_Manager faq_manager = FAQ_Manager();
-//   print(faq_manager.fetchQuestionsWithTrueBoolean());
-// }
+  // Update question
+  Future<void> updateNote(String docId, String newQuestion, String newAnswer) {
+    return question.doc(docId).update({
+      'note': newQuestion,
+      'answer': newAnswer,
+    });
+  }
+}
