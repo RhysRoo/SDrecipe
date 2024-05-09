@@ -142,4 +142,31 @@ void main() {
       expect((tester.widget<Text>(textWidget)).data, equals(answer));
     }
   });
+
+  testWidgets('FloatingActionButton widget test', (WidgetTester tester) async {
+    bool onPressedCalled = false;
+
+
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            onPressedCalled = true;
+          },
+          child: Icon(Icons.add),
+        ),
+      ),
+    ));
+
+
+    expect(find.byType(FloatingActionButton), findsOneWidget);
+
+
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pump();
+
+
+    expect(onPressedCalled, true);
+  });
+
 }
