@@ -2,7 +2,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-import 'dart:js_interop';
 import 'package:http/http.dart' as http;
 import 'package:flutter_log/pages/add_remove_ingredients_page/ingredientManager.dart';
 import 'recipe.dart';
@@ -15,23 +14,10 @@ class RecipeService {
       : this.client = client ?? http.Client(),
         this.ingredientManager = ingredientManager ?? IngredientManager();
 
-  // List<Recipe> filteredRecipes(List<String> ingredientNames, List<Recipe> recipes) {
-  //   List<Recipe> filteredRecipes = [];
-  //   for (Recipe recipe in recipes) {
-  //     List<String> recipeIngredients = recipe.ingredients.map((ingredient) => ingredient.food).toList();
-  //     List<String> missingIngredients = ingredientNames.where((ingredient) => !recipeIngredients.contains(ingredient)).toList();
-  //     if (missingIngredients.isEmpty) {
-  //       filteredRecipes.add(recipe);
-  //     }
-  //     filteredRecipes.add(recipe);
-  //   }
-  //   return filteredRecipes;
-  // }
-
   Future<List<dynamic>> fetchRecipesBasedOnUserIngredients() async {
     // Retrieve the user's ingredients
     List<List<String>> userIngredients = await ingredientManager.getUserIngredients();
-    if (userIngredients.length <= 0) {
+    if (userIngredients.isEmpty) {
       //error handling for no ingredients.
       return[];
     }
@@ -39,20 +25,16 @@ class RecipeService {
     List<String> ingredientNames = userIngredients.map((ingredient) => ingredient.first).toList();
     //get recipes from API with ingredients in
     List<dynamic> recipesJson = await fetchRecipes(ingredientNames);
-    //parse JSON data into Recipe objects
-    //List<Recipe> recipes = recipesJson.map((recipeJson) => Recipe.fromJson(recipeJson['recipe'])).toList();
-    // filter recipes to only include those with ingredients in ingredientNames
-    //List<Recipe> filtered = filteredRecipes(ingredientNames, recipes);
-    return recipesJson.take(5).toList();
+    return recipesJson.toList();
   }
 
   Future<List<dynamic>> fetchRecipes(List<String> ingredients) async {
     const String apiId = '87adcf60';
-    const String apiKey = 'APIKEY';
+    const String apiKey = '02960293742b794c7d4bba02cb1eac85';
 
     String ingredientQuery = ingredients.join(',');
 
-    String url = 'https://api.edamam.com/search?app_id=$apiId&app_key=$apiKey&q=$ingredientQuery&to=10';
+    String url = 'https://api.edamam.com/search?app_id=$apiId&app_key=$apiKey&q=$ingredientQuery&to=5';
 
     try {
       final response = await http.get(Uri.parse(url));
