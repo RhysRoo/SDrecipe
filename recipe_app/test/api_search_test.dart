@@ -13,10 +13,15 @@ import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
 
 class MockClient extends Mock implements http.Client {}
+
 class MockIngredientManager extends Mock implements IngredientManager {}
+
 class MockFirebaseAuth extends Mock implements FirebaseAuth {}
+
 class MockUserManager extends Mock implements UserManager {}
+
 class MockIngredientAPI extends Mock implements IngredientAPI {}
+
 class MockAPISearch extends Mock implements RecipeService {}
 
 void main() {
@@ -44,24 +49,37 @@ void main() {
       when(mockAuth.currentUser).thenReturn(mockUser);
 
       client = MockClient();
-      recipeService = RecipeService(client: client, ingredientManager: ingredientManager);
+      recipeService =
+          RecipeService(client: client, ingredientManager: ingredientManager);
     }
 
     setUp(setupServices);
 
-    test('fetchRecipesBasedOnUserIngredients returns empty list when no ingredients are provided', () async {
-      when(ingredientManager.userManager.getCurrentUserUID()).thenAnswer((_) => Future.value('TestUid'));
-      when(recipeService.fetchRecipesBasedOnUserIngredients()).thenAnswer((_) => Future.value([]));
+    test(
+        'fetchRecipesBasedOnUserIngredients returns empty list when no ingredients are provided',
+        () async {
+      when(ingredientManager.userManager.getCurrentUserUID())
+          .thenAnswer((_) => Future.value('TestUid'));
+      when(recipeService.fetchRecipesBasedOnUserIngredients())
+          .thenAnswer((_) => Future.value([]));
 
-      final List<dynamic> result = await recipeService.fetchRecipesBasedOnUserIngredients();
+      final List<dynamic> result =
+          await recipeService.fetchRecipesBasedOnUserIngredients();
       expect(result, isEmpty);
     });
 
-    test('fetchRecipesBasedOnUserIngredients returns recipes when ingredients are provided', () async {
+    test(
+        'fetchRecipesBasedOnUserIngredients returns recipes when ingredients are provided',
+        () async {
       when(mockAuth.currentUser).thenReturn(mockUser);
-      when(recipeService.fetchRecipesBasedOnUserIngredients()).thenAnswer((_) async => Future.value([['Tomato'], ['Onion']]));
+      when(recipeService.fetchRecipesBasedOnUserIngredients())
+          .thenAnswer((_) async => Future.value([
+                ['Tomato'],
+                ['Onion']
+              ]));
 
-      final List<dynamic> result = await recipeService.fetchRecipesBasedOnUserIngredients(); //ERROR ON THIS LINE
+      final List<dynamic> result = await recipeService
+          .fetchRecipesBasedOnUserIngredients(); //ERROR ON THIS LINE
       expect(result.length, 5);
       expect(result[0]['recipe']['label'], isA<String>());
       expect(result[0]['recipe']['label'], isNotEmpty);
@@ -70,12 +88,27 @@ void main() {
       expect(result[0]['recipe']['url'], matches(RegExp(r'^https?://.+')));
     });
 
-    test('fetchRecipesBasedOnUserIngredients returns recipes when several of the same ingredient is provided', () async {
-      when(ingredientManager.userManager.getCurrentUserUID()).thenAnswer((_) => Future.value('TestUid'));
-      when(recipeService.fetchRecipesBasedOnUserIngredients()).thenAnswer((_) => Future.value([['Tomato'], ['Tomato'], ['Tomato'], ['Tomato'], ['Tomato'], ['Tomato'], ['Tomato'], ['Tomato'], ['Tomato'], ['Tomato']]));
+    test(
+        'fetchRecipesBasedOnUserIngredients returns recipes when several of the same ingredient is provided',
+        () async {
+      when(ingredientManager.userManager.getCurrentUserUID())
+          .thenAnswer((_) => Future.value('TestUid'));
+      when(recipeService.fetchRecipesBasedOnUserIngredients())
+          .thenAnswer((_) => Future.value([
+                ['Tomato'],
+                ['Tomato'],
+                ['Tomato'],
+                ['Tomato'],
+                ['Tomato'],
+                ['Tomato'],
+                ['Tomato'],
+                ['Tomato'],
+                ['Tomato'],
+                ['Tomato']
+              ]));
 
-
-      final List<dynamic> result = await recipeService.fetchRecipesBasedOnUserIngredients();
+      final List<dynamic> result =
+          await recipeService.fetchRecipesBasedOnUserIngredients();
 
       expect(result.length, 5);
       expect(result[0]['recipe']['label'], isA<String>());
@@ -85,9 +118,29 @@ void main() {
       expect(result[0]['recipe']['url'], matches(RegExp(r'^https?://.+')));
     });
 
-    test('fetchRecipesBasedOnUserIngredients returns in less than 5s', () async {
-      when(ingredientManager.userManager.getCurrentUserUID()).thenAnswer((_) => Future.value('TestUid'));
-      when(recipeService.fetchRecipesBasedOnUserIngredients()).thenAnswer((_) => Future.value([['Tomato'], ['Onion']]));
+    test('fetchRecipesBasedOnUserIngredients returns in less than 5s',
+        () async {
+      when(ingredientManager.userManager.getCurrentUserUID())
+          .thenAnswer((_) => Future.value('TestUid'));
+      when(recipeService.fetchRecipesBasedOnUserIngredients())
+          .thenAnswer((_) => Future.value([
+                ['Tomato'],
+                ['Onion']
+              ]));
+
+      final Stopwatch stopwatch = Stopwatch()..start();
+      await recipeService.fetchRecipesBasedOnUserIngredients();
+      stopwatch.stop();
+      expect(stopwatch.elapsedMilliseconds, lessThan(5000));
+    });
+    test('fetchRecipesBasedOnUserIngredients returns in less than 5s',
+        () async {
+      when(ingredientManager.userManager.getCurrentUserUID())
+          .thenAnswer((_) => Future.value('TestUid'));
+      when(recipeService.fetchRecipesBasedOnUserIngredients())
+          .thenAnswer((_) => Future.value([
+                ['Tomato']
+              ]));
 
       final Stopwatch stopwatch = Stopwatch()..start();
       await recipeService.fetchRecipesBasedOnUserIngredients();

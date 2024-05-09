@@ -92,7 +92,7 @@ void main() {
       expect(registerLoginManager.checkEmailValidity("a@b"), isFalse);
     });
 
-    test('Invalid Long Email', () {
+    test('Long Email', () {
       expect(
           registerLoginManager.checkEmailValidity(
               "12345678901234567890123456789012345678901234567890123456789012345@example.com"),

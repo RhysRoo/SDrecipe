@@ -215,10 +215,8 @@ void main() {
   group('Notification Efficiency: warnEfficiency() Tests', () {
     test('Obtain Efficiency', () async {
       final efficiency = await notificationManager.warnEfficiency();
-      // Add your assertions here to validate the behavior of the function
-      // For example:
-      expect(efficiency,
-          greaterThan(0)); // Assert that efficiency is greater than 0
+      print(efficiency);
+      expect(efficiency, greaterThan(40)); // efficiency is greater than 0
     });
   });
 }
